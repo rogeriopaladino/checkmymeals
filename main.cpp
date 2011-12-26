@@ -42,7 +42,7 @@ int main(int argc, char *argv[])
     viewer.rootContext()->setContextProperty("processador", processador);
     viewer.rootContext()->setContextProperty("cartaoModel", cartaoModel);
     viewer.rootContext()->setContextProperty("compraModel", compraModel);
-    viewer.setMainQmlFile(QLatin1String("qml/VisaValeCheck/MainWindow.qml"));
+    viewer.setMainQmlFile(QLatin1String("qml/CheckMyMeals/MainWindow.qml"));
     #if defined Q_OS_SYMBIAN
     viewer.showFullScreen();
     #elif defined Q_OS_WIN

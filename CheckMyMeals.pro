@@ -1,5 +1,5 @@
 # Add more folders to ship with the application, here
-folder_01.source = qml/VisaValeCheck
+folder_01.source = qml/CheckMyMeals
 folder_01.target = qml
 DEPLOYMENTFOLDERS = folder_01
 
@@ -40,7 +40,7 @@ CONFIG += qtquickcomponents
 #DEFINES += CORE_LIBRARY
 
 #Symbian {
-    ICON = VisaValeCheck.svg
+    ICON = CheckMyMeals.svg
 #}
 
 # The .cpp file which was generated for your project. Feel free to hack it.
@@ -67,8 +67,8 @@ HEADERS += \
     cprocessador.h
 
 OTHER_FILES += \    
-    qml/VisaValeCheck/main.js \
-    qml/VisaValeCheck/cores.js
+    qml/CheckMyMeals/main.js \
+    qml/CheckMyMeals/cores.js
 
 RESOURCES += \
     res.qrc
