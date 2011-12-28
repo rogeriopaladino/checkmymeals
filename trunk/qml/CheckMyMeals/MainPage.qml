@@ -166,7 +166,7 @@ Page {
                     var obj = componente.createObject(page);
                     obj.modoEditar(MainScript.cartaoMainSelecionado);
                     obj.ok.connect(function() {
-                                       cartaoModel.AtualizarCartao(obj.numero, obj.descricao);
+                                       cartaoModel.AtualizarCartao(obj.numero.replace(/-/g, ""), obj.descricao);
                                        timerInfo.adicionarMensagem("Edição finalizada!", "qrc:///ok", 1500);
                                    });
                     MainScript.PushNaPilha(page.pageStack, obj);

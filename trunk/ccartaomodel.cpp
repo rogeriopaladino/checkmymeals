@@ -116,7 +116,8 @@ void CCartaoModel::AtualizarCartao(const QString &numero, const QString &descric
     this->MostrarInfoDebug(q.lastError());
     if (e) {
         CCartaoItem *c = this->AcharCartao(numero);
-        c->setDescricao(descricao);
+        if (c != NULL)
+            c->setDescricao(descricao);
     }
 }
 
@@ -174,7 +175,9 @@ void CCartaoModel::PrepararDataBase()
 CCartaoItem *CCartaoModel::AcharCartao(const QString &numero)
 {
     QModelIndex index = this->IndexFromNumero(numero);
-    return _cartoes.at(index.row());
+    if (index.isValid())
+        return _cartoes.at(index.row());
+    return NULL;
 }
 
 QModelIndex CCartaoModel::IndexFromNumero(const QString &numero)
