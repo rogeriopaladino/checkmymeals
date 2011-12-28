@@ -13,7 +13,8 @@ class CCartaoModel : public QAbstractListModel
 {
     Q_OBJECT
 
-    Q_PROPERTY (int tamanho READ getTamanho NOTIFY tamanhoChanged)
+    Q_PROPERTY(int tamanho READ getTamanho NOTIFY tamanhoChanged)
+    Q_PROPERTY(QStringList cartoesCadastrados READ getCartoesCadastrados NOTIFY tamanhoChanged)
 
 public:
     explicit CCartaoModel(QObject *parent = 0);
@@ -31,6 +32,7 @@ public:
     QVariant data(const QModelIndex &index, int role = Qt::DisplayRole) const;    
 
     int getTamanho();
+    QStringList getCartoesCadastrados();
 private:
     QList<CCartaoItem*> _cartoes;
 

@@ -24,6 +24,13 @@ Page {
                        MainScript.PushNaPilha(page.pageStack, obj);
                    }
                }
+               /*ToolButton {
+                   iconSource: "toolbar-refresh"
+                   onClicked: {
+                       queryAtualizarTodos.open()
+                   }
+               }*/
+
                ToolButton {
                    iconSource: "qrc:///toolbar_ajuda"
                    onClicked: {
@@ -180,6 +187,20 @@ Page {
             }
         }
     }
+
+    /*QueryDialog {
+        id: queryAtualizarTodos
+        titleText: "Cartões"
+        //icon: "toolbar-refresh"
+        message: "Atualizar todos os cartões?"
+        acceptButtonText: "Ok"
+        rejectButtonText: "Cancelar"
+        onAccepted: {
+            var cartoes = cartaoModel.cartoesCadastrados;
+            for(var i = 0; i < cartoes.length; i++)
+                visa.Consultar(cartoes[i], true);
+        }
+    }*/
 
     Dialog {
         id: processando
