@@ -52,7 +52,6 @@ Item {
                             smooth: true
                             font.pixelSize: 20
                         }
-
                         Text {
                             width: parent.width
                             text:"<i>"+descricao+"</i>"
@@ -73,7 +72,6 @@ Item {
                 icone: "qrc:///money"
                 texto: "R$ <b>" + saldo.toFixed(2) + "</b>"
             }
-
             ItemMainInfoCartao {
                 width: parent.width / 2
                 icone: "qrc:///grafico"
@@ -102,7 +100,7 @@ Item {
         ItemMainInfoCartao {
             icone: "qrc:///favorito"
             visible: estudos.vezesNoLocalFavorito > 0
-            texto: estudos.localFavorito + " ("+estudos.vezesNoLocalFavorito+" visita"+ (estudos.vezesNoLocalFavorito > 1 ? "s" : "")+")"
+            texto: estudos.localFavorito + " ("+estudos.vezesNoLocalFavorito+" visita"+ (estudos.vezesNoLocalFavorito > 1 ? "s" : "")+" - R$"+ estudos.valorNoLocalFavorito.toFixed(2) +")"
         }
 
         ItemMainInfoCartao {

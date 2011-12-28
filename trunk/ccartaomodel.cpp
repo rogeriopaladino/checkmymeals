@@ -292,3 +292,11 @@ void CCartaoModel::atualizacaoFinalizada(const QString &numero)
     /*forçar atualização dos estudos de uma única vez*/
     emit atualizarEstudo(numero);
 }
+
+QStringList CCartaoModel::getCartoesCadastrados()
+{
+    QStringList lst;
+    foreach(CCartaoItem *c, _cartoes)
+        lst.append(c->getNumero());
+    return lst;
+}

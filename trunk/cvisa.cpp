@@ -10,7 +10,7 @@ CVisa::~CVisa()
 }
 
 void CVisa::Consultar(const QString &cartao, bool todasAnteriores)
-{    
+{
     emit iniciandoConsulta(cartao);
     _cancelar = false;
     _net = new QNetworkAccessManager(this);
@@ -27,7 +27,7 @@ void CVisa::consultaFinalizadaResposta()
     if (reply->error() == QNetworkReply::NoError) {
         QByteArray resposta = reply->readAll();        
         reply->close();
-        reply->deleteLater();
+        reply->deleteLater();                        
         emit consultaFinalizada(resposta);
     } else
         emit erroConexao();

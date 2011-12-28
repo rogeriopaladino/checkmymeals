@@ -9,6 +9,7 @@ CEstudos::CEstudos(QObject *parent, CCartaoItem *cartao) :
     _gastoMedioDiario = 0;
     _localFavorito = "";
     _vezesNoLocalFavorito = 0;
+    _valorNoLocalFavorito = 0;
 }
 
 CEstudos::~CEstudos()
@@ -64,7 +65,7 @@ void CEstudos::LocalFavorito()
 {
     if (_cartao != NULL) {
         QSqlQuery q(QSqlDatabase::database("default"));
-        q.prepare("select local, count(*) vezes "
+        q.prepare("select local, count(*) vezes, sum(valor) valor "
                   "from compra "
                   "where numero = :numero "
                   "group by local "
@@ -72,8 +73,9 @@ void CEstudos::LocalFavorito()
         q.bindValue(":numero", _cartao->getNumero());
         q.exec();
         if (q.next()) {
-            setLocalFavorito(q.value(0).toString());
-            setVezesNoLocalFavorito(q.value(1).toInt());
+            this->setLocalFavorito(q.value(0).toString());
+            this->setVezesNoLocalFavorito(q.value(1).toInt());
+            this->setValorNoLocalFavorito(q.value(2).toDouble());
         }
     }
 }
@@ -147,6 +149,16 @@ void CEstudos::UltimaCompra()
             _ultimaCompra->setValor(q.value(3).toDouble());
         }
     }
+}
+
+double CEstudos::getValorNoLocalFavorito()
+{
+    return _valorNoLocalFavorito;
+}
+
+void CEstudos::setValorNoLocalFavorito(const double &valor)
+{
+    _valorNoLocalFavorito = valor;
 }
 
 

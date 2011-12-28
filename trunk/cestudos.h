@@ -16,6 +16,7 @@ class CEstudos : public QObject
     Q_PROPERTY(double gastoMedioDiario READ getGastoMedioDiario WRITE setGastoMedioDiario NOTIFY dataChanged)
     Q_PROPERTY(QString localFavorito READ getLocalFavorito WRITE setLocalFavorito NOTIFY dataChanged)
     Q_PROPERTY(int vezesNoLocalFavorito READ getVezesNoLocalFavorito WRITE setVezesNoLocalFavorito NOTIFY dataChanged)
+    Q_PROPERTY(double valorNoLocalFavorito READ getValorNoLocalFavorito WRITE setValorNoLocalFavorito NOTIFY dataChanged)
     Q_PROPERTY(CCompraItem *ultimaCompra READ getUltimaCompra NOTIFY dataChanged)
 
 public:
@@ -26,19 +27,19 @@ public:
     double getGastoMedioDiario();
     QString getLocalFavorito();
     int getVezesNoLocalFavorito();
-    CCompraItem *getUltimaCompra();
+    double getValorNoLocalFavorito();
+    CCompraItem *getUltimaCompra();    
     //sets
     void setGastoMedioDiario(double gastoMedioDiario);
     void setLocalFavorito(QString local);
     void setVezesNoLocalFavorito(const int &vezes);
-
-
+    void setValorNoLocalFavorito(const double &valor);
 
 private:
     QSqlDatabase _db;
     CCartaoItem *_cartao;
     CCompraItem *_maiorCompra, *_ultimaCompra;
-    double _gastoMedioDiario;
+    double _gastoMedioDiario, _valorNoLocalFavorito;
     QString _localFavorito;
     int _vezesNoLocalFavorito;
 
