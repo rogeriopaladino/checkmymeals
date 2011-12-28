@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE QtCreatorProject>
-<!-- Written by Qt Creator 2.3.1, 2011-12-26T10:22:42. -->
+<!-- Written by Qt Creator 2.3.1, 2011-12-28T08:42:29. -->
 <qtcreator>
  <data>
   <variable>ProjectExplorer.Project.ActiveTarget</variable>
@@ -418,14 +418,14 @@
      <value type="QString" key="ProjectExplorer.ProjectConfiguration.Id">ProjectExplorer.BuildSteps.Deploy</value>
     </valuemap>
     <value type="int" key="ProjectExplorer.BuildConfiguration.BuildStepListCount">1</value>
-    <value type="QString" key="ProjectExplorer.ProjectConfiguration.DefaultDisplayName">Deploy VisaValeCheck-build-desktop-Qt_4_7_4_for_Desktop_-_MinGW_4_4__Qt_SDK__Debug to Symbian device</value>
+    <value type="QString" key="ProjectExplorer.ProjectConfiguration.DefaultDisplayName">Deploy to Symbian device</value>
     <value type="QString" key="ProjectExplorer.ProjectConfiguration.DisplayName"></value>
     <value type="QString" key="ProjectExplorer.ProjectConfiguration.Id">Qt4ProjectManager.S60DeployConfiguration</value>
     <value type="int" key="Qt4ProjectManager.S60DeployConfiguration.CommunicationChannel">0</value>
     <value type="QString" key="Qt4ProjectManager.S60DeployConfiguration.DeviceAddress"></value>
     <value type="QString" key="Qt4ProjectManager.S60DeployConfiguration.DevicePort">65029</value>
     <value type="QChar" key="Qt4ProjectManager.S60DeployConfiguration.InstallationDriveLetter">E</value>
-    <value type="QString" key="Qt4ProjectManager.S60DeployConfiguration.SerialPortName"></value>
+    <value type="QString" key="Qt4ProjectManager.S60DeployConfiguration.SerialPortName">COM4</value>
     <value type="bool" key="Qt4ProjectManager.S60DeployConfiguration.SilentInstall">true</value>
    </valuemap>
    <value type="int" key="ProjectExplorer.Target.DeployConfigurationCount">1</value>
@@ -500,7 +500,7 @@
     <value type="uint" key="RunConfiguration.QmlDebugServerPort">3768</value>
     <value type="bool" key="RunConfiguration.UseCppDebugger">true</value>
     <value type="bool" key="RunConfiguration.UseQmlDebugger">false</value>
-    <value type="bool" key="RunConfiguration.UseQmlDebuggerAuto">true</value>
+    <value type="bool" key="RunConfiguration.UseQmlDebuggerAuto">false</value>
    </valuemap>
    <value type="int" key="ProjectExplorer.Target.RunConfigurationCount">1</value>
   </valuemap>
