@@ -98,7 +98,7 @@ QDate CProcessador::CriarData(int dia, int mes)
     if (mes <= ret.currentDate().month())
         ano = ret.currentDate().year();
     else
-        ano = ret.currentDate().year() + 1;
+        ano = ret.currentDate().year() - 1;
     ret.setDate(ano, mes, dia);
     return ret;
 }
