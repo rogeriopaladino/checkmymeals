@@ -148,7 +148,7 @@ Page {
     QueryDialog {
         id: msgConfirmarExclusao
         titleText: "Excluir"
-        message: "Deseja mesmo excluir o cartão " + MainScript.cartaoMainSelecionado + "?<br>Todos os históricos de compras e benefícios também serão excluídos!"
+        message: "Deseja mesmo excluir o cartão " + MainScript.cartaoMainSelecionado + "?<br/>Todos os históricos de compras e benefícios também serão excluídos!<br />"
         icon: "qrc:///questao"
         acceptButtonText: "Sim"
         rejectButtonText: "Não"
