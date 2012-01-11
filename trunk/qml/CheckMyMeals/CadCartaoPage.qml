@@ -59,7 +59,7 @@ Page {
         anchors.centerIn: parent
 
         Text {
-            text: "Número do cartao"
+            text: "Número do cartão"
             color: Cores.COR_TEXTO
             font.pixelSize: 20
         }
