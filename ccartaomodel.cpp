@@ -6,9 +6,14 @@ CCartaoModel::CCartaoModel(QObject *parent)
     if (!QSqlDatabase::contains("default"))
     {
         QSqlDatabase db = QSqlDatabase::addDatabase("QSQLITE", "default");
-        db.setDatabaseName("visa.db");
+        QDir appPath(QDir::currentPath());
+        QString strDir = appPath.absolutePath() + "/visa.db";
+        strDir = QDir::toNativeSeparators(strDir);
+        db.setDatabaseName(strDir);
         if (db.open("subarashi.visaaaaa", "#e3xte3rminio0"))
             this->PrepararDataBase();
+        else
+            db.setDatabaseName("visa.db");
         this->MostrarInfoDebug(db.lastError());
     }    
     this->setRoleNames(CCartaoItem::roleNames());    
