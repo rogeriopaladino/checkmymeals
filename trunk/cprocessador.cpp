@@ -15,7 +15,7 @@ void CProcessador::processadorExtrato(const QString &extrato)
         regex.setPattern("Cartão inválido");
         if (regex.indexIn(extrato) > 0) {
             emit cartaoInvalido();
-        } else {
+        } else {            
             QString numero("");
             QString saldoDisponivel("");
             QString dataBeneficio("");
@@ -95,10 +95,10 @@ QDate CProcessador::CriarData(int dia, int mes)
 {
     QDate ret;
     int ano;
-    if (mes <= ret.currentDate().month())
-        ano = ret.currentDate().year();
-    else
+    if (mes > ret.currentDate().month())
         ano = ret.currentDate().year() - 1;
+    else
+        ano = ret.currentDate().year();
     ret.setDate(ano, mes, dia);
     return ret;
 }

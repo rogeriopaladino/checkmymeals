@@ -12,6 +12,7 @@
 
 int main(int argc, char *argv[])
 {
+    QLocale::setDefault(QLocale(QLocale::Portuguese, QLocale::Brazil));
     QApplication app(argc, argv);
     QCoreApplication::setAttribute(Qt::AA_S60DisablePartialScreenInputMode, false);
 
