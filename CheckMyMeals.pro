@@ -51,7 +51,8 @@ SOURCES += main.cpp \
     ccartaoitem.cpp \
     ccompramodel.cpp \
     ccompraitem.cpp \
-    cprocessador.cpp
+    cprocessador.cpp \
+    cartaoproxy.cpp
 
 # Please do not modify the following two lines. Required for deployment.
 include(qmlapplicationviewer/qmlapplicationviewer.pri)
@@ -64,7 +65,8 @@ HEADERS += \
     ccartaoitem.h \
     ccompramodel.h \
     ccompraitem.h \
-    cprocessador.h
+    cprocessador.h \
+    cartaoproxy.h
 
 OTHER_FILES += \    
     qml/CheckMyMeals/main.js \

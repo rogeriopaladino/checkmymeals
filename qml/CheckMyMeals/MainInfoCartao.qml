@@ -1,4 +1,5 @@
 import QtQuick 1.1
+import com.nokia.symbian 1.1
 import com.rogerio.model 1.0
 
 import "cores.js" as Cores
@@ -6,7 +7,7 @@ import "main.js" as MainScript
 
 Item {
     id: delegateCartao
-    width: parent.width; height: colRoot.height;
+    width: parent.width; height: childrenRect.height;
 
     property int quantidadeCartao: 0
 
@@ -14,10 +15,15 @@ Item {
     signal duploClick(string numero);
     signal dedoPressionado(string numero, double x, double y);
 
+    Rectangle {
+        anchors.fill: parent
+        color: (index % 2 == 0 ? Cores.COR_FUNDO : Cores.COR_FUNDO_LISTA)
+    }
+
     Column {
         id: colRoot
         width: parent.width;
-        z: parent.z + 1
+        //z: parent.z + 1
 
         Row {
             width: parent.width;
@@ -46,6 +52,7 @@ Item {
 
                     Column {
                         id: colCartao
+                        width: parent.width
                         Text {
                             text: MainScript.formatNumeroCartao(numero)
                             color: Cores.COR_TEXTO
@@ -59,21 +66,22 @@ Item {
                             smooth: true
                             wrapMode: Text.WordWrap
                         }
-                    }
+                    }                    
                 }
             }
-        }
+        }       
 
         Row {
             width: parent.width
 
             ItemMainInfoCartao {
-                width: parent.width / 2
+                width: parent.width * 0.30
                 icone: "qrc:///money"
                 texto: "R$ <b>" + saldo.toFixed(2) + "</b>"
             }
+
             ItemMainInfoCartao {
-                width: parent.width / 2
+                width: parent.width * 0.30
                 icone: "qrc:///grafico"
                 texto: "R$ " + estudos.gastoMedioDiario.toFixed(2)
             }
@@ -139,9 +147,11 @@ Item {
         }
     }
 
-    Rectangle {
-        anchors.fill: parent
-        color: (index % 2 == 0 ? Cores.COR_FUNDO : Cores.COR_FUNDO_LISTA)
+    ProgressBar {
+        width: parent.width * 0.20
+        anchors { top: parent.top; topMargin: 5; right: parent.right; rightMargin: 5 }
+        maximumValue: valorBeneficio
+        value: (valorBeneficio - saldo)
     }
 
     MouseArea {
@@ -160,5 +170,5 @@ Item {
 
             delegateCartao.dedoPressionado(numero, x, y);
         }
-    }    
+    }
 }

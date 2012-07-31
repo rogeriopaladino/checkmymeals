@@ -15,77 +15,82 @@ void CProcessador::processadorExtrato(const QString &extrato)
         regex.setPattern("Cartão inválido");
         if (regex.indexIn(extrato) > 0) {
             emit cartaoInvalido();
-        } else {            
-            QString numero("");
-            QString saldoDisponivel("");
-            QString dataBeneficio("");
-            QString valorBeneficio("");
-            QString dataProximoBeneficio("");
-            QString valorProximoBeneficio("");
-            regex.setPattern("N&uacute;mero do cart&atilde;o:.+(\\d{16})<\\/td>");
-            if (regex.indexIn(extrato) > 0)
-                numero = regex.cap(1);
-            regex.setPattern("Saldo dispon&iacute;vel:.+R\\$\\s*([\\d,]+)<\\/td>");
-            if (regex.indexIn(extrato) > 0)
-                saldoDisponivel = regex.cap(1);
-            regex.setPattern("Data da &uacute;ltima disponibiliza&ccedil;&atilde;o do benef&iacute;cio:.*<td.*>(\\d\\d\\/\\d\\d)<\\/td>\\W*<td.*>Valor:R\\$([\\d,]+)<\\/td>");            
+        } else {
+            regex.setPattern("indisponível no momento");
             if (regex.indexIn(extrato) > 0) {
-                dataBeneficio = regex.cap(1);
-                valorBeneficio = regex.cap(2);
-            }
-            regex.setPattern("Data da pr&oacute;xima disponibiliza&ccedil;&atilde;o do benef&iacute;cio:.*<td.*>(\\d\\d\\/\\d\\d)<\\/td>\\W*<td.*>Valor:R\\$([\\d,]+)<\\/td>");
-            if (regex.indexIn(extrato) > 0) {
-                dataProximoBeneficio = regex.cap(1);
-                valorProximoBeneficio = regex.cap(2);
-            }
-            qDebug() << extrato;
-            if (valorProximoBeneficio != "") {
-                QStringList dataLstPB;
-                dataLstPB = dataProximoBeneficio.split('/');
-                QDate dataProximoBeneficio = this->CriarDataBeneficio(dataLstPB[0].toInt(), dataLstPB[1].toInt());
-                emit informacaoProximoBeneficio(numero, dataProximoBeneficio, valorProximoBeneficio.toDouble());
-            }            
-            emit informacoesCartao(numero, saldoDisponivel.toDouble());
-            regex.setPattern("<tr class=\"rowTable\">\\W+<td style=\"width:50px\">(\\d\\d\\/\\d\\d)<\\/td>\\W*<td style=\"width:400px\">(.*)<\\/td>\\W*<td class=\"corUm\" style=\"width:50px\" align=\"right\">R\\$&nbsp;([\\d,]+)<\\/td>");
-            int k = 0, dia, mes;
-            bool ok, compraEfetuada, houveCredito = false;
-            QString localStr, valorStr, dataStr;
-            QDate data;
-            double valor;
-            QStringList dataLst;
-            while ((k = regex.indexIn(extrato, k)) > 0) {
-                compraEfetuada = true;                
-                localStr = regex.cap(2);
-                valorStr = regex.cap(3);
-                dataStr = regex.cap(1);
-                dataLst = dataStr.split('/');
-                dia = dataLst[0].toInt(&ok, 10);
-                if (ok)
-                    mes = dataLst[1].toInt(&ok, 10);
-                if (ok) {
-                    data = this->CriarData(dia, mes);
-                    valor = valorStr.replace(',', '.').toDouble(&ok);
-                    if (ok) {
-                        if (this->IsCredito(localStr)) {
-                            houveCredito = true;
-                            data = this->CriarDataBeneficioDepositado(dia, mes);
-                            emit informacaoBeneficio(numero, data, valor);
-                        } else
-                            emit compraAnalisada(numero, localStr, data, valor);
-                    }
+                emit sistemaForaDoAr();
+            } else {
+                QString numero("");
+                QString saldoDisponivel("");
+                QString dataBeneficio("");
+                QString valorBeneficio("");
+                QString dataProximoBeneficio("");
+                QString valorProximoBeneficio("");
+                regex.setPattern("N&uacute;mero do cart&atilde;o:.+(\\d{16})<\\/td>");
+                if (regex.indexIn(extrato) > 0)
+                    numero = regex.cap(1);
+                regex.setPattern("Saldo dispon&iacute;vel:.+R\\$\\s*([\\d,]+)<\\/td>");
+                if (regex.indexIn(extrato) > 0)
+                    saldoDisponivel = regex.cap(1);
+                regex.setPattern("Data da &uacute;ltima disponibiliza&ccedil;&atilde;o do benef&iacute;cio:.*<td.*>(\\d\\d\\/\\d\\d)<\\/td>\\W*<td.*>Valor:R\\$([\\d,]+)<\\/td>");
+                if (regex.indexIn(extrato) > 0) {
+                    dataBeneficio = regex.cap(1);
+                    valorBeneficio = regex.cap(2);
                 }
-                k += regex.matchedLength();
-            }
-            /*apenas para garantir, pois pode acontecer de o crédito não estar presente
-              no extrato do cartão.*/
-            if (!houveCredito) {
-                data = this->CriarDataBeneficioDepositado(dataBeneficio);
-                valor = valorBeneficio.toDouble();
-                emit informacaoBeneficio(numero, data, valor);
-            }
-            emit cartaoAtualizado(numero);
-            if (!compraEfetuada) {
-                emit nenhumaCompraEfetuada();
+                regex.setPattern("Data da pr&oacute;xima disponibiliza&ccedil;&atilde;o do benef&iacute;cio:.*<td.*>(\\d\\d\\/\\d\\d)<\\/td>\\W*<td.*>Valor:R\\$([\\d,]+)<\\/td>");
+                if (regex.indexIn(extrato) > 0) {
+                    dataProximoBeneficio = regex.cap(1);
+                    valorProximoBeneficio = regex.cap(2);
+                }
+                qDebug() << extrato;
+                if (valorProximoBeneficio != "") {
+                    QStringList dataLstPB;
+                    dataLstPB = dataProximoBeneficio.split('/');
+                    QDate dataProximoBeneficio = this->CriarDataBeneficio(dataLstPB[0].toInt(), dataLstPB[1].toInt());
+                    emit informacaoProximoBeneficio(numero, dataProximoBeneficio, valorProximoBeneficio.toDouble());
+                }
+                emit informacoesCartao(numero, saldoDisponivel.toDouble());
+                regex.setPattern("<tr class=\"rowTable\">\\W+<td style=\"width:50px\">(\\d\\d\\/\\d\\d)<\\/td>\\W*<td style=\"width:400px\">(.*)<\\/td>\\W*<td class=\"corUm\" style=\"width:50px\" align=\"right\">R\\$&nbsp;([\\d,]+)<\\/td>");
+                int k = 0, dia, mes;
+                bool ok, compraEfetuada, houveCredito = false;
+                QString localStr, valorStr, dataStr;
+                QDate data;
+                double valor;
+                QStringList dataLst;
+                while ((k = regex.indexIn(extrato, k)) > 0) {
+                    compraEfetuada = true;
+                    localStr = regex.cap(2);
+                    valorStr = regex.cap(3);
+                    dataStr = regex.cap(1);
+                    dataLst = dataStr.split('/');
+                    dia = dataLst[0].toInt(&ok, 10);
+                    if (ok)
+                        mes = dataLst[1].toInt(&ok, 10);
+                    if (ok) {
+                        data = this->CriarData(dia, mes);
+                        valor = valorStr.replace(',', '.').toDouble(&ok);
+                        if (ok) {
+                            if (this->IsCredito(localStr)) {
+                                houveCredito = true;
+                                data = this->CriarDataBeneficioDepositado(dia, mes);
+                                emit informacaoBeneficio(numero, data, valor);
+                            } else
+                                emit compraAnalisada(numero, localStr, data, valor);
+                        }
+                    }
+                    k += regex.matchedLength();
+                }
+                /*apenas para garantir, pois pode acontecer de o crédito não estar presente
+                  no extrato do cartão.*/
+                if (!houveCredito) {
+                    data = this->CriarDataBeneficioDepositado(dataBeneficio);
+                    valor = valorBeneficio.toDouble();
+                    emit informacaoBeneficio(numero, data, valor);
+                }
+                emit cartaoAtualizado(numero);
+                if (!compraEfetuada) {
+                    emit nenhumaCompraEfetuada();
+                }
             }
         }
     }

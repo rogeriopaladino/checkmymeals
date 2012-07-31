@@ -8,7 +8,7 @@ Page {
         ToolButton {
             iconSource: "toolbar-back"
             onClicked:{
-                page.pageStack.pop().destroy(1000);
+                page.pageStack.pop();
             }
         }
     }

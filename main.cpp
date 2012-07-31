@@ -9,6 +9,7 @@
 #include "ccartaomodel.h"
 #include "ccompramodel.h"
 #include "ccompraitem.h"
+#include "cartaoproxy.h"
 
 int main(int argc, char *argv[])
 {
@@ -23,12 +24,15 @@ int main(int argc, char *argv[])
     qmlRegisterType<CCompraModel>("com.rogerio.model", 1, 0, "CompraModel");
     qmlRegisterType<CCompraItem>("com.rogerio.model", 1, 0, "CompraItem");
     qmlRegisterType<CCartaoItem>("com.rogerio.model", 1, 0, "CartaoItem");
-    qmlRegisterType<CCartaoModel>("com.rogerio.model", 1, 0, "CartaoModel");    
+    qmlRegisterType<CCartaoModel>("com.rogerio.model", 1, 0, "CartaoModel");
+    qmlRegisterType<CartaoProxy>("com.rogerio.proxy", 1, 0, "CartaoProxy");
 
     CVisa *visa = new CVisa();
     CProcessador *processador = new CProcessador(visa);
     CCompraModel *compraModel = new CCompraModel(visa);
     CCartaoModel *cartaoModel = new CCartaoModel(visa);
+    CartaoProxy *cartaoProxy = new CartaoProxy(visa);
+    cartaoProxy->setSourceModel(cartaoModel);
 
     /*conexões*/
     QObject::connect(visa, SIGNAL(consultaFinalizada(QString)), processador, SLOT(processadorExtrato(QString)));
@@ -43,6 +47,7 @@ int main(int argc, char *argv[])
     viewer.rootContext()->setContextProperty("processador", processador);
     viewer.rootContext()->setContextProperty("cartaoModel", cartaoModel);
     viewer.rootContext()->setContextProperty("compraModel", compraModel);
+    viewer.rootContext()->setContextProperty("cartaoProxy", cartaoProxy);
     viewer.setMainQmlFile(QLatin1String("qml/CheckMyMeals/MainWindow.qml"));
     #if defined Q_OS_SYMBIAN
     viewer.showFullScreen();

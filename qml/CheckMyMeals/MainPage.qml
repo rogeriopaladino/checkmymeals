@@ -24,12 +24,19 @@ Page {
                        MainScript.PushNaPilha(page.pageStack, obj);
                    }
                }
-               /*ToolButton {
+               ToolButton {
                    iconSource: "toolbar-refresh"
                    onClicked: {
                        queryAtualizarTodos.open()
                    }
-               }*/
+               }
+
+               ToolButton {
+                   iconSource: "toolbar-search"
+                   onClicked: {
+
+                   }
+               }
 
                ToolButton {
                    iconSource: "qrc:///toolbar_ajuda"
@@ -83,6 +90,10 @@ Page {
             timerInfo.adicionarMensagem("Cartão inválido!", "qrc:///erro", 2000);
         }
 
+        onSistemaForaDoAr: {
+            processando.close();
+            erroConexao.open();
+        }
         onCartaoAtualizado: {
             console.debug("Cartão atualizado!");
             timerInfo.adicionarMensagem("Atualizado!", "qrc:///ok", 2000);
@@ -109,7 +120,7 @@ Page {
     ListView {
         id: lstCartoes
         anchors.fill: parent
-        model: cartaoModel
+        model: /*cartaoModel*/cartaoProxy
         delegate: MainInfoCartao {
             quantidadeCartao: cartaoModel.tamanho
 
@@ -188,7 +199,7 @@ Page {
         }
     }
 
-    /*QueryDialog {
+    QueryDialog {
         id: queryAtualizarTodos
         titleText: "Cartões"
         //icon: "toolbar-refresh"
@@ -200,7 +211,7 @@ Page {
             for(var i = 0; i < cartoes.length; i++)
                 visa.Consultar(cartoes[i], true);
         }
-    }*/
+    }
 
     Dialog {
         id: processando
@@ -238,7 +249,7 @@ Page {
     }
 
     QueryDialog {
-        id: erroConexao;
+        id: erroConexao
         titleText: "Erro de conexão"
         message: "Houve um problema de conexão com o servidor do Visa Vale!<br />Tente novamente mais tarde."
         icon: "qrc:///erro"
