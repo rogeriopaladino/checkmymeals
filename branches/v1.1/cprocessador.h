@@ -10,6 +10,7 @@
 class CProcessador : public QObject
 {
     Q_OBJECT
+
 public:
     explicit CProcessador(QObject *parent = 0);
 
@@ -21,9 +22,9 @@ private:
     bool IsCredito(const QString &local) const;
 
 signals:
-    void cartaoInvalido();
-    void cartaoAtualizado(const QString &numero);
-    void nenhumaCompraEfetuada();
+    void cartaoInvalido(const QString cartao);
+    void cartaoAtualizado(const QString &cartao);
+    void nenhumaCompraEfetuada(const QString &cartao);
     void sistemaForaDoAr();
     void compraAnalisada(const QString &numero, const QString &local, const QDate data, const double &valor);    
     void informacoesCartao(const QString &numero, const double &saldo);
@@ -31,7 +32,7 @@ signals:
     void informacaoProximoBeneficio(const QString &numero, const QDate &data, const double &valor);
 
 public slots:
-    void processadorExtrato(const QString &extrato);
+    void processadorExtrato(const QString &cartao, const QString &extrato);
 
 };
 

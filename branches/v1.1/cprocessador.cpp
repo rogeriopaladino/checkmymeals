@@ -5,7 +5,7 @@ CProcessador::CProcessador(QObject *parent) :
 {
 }
 
-void CProcessador::processadorExtrato(const QString &extrato)
+void CProcessador::processadorExtrato(const QString &cartao, const QString &extrato)
 {
     if (extrato != "") {
         QRegExp regex;
@@ -14,13 +14,13 @@ void CProcessador::processadorExtrato(const QString &extrato)
         regex.setCaseSensitivity(Qt::CaseInsensitive);
         regex.setPattern("Cartão inválido");
         if (regex.indexIn(extrato) > 0) {
-            emit cartaoInvalido();
+            emit cartaoInvalido(cartao);
         } else {
             regex.setPattern("indisponível no momento");
-            if (regex.indexIn(extrato) > 0) {
+            if (regex.indexIn(extrato) > 0) {                
                 emit sistemaForaDoAr();
             } else {
-                QString numero("");
+                QString numeroCartao("");
                 QString saldoDisponivel("");
                 QString dataBeneficio("");
                 QString valorBeneficio("");
@@ -28,7 +28,7 @@ void CProcessador::processadorExtrato(const QString &extrato)
                 QString valorProximoBeneficio("");
                 regex.setPattern("N&uacute;mero do cart&atilde;o:.+(\\d{16})<\\/td>");
                 if (regex.indexIn(extrato) > 0)
-                    numero = regex.cap(1);
+                    numeroCartao = regex.cap(1);
                 regex.setPattern("Saldo dispon&iacute;vel:.+R\\$\\s*([\\d,]+)<\\/td>");
                 if (regex.indexIn(extrato) > 0)
                     saldoDisponivel = regex.cap(1);
@@ -47,9 +47,9 @@ void CProcessador::processadorExtrato(const QString &extrato)
                     QStringList dataLstPB;
                     dataLstPB = dataProximoBeneficio.split('/');
                     QDate dataProximoBeneficio = this->CriarDataBeneficio(dataLstPB[0].toInt(), dataLstPB[1].toInt());
-                    emit informacaoProximoBeneficio(numero, dataProximoBeneficio, valorProximoBeneficio.toDouble());
+                    emit informacaoProximoBeneficio(numeroCartao, dataProximoBeneficio, valorProximoBeneficio.toDouble());
                 }
-                emit informacoesCartao(numero, saldoDisponivel.toDouble());
+                emit informacoesCartao(numeroCartao, saldoDisponivel.toDouble());
                 regex.setPattern("<tr class=\"rowTable\">\\W+<td style=\"width:50px\">(\\d\\d\\/\\d\\d)<\\/td>\\W*<td style=\"width:400px\">(.*)<\\/td>\\W*<td class=\"corUm\" style=\"width:50px\" align=\"right\">R\\$&nbsp;([\\d,]+)<\\/td>");
                 int k = 0, dia, mes;
                 bool ok, compraEfetuada, houveCredito = false;
@@ -73,9 +73,9 @@ void CProcessador::processadorExtrato(const QString &extrato)
                             if (this->IsCredito(localStr)) {
                                 houveCredito = true;
                                 data = this->CriarDataBeneficioDepositado(dia, mes);
-                                emit informacaoBeneficio(numero, data, valor);
+                                emit informacaoBeneficio(numeroCartao, data, valor);
                             } else
-                                emit compraAnalisada(numero, localStr, data, valor);
+                                emit compraAnalisada(numeroCartao, localStr, data, valor);
                         }
                     }
                     k += regex.matchedLength();
@@ -85,11 +85,11 @@ void CProcessador::processadorExtrato(const QString &extrato)
                 if (!houveCredito) {
                     data = this->CriarDataBeneficioDepositado(dataBeneficio);
                     valor = valorBeneficio.toDouble();
-                    emit informacaoBeneficio(numero, data, valor);
+                    emit informacaoBeneficio(numeroCartao, data, valor);
                 }
-                emit cartaoAtualizado(numero);
+                emit cartaoAtualizado(numeroCartao);
                 if (!compraEfetuada) {
-                    emit nenhumaCompraEfetuada();
+                    emit nenhumaCompraEfetuada(numeroCartao);
                 }
             }
         }
