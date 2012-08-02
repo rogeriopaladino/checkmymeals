@@ -35,7 +35,7 @@ int main(int argc, char *argv[])
     cartaoProxy->setSourceModel(cartaoModel);
 
     /*conexões*/
-    QObject::connect(visa, SIGNAL(consultaFinalizada(QString)), processador, SLOT(processadorExtrato(QString)));
+    QObject::connect(visa, SIGNAL(consultaCartaoFinalizada(QString, QString)), processador, SLOT(processadorExtrato(QString, QString)));
     QObject::connect(processador, SIGNAL(informacaoBeneficio(QString,QDate,double)), cartaoModel, SLOT(atualizarBeneficio(QString,QDate,double)));
     QObject::connect(processador, SIGNAL(informacoesCartao(QString,double)), cartaoModel, SLOT(atualizarSaldo(QString,double)));
     QObject::connect(processador, SIGNAL(informacaoProximoBeneficio(QString,QDate,double)), cartaoModel, SLOT(atualizarProximoBeneficio(QString,QDate,double)));

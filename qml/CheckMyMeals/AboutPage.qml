@@ -39,7 +39,7 @@ Page {
         }
 
         ItemTextoAjudaPage {
-            texto: "Versão 1.0"
+            texto: "Versão 1.1"
             font { italic: true }
         }
 

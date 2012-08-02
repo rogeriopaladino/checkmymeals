@@ -31,12 +31,12 @@ Page {
                    }
                }
 
-               ToolButton {
+               /*ToolButton {
                    iconSource: "toolbar-search"
                    onClicked: {
 
                    }
-               }
+               }*/
 
                ToolButton {
                    iconSource: "qrc:///toolbar_ajuda"
@@ -56,7 +56,7 @@ Page {
                }
            }   
 
-    signal infoPagina(string local)
+    signal infoPagina(string local)    
 
     Connections {
         target: visa
@@ -66,8 +66,18 @@ Page {
             processando.open();
         }
 
+        onIniciandoConsultaLote: {
+            //processando.open();
+            painelInfo.visible = true;
+        }
+
+        onConsultaLoteFinalizada: {
+            //processando.close();
+            painelInfo.visible = false;
+        }
+
         //a consulta foi finalizada e o objeto processador já foi conectado aos modelos
-        onConsultaFinalizada: {            
+        onConsultaFinalizada: {
             processando.close();
         }
 
@@ -86,24 +96,30 @@ Page {
         target: processador
 
         onCartaoInvalido: {
-            console.debug("Oooops! Cartão inválido!");
-            timerInfo.adicionarMensagem("Cartão inválido!", "qrc:///erro", 2000);
+            //console.debug("Oooops! Cartão inválido!");
+            //timerInfo.adicionarMensagem("Cartão " + MainScript.formatNumeroCartao(cartao) + " inválido!", "qrc:///erro", 2000);
+            painelInfo.adicionarMensagem("Cartão " + MainScript.formatNumeroCartao(cartao) + " inválido!");
         }
 
         onSistemaForaDoAr: {
+            visa.Cancelar();
             processando.close();
-            erroConexao.open();
+            erroConexao.open();            
         }
         onCartaoAtualizado: {
-            console.debug("Cartão atualizado!");
-            timerInfo.adicionarMensagem("Atualizado!", "qrc:///ok", 2000);
+            //console.debug("Cartão " + cartao + " atualizado!");
+            //timerInfo.adicionarMensagem("Cartão " + MainScript.formatNumeroCartao(cartao) + " atualizado!", "qrc:///ok", 2000);
+            painelInfo.adicionarMensagem("Cartão " + MainScript.formatNumeroCartao(cartao) + " atualizado!");
         }
 
         onNenhumaCompraEfetuada: {
-            console.debug("Oops! Nenhuma compra efetuada!");
-            timerInfo.adicionarMensagem("Não foi feita nenhuma compra ainda!", "qrc:///ok", 2000);
+            //console.debug("Cartão " + cartao  + " não tem novas compras!");
+            //timerInfo.adicionarMensagem("Cartão " + MainScript.formatNumeroCartao(cartao)  + " não tem novas compras!", "qrc:///ok", 2000);
+            painelInfo.adicionarMensagem("Cartão " + MainScript.formatNumeroCartao(cartao)  + " não tem novas compras!");
         }
     }
+
+
 
     Connections {
         target: cartaoModel
@@ -174,7 +190,7 @@ Page {
             MenuItem {
                 text: "Atualizar"
                 onClicked: {
-                    visa.Consultar(MainScript.cartaoMainSelecionado, true);
+                    visa.Consultar(MainScript.cartaoMainSelecionado);
                 }
             }
             MenuItem {
@@ -201,15 +217,16 @@ Page {
 
     QueryDialog {
         id: queryAtualizarTodos
-        titleText: "Cartões"
+        titleText: "Atualizar"
         //icon: "toolbar-refresh"
-        message: "Atualizar todos os cartões?"
+        message: "Atualizar os dados de todos os cartões cadastrados?<br />"
         acceptButtonText: "Ok"
         rejectButtonText: "Cancelar"
         onAccepted: {
             var cartoes = cartaoModel.cartoesCadastrados;
             for(var i = 0; i < cartoes.length; i++)
-                visa.Consultar(cartoes[i], true);
+                visa.AdicionarParaConsulta(cartoes[i], true);
+            visa.IniciarCosulta();
         }
     }
 
@@ -263,5 +280,18 @@ Page {
 
     onHeightChanged: {
         MainScript.screenHeight = height;
+    }
+
+    PainelInformativo {
+        id: painelInfo
+        anchors.fill: parent
+        visible: false
+    }
+
+    BusyIndicator {
+        id: busy
+        running: busy.visible
+        visible: false
+        anchors.centerIn: parent
     }
 }
