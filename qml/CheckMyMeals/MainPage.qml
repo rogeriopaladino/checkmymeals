@@ -119,8 +119,6 @@ Page {
         }
     }
 
-
-
     Connections {
         target: cartaoModel
 
@@ -282,10 +280,20 @@ Page {
         MainScript.screenHeight = height;
     }
 
-    PainelInformativo {
+    /*Timer {
+        interval: 1000
+        triggeredOnStart: false
+        running: true
+        repeat: true
+
+        onTriggered: {
+            painelInfo.adicionarMensagem("Oi!");
+        }
+    }*/
+
+    PainelComBotao {
         id: painelInfo
-        anchors.fill: parent
-        visible: false
+        anchors.fill: parent        
     }
 
     BusyIndicator {
