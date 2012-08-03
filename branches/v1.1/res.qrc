@@ -18,5 +18,6 @@
         <file alias="ampulheta">imagens/1318852486_gnome-fs-loading-icon.png</file>
         <file alias="card">imagens/credit_card yellow_pequeno.png</file>
         <file alias="card_grande">imagens/credit_card yellow_grande.png</file>
+        <file alias="info">imagens/info.png</file>
     </qresource>
 </RCC>
