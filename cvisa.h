@@ -28,7 +28,7 @@ private:
 signals:
     void iniciandoConsultaLote();
     void consultaLoteFinalizada();
-    void consultaFinalizada(const QString &cartao);
+    void consultaFinalizada();
     void iniciandoConsulta(const QString &cartao);
     void consultaCartaoFinalizada(const QString &cartao, const QString &extrato);
     void consultaCancelada();

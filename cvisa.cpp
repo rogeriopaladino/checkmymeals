@@ -24,12 +24,12 @@ void CVisa::AdicionarParaConsulta(const QString &cartao)
 
 void CVisa::IniciarCosulta()
 {
-    for (int i = 0; i < _cartoes.count(); i++) {
-        QString cartao = _cartoes.at(0);
-        if (_cartoes.count() == 1)
+    //for (int i = 0; i < _cartoes.count(); i++) {
+        QString cartao = _cartoes.at(0);        
+        //if (_cartoes.count() == 1)
             emit iniciandoConsulta(cartao);
-        else if (i == 0)
-            emit iniciandoConsultaLote();
+        /*else if (i == 0)
+            emit iniciandoConsultaLote();*/
         _cancelar = false;
         _net = new QNetworkAccessManager(this);
         QNetworkRequest r(this->UrlParaConsulta(cartao, true));
@@ -38,7 +38,7 @@ void CVisa::IniciarCosulta()
         QObject::connect(reply, SIGNAL(finished()), this, SLOT(consultaFinalizadaResposta()));
         QObject::connect(reply, SIGNAL(downloadProgress(qint64,qint64)), this, SLOT(baixandoPagina()));
         QObject::connect(this, SIGNAL(erroConexao()), this, SLOT(erroConexaoHandlerSlot()));
-    }
+    //}
 }
 
 void CVisa::consultaFinalizadaResposta()
@@ -51,11 +51,14 @@ void CVisa::consultaFinalizadaResposta()
         reply->close();
         reply->deleteLater();
         emit consultaCartaoFinalizada(cartao, resposta);
-        if (_lote && _cartoes.count() == 0) {
+        /*if (_lote && _cartoes.count() == 0) {
             _lote = false;
-            emit consultaLoteFinalizada();
-        } else if (!_lote)
-            emit consultaFinalizada(cartao);
+            emit consultaLoteFinalizada();*/
+        //} else if (!_lote)
+        if (_cartoes.count() == 0)
+            emit consultaFinalizada();
+        else
+            IniciarCosulta();
     } else {
         reply->abort();
         reply->deleteLater();
@@ -76,7 +79,7 @@ void CVisa::baixandoPagina()
 
 QUrl CVisa::UrlParaConsulta(QString cartao, bool todasAnteriores)
 {
-    static QString urlPadrao("http://www.cbss.com.br/inst/convivencia/SaldoExtrato.jsp?numeroCartao=%1&periodoSelecionado=%2");
+    static QString urlPadrao("http://www.cartoesbeneficio.com.br/inst/convivencia/SaldoExtrato.jsp?numeroCartao=%1&periodoSelecionado=%2");
     char tpConsultaOk = '0';
     if (todasAnteriores)
         tpConsultaOk = '4';
