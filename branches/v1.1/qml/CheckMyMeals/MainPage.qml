@@ -63,31 +63,33 @@ Page {
 
         onIniciandoConsulta: {
             console.debug("Iniciando a consulta..." + cartao);                        
-            processando.open();
+            //painelInfo.mostrar(true);
+            //processando.open();
         }
 
         onIniciandoConsultaLote: {
-            //processando.open();
-            painelInfo.visible = true;
+            //processando.open();            
+            //painelInfo.mostrar(true);
         }
 
         onConsultaLoteFinalizada: {
             //processando.close();
-            painelInfo.visible = false;
+            //painelInfo.mostrar(fasle);
         }
 
         //a consulta foi finalizada e o objeto processador já foi conectado aos modelos
         onConsultaFinalizada: {
-            processando.close();
+            //processando.close();
         }
 
         onConsultaCancelada: {
-            processando.close();
+            //processando.close();
             timerInfo.adicionarMensagem("Consulta cancelada!", "qrc:///atencao", 2000);
         }
 
         onErroConexao: {
-            processando.close();
+            //processando.close();
+            //painelInfo.mostrar(false);
             erroConexao.open();
         }
     }
@@ -98,24 +100,24 @@ Page {
         onCartaoInvalido: {
             //console.debug("Oooops! Cartão inválido!");
             //timerInfo.adicionarMensagem("Cartão " + MainScript.formatNumeroCartao(cartao) + " inválido!", "qrc:///erro", 2000);
-            painelInfo.adicionarMensagem("Cartão " + MainScript.formatNumeroCartao(cartao) + " inválido!");
+            //painelInfo.adicionarMensagem("Cartão " + MainScript.formatNumeroCartao(cartao) + " inválido!");
         }
 
         onSistemaForaDoAr: {
             visa.Cancelar();
-            processando.close();
+            //processando.close();
             erroConexao.open();            
         }
         onCartaoAtualizado: {
             //console.debug("Cartão " + cartao + " atualizado!");
             //timerInfo.adicionarMensagem("Cartão " + MainScript.formatNumeroCartao(cartao) + " atualizado!", "qrc:///ok", 2000);
-            painelInfo.adicionarMensagem("Cartão " + MainScript.formatNumeroCartao(cartao) + " atualizado!");
+            //painelInfo.adicionarMensagem("Cartão " + MainScript.formatNumeroCartao(cartao) + " atualizado!");
         }
 
         onNenhumaCompraEfetuada: {
             //console.debug("Cartão " + cartao  + " não tem novas compras!");
             //timerInfo.adicionarMensagem("Cartão " + MainScript.formatNumeroCartao(cartao)  + " não tem novas compras!", "qrc:///ok", 2000);
-            painelInfo.adicionarMensagem("Cartão " + MainScript.formatNumeroCartao(cartao)  + " não tem novas compras!");
+            //painelInfo.adicionarMensagem("Cartão " + MainScript.formatNumeroCartao(cartao)  + " não tem novas compras!");
         }
     }
 

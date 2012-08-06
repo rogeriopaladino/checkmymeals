@@ -42,7 +42,7 @@ void CProcessador::processadorExtrato(const QString &cartao, const QString &extr
                     dataProximoBeneficio = regex.cap(1);
                     valorProximoBeneficio = regex.cap(2);
                 }
-                qDebug() << extrato;
+                //qDebug() << extrato;
                 if (valorProximoBeneficio != "") {
                     QStringList dataLstPB;
                     dataLstPB = dataProximoBeneficio.split('/');
@@ -93,6 +93,8 @@ void CProcessador::processadorExtrato(const QString &cartao, const QString &extr
                 }
             }
         }
+    } else {
+        emit sistemaForaDoAr();
     }
 }
 

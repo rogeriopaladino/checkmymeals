@@ -8,6 +8,8 @@ Item {
 
     property alias lista: lst
 
+    Component.onCompleted: root.mostrar(false);
+
     Rectangle {
         anchors.fill: parent
         color: Cores.COR_FUNDO_PRETO
@@ -24,7 +26,11 @@ Item {
     }
 
     function adicionarMensagem(mensagem) {
-        lstModel.append({info: mensagem});
+        lstModel.append({info: mensagem});        
+    }
+
+    function limpar() {
+        lstModel.clear();
     }
 
     ListModel {
@@ -34,7 +40,7 @@ Item {
     ListView {
         id: lst
         anchors { left: parent.left; right: parent.right; verticalCenter: parent.verticalCenter }
-        height: parent.height * 0.7
+        height: parent.height * 0.8
         model: lstModel
         clip: true
         snapMode: ListView.SnapOneItem
@@ -46,15 +52,17 @@ Item {
                 anchors.fill: parent
                 spacing: 5
 
-                Image {
+                Image {                    
                     source: "qrc:///info"
                     width: 32; height: 32
                 }
 
                 Text {
                     text: info
+                    width: parent.width - 37
                     color: "#ffffff"
-                    font.pixelSize: 25
+                    font.pixelSize: 22
+                    wrapMode: Text.WordWrap
                 }
             }
 
