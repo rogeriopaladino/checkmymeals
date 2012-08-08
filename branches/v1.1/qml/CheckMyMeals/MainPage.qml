@@ -62,12 +62,12 @@ Page {
         target: visa
 
         onIniciandoConsulta: {
-            console.debug("Iniciando a consulta..." + cartao);                        
+            //console.debug("Iniciando a consulta..." + cartao);
             //painelInfo.mostrar(true);
             //processando.open();
         }
 
-        onIniciandoConsultaLote: {
+        /*onIniciandoConsultaLote: {
             //processando.open();            
             //painelInfo.mostrar(true);
         }
@@ -75,7 +75,7 @@ Page {
         onConsultaLoteFinalizada: {
             //processando.close();
             //painelInfo.mostrar(fasle);
-        }
+        }*/
 
         //a consulta foi finalizada e o objeto processador já foi conectado aos modelos
         onConsultaFinalizada: {
@@ -90,6 +90,7 @@ Page {
         onErroConexao: {
             //processando.close();
             //painelInfo.mostrar(false);
+            console.log("foi esse aqui, heinnnN!");
             erroConexao.open();
         }
     }
@@ -106,7 +107,8 @@ Page {
         onSistemaForaDoAr: {
             visa.Cancelar();
             //processando.close();
-            erroConexao.open();            
+            erroConexao.open();
+            console.log("Não, foi esse auiiiiI!");
         }
         onCartaoAtualizado: {
             //console.debug("Cartão " + cartao + " atualizado!");
@@ -296,12 +298,9 @@ Page {
     PainelComBotao {
         id: painelInfo
         anchors.fill: parent        
-    }
 
-    BusyIndicator {
-        id: busy
-        running: busy.visible
-        visible: false
-        anchors.centerIn: parent
+        onCancelar: {
+            visa.Cancelar();
+        }
     }
 }

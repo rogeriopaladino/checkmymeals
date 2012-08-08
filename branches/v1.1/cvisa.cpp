@@ -1,8 +1,8 @@
 #include "cvisa.h"
 
 CVisa::CVisa(QObject *parent)
-    :QObject(parent),
-      _lote(false)
+    :QObject(parent)/*,
+      _lote(false)*/
 {    
 }
 
@@ -19,7 +19,7 @@ void CVisa::Consultar(const QString &cartao)
 void CVisa::AdicionarParaConsulta(const QString &cartao)
 {
     _cartoes.append(cartao);
-    _lote = _cartoes.count() > 1;
+    //_lote = _cartoes.count() > 1;
 }
 
 void CVisa::IniciarCosulta()
@@ -45,9 +45,9 @@ void CVisa::consultaFinalizadaResposta()
 {
     QNetworkReply *reply = qobject_cast<QNetworkReply*>(this->sender());
     QString cartao = _cartoes.at(0);
-    _cartoes.pop_front();
+    _cartoes.pop_front();        
     if (reply->error() == QNetworkReply::NoError) {
-        QByteArray resposta = reply->readAll();        
+        QByteArray resposta = reply->readAll();
         reply->close();
         reply->deleteLater();
         emit consultaCartaoFinalizada(cartao, resposta);
@@ -59,6 +59,8 @@ void CVisa::consultaFinalizadaResposta()
             emit consultaFinalizada();
         else
             IniciarCosulta();
+    } else if (reply->error() == QNetworkReply::OperationCanceledError) {
+        reply->deleteLater();
     } else {
         reply->abort();
         reply->deleteLater();
@@ -95,5 +97,5 @@ void CVisa::Cancelar()
 void CVisa::erroConexaoHandlerSlot()
 {
     _cartoes.clear();
-    _lote = false;
+    //_lote = false;
 }

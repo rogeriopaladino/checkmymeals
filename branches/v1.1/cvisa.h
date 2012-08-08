@@ -22,12 +22,12 @@ public:
     Q_INVOKABLE void Cancelar();
 private:
     QNetworkAccessManager *_net;
-    bool _cancelar, _lote;
+    bool _cancelar/*, _lote*/;
     QStringList _cartoes;
     QUrl UrlParaConsulta(QString cartao, bool todasAnteriores);
 signals:
-    void iniciandoConsultaLote();
-    void consultaLoteFinalizada();
+    //void iniciandoConsultaLote();
+    //void consultaLoteFinalizada();
     void consultaFinalizada();
     void iniciandoConsulta(const QString &cartao);
     void consultaCartaoFinalizada(const QString &cartao, const QString &extrato);

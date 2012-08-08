@@ -14,35 +14,24 @@ PainelInformativo {
         target: visa
 
         onIniciandoConsulta: {
-            //console.debug("Iniciando a consulta..." + cartao);
+            busy.visible = true;
             root.mostrar(true);
-            //processando.open();
-        }
-
-        /*onIniciandoConsultaLote: {
-            //processando.open();
-            root.mostrar(true);
-        }*/
-
-        /*onConsultaLoteFinalizada: {
-            //processando.close();
-            //painelInfo.mostrar(fasle);
-        }*/
-
-        //a consulta foi finalizada e o objeto processador já foi conectado aos modelos
-        onConsultaFinalizada: {
-            //processando.close();
-            btn.text = "Fechar";
         }
 
         onConsultaCancelada: {
-            //processando.close();
-            timerInfo.adicionarMensagem("Consulta cancelada!", "qrc:///atencao", 2000);
+            root.mostrar(false);
+            root.fechar();
+        }
+
+        onConsultaFinalizada: {
+            busy.visible = false;
+            btn.text = "Fechar";
         }
 
         onErroConexao: {
-            //processando.close();
+            busy.visible = false;
             root.mostrar(false);
+            root.fechar();
         }
     }
 
@@ -85,5 +74,11 @@ PainelInformativo {
                 }
             }
         }
+    }
+
+    BusyIndicator {
+        id: busy
+        anchors.centerIn: parent
+        running: busy.visible
     }
 }
