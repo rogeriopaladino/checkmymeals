@@ -44,8 +44,9 @@ Item {
         model: lstModel
         clip: true
         snapMode: ListView.SnapOneItem
+        spacing: 5
         delegate: Item {
-            width: root.width; height: 35
+            width: root.width; height: 50
             id: delegateInformation
 
             Row {

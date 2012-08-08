@@ -24,18 +24,23 @@ QT += sql
 symbian {
     TARGET.CAPABILITY += NetworkServices
 
-    my_deployment.pkg_prerules += vendorinfo
-
-    DEPLOYMENT += my_deployment
-
     vendorinfo += "%{\"RPaladino\"}" ":\"RPaladino-BR\""
+
+    my_deployment.pkg_prerules += vendorinfo
+    my_deployment.pkg_prerules += \
+        "; Dependency to Symbian Qt Quick components" \
+        "(0x200346DE), 1, 1, 0, {\"Qt Quick components\"}"
+
+    DEPLOYMENT += my_deployment    
 }
+
+VERSION = 1.1
 # If your application uses the Qt Mobility libraries, uncomment the following
 # lines and add the respective components to the MOBILITY variable.
 # CONFIG += mobility
 # MOBILITY +=
 
-CONFIG += qtquickcomponents
+CONFIG += qt-components
 
 #DEFINES += CORE_LIBRARY
 
