@@ -10,7 +10,7 @@ Page {
         ToolButton {
             iconSource: "toolbar-back"
             onClicked: {
-                page.pageStack.pop().destroy(1000);
+                page.pageStack.pop();
             }
         }
 
@@ -18,7 +18,7 @@ Page {
             id: btnCad
             iconSource: "qrc:///toolbar_ok"
             onClicked: {
-                if (validarNumero()) {
+                if (txtNumero.acceptableInput) {
                     page.ok();
                     page.pageStack.pop();
                 } else {
@@ -38,11 +38,6 @@ Page {
     property alias numero : txtNumero.text
     property alias descricao: txtDescricao.text
 
-    function validarNumero() {
-        var a = /[\d]{4}-[\d]{4}-[\d]{4}-[\d]{4}/;
-        return a.test(txtNumero.text);
-    }
-
     function modoEditar(numero) {
         var infoCartao = cartaoModel.InfoCartao(numero);
         txtNumero.text = infoCartao.numero;
@@ -58,80 +53,26 @@ Page {
         id: colMain                
         anchors.centerIn: parent
 
-        Text {
-            text: "Número do cartão"
-            color: Cores.COR_TEXTO
+        TextField {
+            id: txtNumero
+            width: page.width * 0.70; height: 35
             font.pixelSize: 20
-        }
-
-        Item {
-            width: page.width * 0.70; height: 35;
-            Rectangle {
-                width: parent.width; height: parent.height                
-                gradient: Gradient {
-                    GradientStop {
-                        position: 0.00;
-                        color: Cores.COR_FUNDO_DEGRADE_P0;
-                    }
-                    GradientStop {
-                        position: 1.00;
-                        color: Cores.COR_FUNDO_DEGRADE_P1;
-                    }
-                }
-                border.color: "blue"
-            }
-
-            TextInput {
-                id: txtNumero
-                width: parent.width; height: parent.height;
-                font.pixelSize: 20
-                focus: true
-                maximumLength: 16
-                color: Cores.COR_TEXTO
-                inputMask: '9999-9999-9999-9999'
-                onFocusChanged: {
-                    if (txtNumero.focus) {
-                        txtNumero.cursorPosition = 0;
-                    }
-                }
-                onAccepted: {
-                    txtNumero.closeSoftwareInputPanel();
+            inputMask: '9999-9999-9999-9999'
+            maximumLength: 16
+            placeholderText: "Número"
+            onFocusChanged: {
+                if (txtNumero.focus) {
+                    txtNumero.cursorPosition = 0;
                 }
             }
         }
 
-        Text {
-            text: "Descrição";
-            color: Cores.COR_TEXTO
+        TextField {
+            id: txtDescricao
+            width: parent.width; height: 35;
+            maximumLength: 35
             font.pixelSize: 20
-        }
-
-        Item {
-            width: page.width * 0.70; height: 35;
-            Rectangle {
-                width: parent.width; height: parent.height
-                gradient: Gradient {
-                    GradientStop {
-                        position: 0.00;
-                        color: "#5aa3e6";
-                    }
-                    GradientStop {
-                        position: 1.00;
-                        color: "#63c6f7";
-                    }
-                }
-                border.color: "blue"
-            }
-
-            TextInput {
-                id: txtDescricao
-                width: parent.width; height: parent.height;
-                maximumLength: 35
-                font.pixelSize: 20
-                color: Cores.COR_TEXTO
-            }
+            placeholderText: "Descrição"
         }
     }
-
-
 }

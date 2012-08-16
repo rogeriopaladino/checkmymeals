@@ -31,15 +31,27 @@ Window {
         }
     }
 
-    Rectangle {
+    Background {
+        id: backGroundColorido
+        objetoParaCarregar: pages
+        anchors { top: status.bottom; left: parent.left; right: parent.right; bottom: myTool.top }
+    }
+
+    /*Rectangle {
         width: parent.width; height: parent.height;
         color: Cores.COR_FUNDO
-    }
+    }*/
 
     PageStack {
         id: pages
         toolBar: myTool
-        anchors { top: status.bottom; left: parent.left; right: parent.right; bottom: myTool.top }        
+        anchors.fill: parent
+        clip: true
+        //anchors { top: status.bottom; left: parent.left; right: parent.right; bottom: myTool.top }
+
+        onDepthChanged: {
+            backGroundColorido.corAleatoria();
+        }
     }    
 
     ToolBar {

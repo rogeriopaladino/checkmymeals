@@ -24,10 +24,17 @@ Page {
                        MainScript.PushNaPilha(page.pageStack, obj);
                    }
                }
-               /*ToolButton {
+               ToolButton {
                    iconSource: "toolbar-refresh"
                    onClicked: {
                        queryAtualizarTodos.open()
+                   }
+               }
+
+               /*ToolButton {
+                   iconSource: "toolbar-search"
+                   onClicked: {
+
                    }
                }*/
 
@@ -49,28 +56,41 @@ Page {
                }
            }   
 
-    signal infoPagina(string local)
+    signal infoPagina(string local)    
 
     Connections {
         target: visa
 
         onIniciandoConsulta: {
-            console.debug("Iniciando a consulta..." + cartao);                        
-            processando.open();
+            //console.debug("Iniciando a consulta..." + cartao);
+            //painelInfo.mostrar(true);
+            //processando.open();
         }
 
+        /*onIniciandoConsultaLote: {
+            //processando.open();            
+            //painelInfo.mostrar(true);
+        }
+
+        onConsultaLoteFinalizada: {
+            //processando.close();
+            //painelInfo.mostrar(fasle);
+        }*/
+
         //a consulta foi finalizada e o objeto processador já foi conectado aos modelos
-        onConsultaFinalizada: {            
-            processando.close();
+        onConsultaFinalizada: {
+            //processando.close();
         }
 
         onConsultaCancelada: {
-            processando.close();
+            //processando.close();
             timerInfo.adicionarMensagem("Consulta cancelada!", "qrc:///atencao", 2000);
         }
 
         onErroConexao: {
-            processando.close();
+            //processando.close();
+            //painelInfo.mostrar(false);
+            console.log("foi esse aqui, heinnnN!");
             erroConexao.open();
         }
     }
@@ -79,18 +99,27 @@ Page {
         target: processador
 
         onCartaoInvalido: {
-            console.debug("Oooops! Cartão inválido!");
-            timerInfo.adicionarMensagem("Cartão inválido!", "qrc:///erro", 2000);
+            //console.debug("Oooops! Cartão inválido!");
+            //timerInfo.adicionarMensagem("Cartão " + MainScript.formatNumeroCartao(cartao) + " inválido!", "qrc:///erro", 2000);
+            //painelInfo.adicionarMensagem("Cartão " + MainScript.formatNumeroCartao(cartao) + " inválido!");
         }
 
+        onSistemaForaDoAr: {
+            visa.Cancelar();
+            //processando.close();
+            erroConexao.open();
+            console.log("Não, foi esse auiiiiI!");
+        }
         onCartaoAtualizado: {
-            console.debug("Cartão atualizado!");
-            timerInfo.adicionarMensagem("Atualizado!", "qrc:///ok", 2000);
+            //console.debug("Cartão " + cartao + " atualizado!");
+            //timerInfo.adicionarMensagem("Cartão " + MainScript.formatNumeroCartao(cartao) + " atualizado!", "qrc:///ok", 2000);
+            //painelInfo.adicionarMensagem("Cartão " + MainScript.formatNumeroCartao(cartao) + " atualizado!");
         }
 
         onNenhumaCompraEfetuada: {
-            console.debug("Oops! Nenhuma compra efetuada!");
-            timerInfo.adicionarMensagem("Não foi feita nenhuma compra ainda!", "qrc:///ok", 2000);
+            //console.debug("Cartão " + cartao  + " não tem novas compras!");
+            //timerInfo.adicionarMensagem("Cartão " + MainScript.formatNumeroCartao(cartao)  + " não tem novas compras!", "qrc:///ok", 2000);
+            //painelInfo.adicionarMensagem("Cartão " + MainScript.formatNumeroCartao(cartao)  + " não tem novas compras!");
         }
     }
 
@@ -109,7 +138,7 @@ Page {
     ListView {
         id: lstCartoes
         anchors.fill: parent
-        model: cartaoModel
+        model: /*cartaoModel*/cartaoProxy
         delegate: MainInfoCartao {
             quantidadeCartao: cartaoModel.tamanho
 
@@ -163,7 +192,7 @@ Page {
             MenuItem {
                 text: "Atualizar"
                 onClicked: {
-                    visa.Consultar(MainScript.cartaoMainSelecionado, true);
+                    visa.Consultar(MainScript.cartaoMainSelecionado);
                 }
             }
             MenuItem {
@@ -188,19 +217,20 @@ Page {
         }
     }
 
-    /*QueryDialog {
+    QueryDialog {
         id: queryAtualizarTodos
-        titleText: "Cartões"
+        titleText: "Atualizar"
         //icon: "toolbar-refresh"
-        message: "Atualizar todos os cartões?"
+        message: "Atualizar os dados de todos os cartões cadastrados?<br />"
         acceptButtonText: "Ok"
         rejectButtonText: "Cancelar"
         onAccepted: {
             var cartoes = cartaoModel.cartoesCadastrados;
             for(var i = 0; i < cartoes.length; i++)
-                visa.Consultar(cartoes[i], true);
+                visa.AdicionarParaConsulta(cartoes[i], true);
+            visa.IniciarCosulta();
         }
-    }*/
+    }
 
     Dialog {
         id: processando
@@ -238,7 +268,7 @@ Page {
     }
 
     QueryDialog {
-        id: erroConexao;
+        id: erroConexao
         titleText: "Erro de conexão"
         message: "Houve um problema de conexão com o servidor do Visa Vale!<br />Tente novamente mais tarde."
         icon: "qrc:///erro"
@@ -252,5 +282,25 @@ Page {
 
     onHeightChanged: {
         MainScript.screenHeight = height;
+    }
+
+    /*Timer {
+        interval: 1000
+        triggeredOnStart: false
+        running: true
+        repeat: true
+
+        onTriggered: {
+            painelInfo.adicionarMensagem("Oi!");
+        }
+    }*/
+
+    PainelComBotao {
+        id: painelInfo
+        anchors.fill: parent        
+
+        onCancelar: {
+            visa.Cancelar();
+        }
     }
 }

@@ -8,7 +8,7 @@ Page {
         ToolButton {
             iconSource: "toolbar-back"
             onClicked:{
-                page.pageStack.pop().destroy(1000);
+                page.pageStack.pop();
             }
         }
     }
@@ -39,7 +39,7 @@ Page {
         }
 
         ItemTextoAjudaPage {
-            texto: "Versão 1.0"
+            texto: "Versão 1.1"
             font { italic: true }
         }
 

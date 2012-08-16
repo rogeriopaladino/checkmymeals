@@ -42,7 +42,6 @@ void CCompraModel::Carregar(const QString &numero)
                 this->endInsertRows();
             }
         } while (q.next());
-
     }
 }
 
