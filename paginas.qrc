@@ -1,0 +1,23 @@
+<RCC>
+    <qresource prefix="/">
+        <file>qml/CheckMyMeals/PainelInformativo.qml</file>
+        <file>qml/CheckMyMeals/AboutPage.qml</file>
+        <file>qml/CheckMyMeals/AjudaPage.qml</file>
+        <file>qml/CheckMyMeals/Background.qml</file>
+        <file>qml/CheckMyMeals/CadCartaoPage.qml</file>
+        <file>qml/CheckMyMeals/CartaoAnimado.qml</file>
+        <file>qml/CheckMyMeals/cores.js</file>
+        <file>qml/CheckMyMeals/DetalheInfo.qml</file>
+        <file>qml/CheckMyMeals/DetalhePage.qml</file>
+        <file>qml/CheckMyMeals/FilaInformacao.qml</file>
+        <file>qml/CheckMyMeals/InfoText.qml</file>
+        <file>qml/CheckMyMeals/ItemIconeAjudaPage.qml</file>
+        <file>qml/CheckMyMeals/ItemMainInfoCartao.qml</file>
+        <file>qml/CheckMyMeals/ItemTextoAjudaPage.qml</file>
+        <file>qml/CheckMyMeals/main.js</file>
+        <file>qml/CheckMyMeals/MainInfoCartao.qml</file>
+        <file>qml/CheckMyMeals/MainPage.qml</file>
+        <file>qml/CheckMyMeals/MainWindow.qml</file>
+        <file>qml/CheckMyMeals/PainelComBotao.qml</file>
+    </qresource>
+</RCC>
