@@ -31,7 +31,7 @@ int main(int argc, char *argv[])
     CProcessador *processador = new CProcessador(visa);
     CCompraModel *compraModel = new CCompraModel(visa);
     CCartaoModel *cartaoModel = new CCartaoModel(visa);
-    CartaoProxy *cartaoProxy = new CartaoProxy(visa);
+    CartaoProxy *cartaoProxy = new CartaoProxy(visa);    
     cartaoProxy->setSourceModel(cartaoModel);
 
     /*conexões*/
@@ -41,6 +41,7 @@ int main(int argc, char *argv[])
     QObject::connect(processador, SIGNAL(informacaoProximoBeneficio(QString,QDate,double)), cartaoModel, SLOT(atualizarProximoBeneficio(QString,QDate,double)));
     QObject::connect(processador, SIGNAL(compraAnalisada(QString,QString,QDate,double)), compraModel, SLOT(compraAnalisada(QString,QString,QDate,double)));
     QObject::connect(processador, SIGNAL(cartaoAtualizado(QString)), cartaoModel, SLOT(atualizacaoFinalizada(QString)));
+    QObject::connect(cartaoProxy, SIGNAL(filtrarComprarDoCartao(QString)), compraModel, SLOT(selecionarComprasCartao(QString)));
 
     QmlApplicationViewer viewer;
     viewer.rootContext()->setContextProperty("visa", visa);

@@ -10,13 +10,16 @@ class CartaoProxy : public QSortFilterProxyModel
 public:
     explicit CartaoProxy(QObject *parent = 0);
 
-    Q_INVOKABLE void Selecionar(const QString &descricao);
+    Q_INVOKABLE void LimparFiltros();
+    Q_INVOKABLE void SelecionarPorCartao(const QString &numero);
+    Q_INVOKABLE void SelecionarPorDescricao(const QString &descricao);
 
 private:
-    QString _descricao;
+    QString _descricao, _numero;
     bool filterAcceptsRow(int source_row, const QModelIndex &source_parent) const;
     
 signals:
+    void filtrarComprarDoCartao(const QString &numero);
     
 public slots:
     
