@@ -46,7 +46,7 @@ Item {
 
     Rectangle {
         anchors.fill: parent
-        color: (index % 2 == 0 ? Cores.COR_FUNDO : Cores.COR_FUNDO_LISTA)
+        color: (index % 2 === 0 ? Cores.COR_FUNDO : Cores.COR_FUNDO_LISTA)
     }
 
 }

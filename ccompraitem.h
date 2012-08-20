@@ -28,11 +28,13 @@ public:
     QVariant dadoCompra(int role);
 
     //gets
+    QString getCartao();
     int getId();
     double getValor() const;
     QDate getData() const;
     QString getLocal() const;
     //sets
+    void setCartao(const QString &numero);
     void setId(int id);
     void setValor(double valor);
     void setData(QDate data);
@@ -42,7 +44,7 @@ private:
     int _id;
     double _valor;
     QDate _data;
-    QString _local;
+    QString _local, _numeroCartao;
 
 signals:    
     void compraChanged();
@@ -50,6 +52,9 @@ signals:
 public slots:
 
 };
+
+inline QString CCompraItem::getCartao() { return _numeroCartao; }
+inline void CCompraItem::setCartao(const QString &numero) { _numeroCartao = numero; }
 
 Q_DECLARE_METATYPE(CCompraItem*)
 

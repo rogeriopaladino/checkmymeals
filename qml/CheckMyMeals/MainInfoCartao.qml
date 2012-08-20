@@ -76,13 +76,13 @@ Item {
             width: parent.width
 
             ItemMainInfoCartao {
-                width: parent.width * 0.30
+                width: parent.width * 0.50
                 icone: "qrc:///money"
                 texto: "R$ <b>" + saldo.toFixed(2) + "</b>"
             }
 
             ItemMainInfoCartao {
-                width: parent.width * 0.30
+                width: parent.width * 0.50
                 icone: "qrc:///grafico"
                 texto: "R$ " + estudos.gastoMedioDiario.toFixed(2)
             }

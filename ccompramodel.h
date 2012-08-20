@@ -33,6 +33,7 @@ signals:
 
 public slots:
     void compraAnalisada(const QString &numero, const QString &local, const QDate &data, const double &valor);
+    void selecionarComprasCartao(const QString &numero);
 };
 
 #endif // CCOMPRAMODEL_H

@@ -1,6 +1,6 @@
 # Add more folders to ship with the application, here
-#folder_01.source = qml/CheckMyMeals
-#folder_01.target = qml
+folder_01.source = qml/CheckMyMeals
+folder_01.target = qml
 #DEPLOYMENTFOLDERS = folder_01
 
 # Additional import path used to resolve QML modules in Creator's code model
@@ -34,7 +34,7 @@ symbian {
     DEPLOYMENT += my_deployment    
 }
 
-VERSION = 1.1
+VERSION = 2.0
 # If your application uses the Qt Mobility libraries, uncomment the following
 # lines and add the respective components to the MOBILITY variable.
 # CONFIG += mobility
@@ -73,13 +73,14 @@ HEADERS += \
     cprocessador.h \
     cartaoproxy.h
 
-OTHER_FILES += \    
-    qml/CheckMyMeals/main.js \
-    qml/CheckMyMeals/cores.js
+#OTHER_FILES += \
+#    qml/CheckMyMeals/main.js \
+#    qml/CheckMyMeals/cores.js
 
 RESOURCES += \
     res.qrc \
-    paginas.qrc
+    qml.qrc
+
 
 
 

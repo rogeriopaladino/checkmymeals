@@ -45,7 +45,7 @@ Window {
     PageStack {
         id: pages
         toolBar: myTool
-        anchors.fill: parent
+        anchors { fill: parent; margins: 5 }
         clip: true
         //anchors { top: status.bottom; left: parent.left; right: parent.right; bottom: myTool.top }
 

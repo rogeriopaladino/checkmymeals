@@ -5,7 +5,8 @@ import com.nokia.extras 1.1
 import "main.js" as MainScript
 
 Page {
-    id: page    
+    id: page
+    objectName: "MainPage"
     tools: ToolBarLayout {        
                ToolButton {
                    iconSource: "toolbar-back"
@@ -90,7 +91,7 @@ Page {
         onErroConexao: {
             //processando.close();
             //painelInfo.mostrar(false);
-            console.log("foi esse aqui, heinnnN!");
+            //console.log("foi esse aqui, heinnnN!");
             erroConexao.open();
         }
     }
@@ -108,7 +109,7 @@ Page {
             visa.Cancelar();
             //processando.close();
             erroConexao.open();
-            console.log("Não, foi esse auiiiiI!");
+            //console.log("Não, foi esse auiiiiI!");
         }
         onCartaoAtualizado: {
             //console.debug("Cartão " + cartao + " atualizado!");
@@ -135,6 +136,18 @@ Page {
         id: timerInfo
     }
 
+    Connections {
+        id: cnx
+        target: pageStack
+
+        onCurrentPageChanged: {
+            if (pageStack.currentPage.objectName === "MainPage") {
+                cartaoProxy.LimparFiltros();
+                console.log("Agora sim, heinnnnn!!!");
+            }
+        }
+    }
+
     ListView {
         id: lstCartoes
         anchors.fill: parent
@@ -143,10 +156,11 @@ Page {
             quantidadeCartao: cartaoModel.tamanho
 
             onClick: {
+                cartaoProxy.SelecionarPorCartao(numero);
                 MainScript.cartaoMainSelecionado = "";
                 var componente = Qt.createComponent("DetalhePage.qml");
                 var obj = componente.createObject(page);
-                obj.numero = numero;
+                //obj.numero = numero;
                 MainScript.PushNaPilha(page.pageStack, obj);
             }
 

@@ -19,5 +19,7 @@
         <file>qml/CheckMyMeals/MainPage.qml</file>
         <file>qml/CheckMyMeals/MainWindow.qml</file>
         <file>qml/CheckMyMeals/PainelComBotao.qml</file>
+        <file>qml/CheckMyMeals/DetalheHeaderInfo.qml</file>
+        <file>qml/CheckMyMeals/InfoAnimadoBackground.qml</file>
     </qresource>
 </RCC>
