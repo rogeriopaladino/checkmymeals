@@ -9,14 +9,14 @@ Page {
     tools: ToolBarLayout {
         ToolButton {
             iconSource: "toolbar-back"
-            onClicked: {
-                //compraModel.LimparCompras();
+            onClicked: {                
                 page.pageStack.pop().destroy(500);
             }
         }
     }
 
     signal infoPagina(string local);
+    property string corBackground : "black"
 
     onVisibleChanged: {
         if (visible) {
@@ -27,24 +27,12 @@ Page {
         }
     }
 
-    //property string numero : "";
-
-    /*onNumeroChanged: {
-        if (numero != "") {
-            compraModel.Carregar(numero);
-            if (compraModel.tamanho === 0)
-                msgAlertaSemCompra.open();
-        } else {
-            page.pageStack.pop();
-        }
-    }*/
-
     Rectangle {
         id: headerDetalhes
         color: Cores.COR_FUNDO
         height: parent.height / 3
         anchors { left: parent.left; top: parent.top; right: parent.right; margins: 2 }
-        border.color: Cores.COR_BORDA
+        border.color: Cores.COR_BORDA        
         radius: 10
 
         ListView {
@@ -63,7 +51,7 @@ Page {
         clip: true
         model: compraModel
         anchors { left: parent.left; top: headerDetalhes.bottom; right: parent.right; bottom: parent.bottom }
-        delegate: DetalheInfo { }
+        delegate: DetalheInfo { corBackground: page.corBackground }
     }
 
     ScrollDecorator {

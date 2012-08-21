@@ -1,7 +1,7 @@
 /****************************************************************************
 ** Meta object code from reading C++ file 'ccompramodel.h'
 **
-** Created: Wed 8. Aug 14:32:58 2012
+** Created: Mon 20. Aug 17:30:43 2012
 **      by: The Qt Meta Object Compiler version 62 (Qt 4.7.4)
 **
 ** WARNING! All changes made in this file will be lost!
@@ -23,8 +23,8 @@ static const uint qt_meta_data_CCompraModel[] = {
        5,       // revision
        0,       // classname
        0,    0, // classinfo
-       4,   14, // methods
-       1,   34, // properties
+       5,   14, // methods
+       1,   39, // properties
        0,    0, // enums/sets
        0,    0, // constructors
        0,       // flags
@@ -35,13 +35,14 @@ static const uint qt_meta_data_CCompraModel[] = {
 
  // slots: signature, parameters, type, tag, flags
       55,   31,   13,   13, 0x0a,
+     108,  101,   13,   13, 0x0a,
 
  // methods: signature, parameters, type, tag, flags
-     108,  101,   13,   13, 0x02,
-     126,   13,   13,   13, 0x02,
+     148,  141,   13,   13, 0x02,
+     166,   13,   13,   13, 0x02,
 
  // properties: name, type, flags
-     146,  142, 0x02495001,
+     186,  182, 0x02495001,
 
  // properties: notify_signal_id
        0,
@@ -53,6 +54,7 @@ static const char qt_meta_stringdata_CCompraModel[] = {
     "CCompraModel\0\0tamanhoChanged()\0"
     "numero,local,data,valor\0"
     "compraAnalisada(QString,QString,QDate,double)\0"
+    "numero\0selecionarComprasCartao(QString)\0"
     "cartao\0Carregar(QString)\0LimparCompras()\0"
     "int\0tamanho\0"
 };
@@ -88,11 +90,12 @@ int CCompraModel::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
         switch (_id) {
         case 0: tamanhoChanged(); break;
         case 1: compraAnalisada((*reinterpret_cast< const QString(*)>(_a[1])),(*reinterpret_cast< const QString(*)>(_a[2])),(*reinterpret_cast< const QDate(*)>(_a[3])),(*reinterpret_cast< const double(*)>(_a[4]))); break;
-        case 2: Carregar((*reinterpret_cast< const QString(*)>(_a[1]))); break;
-        case 3: LimparCompras(); break;
+        case 2: selecionarComprasCartao((*reinterpret_cast< const QString(*)>(_a[1]))); break;
+        case 3: Carregar((*reinterpret_cast< const QString(*)>(_a[1]))); break;
+        case 4: LimparCompras(); break;
         default: ;
         }
-        _id -= 4;
+        _id -= 5;
     }
 #ifndef QT_NO_PROPERTIES
       else if (_c == QMetaObject::ReadProperty) {

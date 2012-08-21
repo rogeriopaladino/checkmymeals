@@ -7,148 +7,78 @@ import "main.js" as MainScript
 
 Item {
     id: delegateCartao
-    width: parent.width; height: colRoot.height;
+    width: parent.width; height: colRoot.height + 4;
 
     property int quantidadeCartao: 0
+    property string corBackground: "black"
 
     signal click(string numero);
     signal duploClick(string numero);
     signal dedoPressionado(string numero, double x, double y);
 
-    Rectangle {
-        anchors.fill: parent
-        color: (index % 2 === 0 ? Cores.COR_FUNDO : Cores.COR_FUNDO_LISTA)
-    }
+    BackgroundBase {
+        id: rectMaster
+        width: parent.width; height: colRoot.height;
+        toColor: delegateCartao.corBackground
 
-    Column {
-        id: colRoot
-        width: parent.width;
-        //z: parent.z + 1
-
-        Row {
+        Column {
+            id: colRoot
+            anchors.centerIn: parent
             width: parent.width;
-            z: parent.z + 1
 
-            Rectangle {
-                width: parent.width; height: colCartao.height
-                /*gradient: Gradient {
-                    GradientStop {
-                        position: 0.00;
-                        color: Cores.COR_FUNDO_DEGRADE_P0;
-                    }
-                    GradientStop {
-                        position: 1.00;
-                        color: Cores.COR_FUNDO_DEGRADE_P1;
-                    }
-                }*/
-                color: Cores.COR_FUNDO_PRETO
+            Row {
+                width: parent.width;
 
-                Row {
-                    width: parent.width
+                Rectangle {
+                    width: parent.width; height: colCartao.height
+                    color: rectMaster.color
 
-                    Image {
-                        id: imgCartao
-                        source: "qrc:///card"
-                    }
-
-                    Column {
-                        id: colCartao
+                    Row {
                         width: parent.width
-                        Text {
-                            text: MainScript.formatNumeroCartao(numero)
-                            color: Cores.COR_TEXTO
-                            smooth: true
-                            font.pixelSize: 20
+
+                        Image {
+                            id: imgCartao
+                            source: "qrc:///card"
                         }
-                        Text {
+
+                        Column {
+                            id: colCartao
                             width: parent.width
-                            text:"<i>"+descricao+"</i>"
-                            color: Cores.COR_TEXTO
-                            smooth: true
-                            wrapMode: Text.WordWrap
+                            Text {
+                                text: MainScript.formatNumeroCartao(numero)
+                                color: Cores.COR_TEXTO
+                                smooth: true
+                                font.pixelSize: 20
+                            }
+                            Text {
+                                width: parent.width
+                                text:"<i>"+descricao+"</i>"
+                                color: Cores.COR_TEXTO
+                                smooth: true
+                                wrapMode: Text.WordWrap
+                            }
                         }
-                    }                    
+                    }
                 }
             }
-        }       
 
-        Row {
-            width: parent.width
+            Row {
+                width: parent.width
 
-            ItemMainInfoCartao {
-                width: parent.width * 0.50
-                icone: "qrc:///money"
-                texto: "R$ <b>" + saldo.toFixed(2) + "</b>"
-            }
-
-            ItemMainInfoCartao {
-                width: parent.width * 0.50
-                icone: "qrc:///grafico"
-                texto: "R$ " + estudos.gastoMedioDiario.toFixed(2)
-            }
-        }
-
-        /*
-
-        ItemMainInfoCartao {
-            icone: "qrc:///carrinho_compra"
-            visible: estudos.ultimaCompra.local !== ""
-            texto: estudos.ultimaCompra.local + " em " + Qt.formatDate(estudos.ultimaCompra.data, "dd/MM/yyyy") + " R$" + estudos.ultimaCompra.valor.toFixed(2)
-        }
-
-        ItemMainInfoCartao {
-            icone: "qrc:///caiu"
-            visible: !isNaN(dataBeneficio)
-            texto: "<b>" + (!isNaN(dataBeneficio) ? Qt.formatDate(dataBeneficio, "dd/MM/yyyy") : "--/--/----") + "</b> - R$ <b>" +valorBeneficio.toFixed(2)+ "</b>"
-        }
-
-        ItemMainInfoCartao {
-            icone: "qrc:///calendario"
-            visible: !isNaN(dataProximoBeneficio)
-            texto: "<b>" + Qt.formatDate(dataProximoBeneficio, "dd/MM/yyyy") + "</b> - R$ <b> " + valorProximoBeneficio.toFixed(2) + "</b>"
-        }
-
-        ItemMainInfoCartao {
-            icone: "qrc:///favorito"
-            visible: estudos.vezesNoLocalFavorito > 0
-            texto: estudos.localFavorito + " ("+estudos.vezesNoLocalFavorito+" visita"+ (estudos.vezesNoLocalFavorito > 1 ? "s" : "")+" - R$"+ estudos.valorNoLocalFavorito.toFixed(2) +")"
-        }
-
-        ItemMainInfoCartao {
-            function makeTexto() {
-                var local = estudos.maiorCompra.local;
-                var data = estudos.maiorCompra.data;
-                var valor = estudos.maiorCompra.valor;
-                var texto = "";
-                texto = local + " em " + Qt.formatDate(data, "dd/MM/yyyy") + " R$" + valor.toFixed(2);
-                return texto;
-            }
-            icone: "qrc:///campeao"
-            texto: makeTexto()
-            visible: !isNaN(estudos.maiorCompra.data)
-        }
-
-        Rectangle {
-            width: parent.width; height: 1
-            color: "black"
-        }
-
-        Rectangle {
-            width: parent.width; height: 20
-            visible: delegateCartao.quantidadeCartao != (index + 1)
-            z: 1
-            gradient: Gradient {
-                GradientStop {
-                    position: 0.00;
-                    color: (index % 2 == 0 ? Cores.COR_FUNDO : Cores.COR_FUNDO_LISTA);
+                ItemMainInfoCartao {
+                    width: parent.width * 0.50
+                    icone: "qrc:///money_neg"
+                    texto: "R$ <b>" + saldo.toFixed(2) + "</b>"
                 }
-                GradientStop {
-                    position: 1.00;
-                    color: Cores.COR_FUNDO_DEGRADE_P0;
+
+                ItemMainInfoCartao {
+                    width: parent.width * 0.50
+                    icone: "qrc:///grafico_neg"
+                    texto: "R$ " + estudos.gastoMedioDiario.toFixed(2)
                 }
             }
-        }*/
-    }
+        }
+    }   
 
     ProgressBar {
         width: parent.width * 0.20
