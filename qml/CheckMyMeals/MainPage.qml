@@ -57,41 +57,27 @@ Page {
                }
            }   
 
-    signal infoPagina(string local)    
+    signal infoPagina(string local)
+
+    property string corBackground: "black"
 
     Connections {
         target: visa
 
         onIniciandoConsulta: {
-            //console.debug("Iniciando a consulta..." + cartao);
-            //painelInfo.mostrar(true);
-            //processando.open();
-        }
 
-        /*onIniciandoConsultaLote: {
-            //processando.open();            
-            //painelInfo.mostrar(true);
         }
-
-        onConsultaLoteFinalizada: {
-            //processando.close();
-            //painelInfo.mostrar(fasle);
-        }*/
 
         //a consulta foi finalizada e o objeto processador já foi conectado aos modelos
         onConsultaFinalizada: {
-            //processando.close();
+
         }
 
-        onConsultaCancelada: {
-            //processando.close();
+        onConsultaCancelada: {            
             timerInfo.adicionarMensagem("Consulta cancelada!", "qrc:///atencao", 2000);
         }
 
         onErroConexao: {
-            //processando.close();
-            //painelInfo.mostrar(false);
-            //console.log("foi esse aqui, heinnnN!");
             erroConexao.open();
         }
     }
@@ -100,27 +86,19 @@ Page {
         target: processador
 
         onCartaoInvalido: {
-            //console.debug("Oooops! Cartão inválido!");
-            //timerInfo.adicionarMensagem("Cartão " + MainScript.formatNumeroCartao(cartao) + " inválido!", "qrc:///erro", 2000);
-            //painelInfo.adicionarMensagem("Cartão " + MainScript.formatNumeroCartao(cartao) + " inválido!");
+
         }
 
         onSistemaForaDoAr: {
             visa.Cancelar();
-            //processando.close();
             erroConexao.open();
-            //console.log("Não, foi esse auiiiiI!");
         }
         onCartaoAtualizado: {
-            //console.debug("Cartão " + cartao + " atualizado!");
-            //timerInfo.adicionarMensagem("Cartão " + MainScript.formatNumeroCartao(cartao) + " atualizado!", "qrc:///ok", 2000);
-            //painelInfo.adicionarMensagem("Cartão " + MainScript.formatNumeroCartao(cartao) + " atualizado!");
+
         }
 
         onNenhumaCompraEfetuada: {
-            //console.debug("Cartão " + cartao  + " não tem novas compras!");
-            //timerInfo.adicionarMensagem("Cartão " + MainScript.formatNumeroCartao(cartao)  + " não tem novas compras!", "qrc:///ok", 2000);
-            //painelInfo.adicionarMensagem("Cartão " + MainScript.formatNumeroCartao(cartao)  + " não tem novas compras!");
+
         }
     }
 
@@ -142,8 +120,7 @@ Page {
 
         onCurrentPageChanged: {
             if (pageStack.currentPage.objectName === "MainPage") {
-                cartaoProxy.LimparFiltros();
-                console.log("Agora sim, heinnnnn!!!");
+                cartaoProxy.LimparFiltros();                
             }
         }
     }
@@ -154,13 +131,13 @@ Page {
         model: /*cartaoModel*/cartaoProxy
         delegate: MainInfoCartao {
             quantidadeCartao: cartaoModel.tamanho
+            corBackground: page.corBackground
 
             onClick: {
                 cartaoProxy.SelecionarPorCartao(numero);
                 MainScript.cartaoMainSelecionado = "";
                 var componente = Qt.createComponent("DetalhePage.qml");
                 var obj = componente.createObject(page);
-                //obj.numero = numero;
                 MainScript.PushNaPilha(page.pageStack, obj);
             }
 

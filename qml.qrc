@@ -21,5 +21,6 @@
         <file>qml/CheckMyMeals/PainelComBotao.qml</file>
         <file>qml/CheckMyMeals/DetalheHeaderInfo.qml</file>
         <file>qml/CheckMyMeals/InfoAnimadoBackground.qml</file>
+        <file>qml/CheckMyMeals/BackgroundBase.qml</file>
     </qresource>
 </RCC>

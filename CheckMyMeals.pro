@@ -81,6 +81,9 @@ RESOURCES += \
     res.qrc \
     qml.qrc
 
+#OTHER_FILES += \
+#    qml/CheckMyMeals/BackgroundBase.qml
+
 
 
 

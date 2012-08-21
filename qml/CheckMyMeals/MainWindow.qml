@@ -37,20 +37,29 @@ Window {
         anchors { top: status.bottom; left: parent.left; right: parent.right; bottom: myTool.top }
     }
 
-    /*Rectangle {
-        width: parent.width; height: parent.height;
-        color: Cores.COR_FUNDO
-    }*/
-
     PageStack {
         id: pages
         toolBar: myTool
         anchors { fill: parent; margins: 5 }
         clip: true
-        //anchors { top: status.bottom; left: parent.left; right: parent.right; bottom: myTool.top }
 
-        onDepthChanged: {
-            backGroundColorido.corAleatoria();
+        function forcarBackgroundPages() {
+            if (pages.currentPage.corBackground !== undefined)
+                pages.currentPage.corBackground = backGroundColorido.corAleatoriaEscolhida;
+        }
+
+        onBusyChanged: {
+            if (!pages.busy) {
+                backGroundColorido.corAleatoria();
+                pages.forcarBackgroundPages();
+            }
+        }
+
+        onCurrentPageChanged: {
+            if (!pages.busy) {
+                backGroundColorido.corAleatoria();
+                pages.forcarBackgroundPages();
+            }
         }
     }    
 
@@ -59,8 +68,7 @@ Window {
         anchors { bottom: parent.bottom; left: parent.left; right: parent.right }        
     }
 
-    Connections {
-        id: teste
+    Connections {        
         target: pages.currentPage
         ignoreUnknownSignals: true
 

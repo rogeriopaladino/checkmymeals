@@ -1,7 +1,7 @@
 /****************************************************************************
 ** Meta object code from reading C++ file 'cartaoproxy.h'
 **
-** Created: Wed 8. Aug 14:33:12 2012
+** Created: Mon 20. Aug 17:30:59 2012
 **      by: The Qt Meta Object Compiler version 62 (Qt 4.7.4)
 **
 ** WARNING! All changes made in this file will be lost!
@@ -23,21 +23,28 @@ static const uint qt_meta_data_CartaoProxy[] = {
        5,       // revision
        0,       // classname
        0,    0, // classinfo
-       1,   14, // methods
+       4,   14, // methods
        0,    0, // properties
        0,    0, // enums/sets
        0,    0, // constructors
        0,       // flags
-       0,       // signalCount
+       1,       // signalCount
+
+ // signals: signature, parameters, type, tag, flags
+      20,   13,   12,   12, 0x05,
 
  // methods: signature, parameters, type, tag, flags
-      23,   13,   12,   12, 0x02,
+      52,   12,   12,   12, 0x02,
+      68,   13,   12,   12, 0x02,
+     107,   97,   12,   12, 0x02,
 
        0        // eod
 };
 
 static const char qt_meta_stringdata_CartaoProxy[] = {
-    "CartaoProxy\0\0descricao\0Selecionar(QString)\0"
+    "CartaoProxy\0\0numero\0filtrarComprarDoCartao(QString)\0"
+    "LimparFiltros()\0SelecionarPorCartao(QString)\0"
+    "descricao\0SelecionarPorDescricao(QString)\0"
 };
 
 const QMetaObject CartaoProxy::staticMetaObject = {
@@ -69,11 +76,21 @@ int CartaoProxy::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
         return _id;
     if (_c == QMetaObject::InvokeMetaMethod) {
         switch (_id) {
-        case 0: Selecionar((*reinterpret_cast< const QString(*)>(_a[1]))); break;
+        case 0: filtrarComprarDoCartao((*reinterpret_cast< const QString(*)>(_a[1]))); break;
+        case 1: LimparFiltros(); break;
+        case 2: SelecionarPorCartao((*reinterpret_cast< const QString(*)>(_a[1]))); break;
+        case 3: SelecionarPorDescricao((*reinterpret_cast< const QString(*)>(_a[1]))); break;
         default: ;
         }
-        _id -= 1;
+        _id -= 4;
     }
     return _id;
+}
+
+// SIGNAL 0
+void CartaoProxy::filtrarComprarDoCartao(const QString & _t1)
+{
+    void *_a[] = { 0, const_cast<void*>(reinterpret_cast<const void*>(&_t1)) };
+    QMetaObject::activate(this, &staticMetaObject, 0, _a);
 }
 QT_END_MOC_NAMESPACE
