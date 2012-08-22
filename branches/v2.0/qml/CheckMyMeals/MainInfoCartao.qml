@@ -7,7 +7,7 @@ import "main.js" as MainScript
 
 Item {
     id: delegateCartao
-    width: parent.width; height: colRoot.height + 4;
+    width: parent.width; height: colRoot.height;
 
     property int quantidadeCartao: 0
     property string corBackground: "black"

@@ -21,42 +21,72 @@ Page {
     onVisibleChanged: {
         if (visible) {
             infoPagina("Detalhes");
-
             if (compraModel.tamanho === 0)
                 msgAlertaSemCompra.open();
         }
-    }
+    }    
 
-    Rectangle {
-        id: headerDetalhes
-        color: Cores.COR_FUNDO
-        height: parent.height / 3
-        anchors { left: parent.left; top: parent.top; right: parent.right; margins: 2 }
-        border.color: Cores.COR_BORDA        
-        radius: 10
+    VisualItemModel {
+        id: visualModel
 
-        ListView {
-            id: lstHeader
-            model: cartaoProxy
-            anchors { fill: parent; }
-            interactive: false
-            delegate: DetalheHeaderInfo {
-                width: lstHeader.width; height: headerDetalhes.height
+        Rectangle {
+            width: lstDetalhesTotal.width; height: lstDetalhesTotal.height
+            color: Cores.COR_INICIAL_BACKGROUND
+
+            ListView {
+                id: lstHeader
+                model: cartaoProxy
+                anchors { fill: parent; }
+                delegate: DetalheHeaderInfo { }
+            }
+        }
+
+        Rectangle {
+            width: lstDetalhesTotal.width; height: lstDetalhesTotal.height
+            color: Cores.COR_FUNDO
+
+            ListView {
+                id : list
+                clip: true
+                model: compraModel
+                spacing: 2
+                anchors { fill: parent }
+                delegate: DetalheInfo { id: delegateCompra;  corBackground: page.corBackground }
+                section.property: "dataCompra"
+                section.delegate: Rectangle {
+                    width: list.width; height: childrenRect.height
+                    color: Cores.COR_FUNDO
+
+                    function secaoParaData() {
+                        var partes = section.split("-");
+                        var dataConvertida = partes[0] + "/" + partes[1] + "/" + partes[2];
+                        return new Date(dataConvertida);
+                    }
+
+                    Text {
+                        text: Qt.formatDate(secaoParaData(), "dd/MM/yyyy")
+                        color: Cores.COR_TEXTO
+                        font.pixelSize: 20
+                    }
+                }
+            }
+
+            ScrollDecorator {
+                flickableItem: list
+                anchors { right: list.right; top: list.top }
             }
         }
     }
 
     ListView {
-        id : list
-        clip: true
-        model: compraModel
-        anchors { left: parent.left; top: headerDetalhes.bottom; right: parent.right; bottom: parent.bottom }
-        delegate: DetalheInfo { corBackground: page.corBackground }
-    }
-
-    ScrollDecorator {
-        flickableItem: list
-        anchors { right: list.right; top: list.top }
+        id: lstDetalhesTotal
+        anchors.fill: parent
+        model: visualModel
+        currentIndex: 0
+        preferredHighlightBegin: 0; preferredHighlightEnd: 0
+        highlightRangeMode: ListView.StrictlyEnforceRange
+        orientation: ListView.Horizontal
+        snapMode: ListView.SnapOneItem
     }
 
     QueryDialog {
