@@ -1,10 +1,41 @@
 // import QtQuick 1.0 // to target S60 5th Edition or Maemo 5
 import QtQuick 1.1
+import "main.js" as MainScript
+import "cores.js" as Cores
 
 Item {
+    anchors.fill: parent
 
     Column {
         anchors.fill: parent
+        spacing: 1
+
+        Row {
+            width: parent.width
+
+            Image {
+                id: imgCartao
+                source: "qrc:///card"
+            }
+
+            Column {
+                id: colCartao
+                width: parent.width
+                Text {
+                    text: MainScript.formatNumeroCartao(numero)
+                    color: Cores.COR_TEXTO
+                    smooth: true
+                    font.pixelSize: 20
+                }
+                Text {
+                    width: parent.width
+                    text:"<i>"+descricao+"</i>"
+                    color: Cores.COR_TEXTO
+                    smooth: true
+                    wrapMode: Text.WordWrap
+                }
+            }
+        }
 
         ItemMainInfoCartao {
             icone: "qrc:///carrinho_compra_neg"

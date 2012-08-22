@@ -11,4 +11,4 @@ var COR_BORDA = "#ffffff";
 
 var COR_INICIAL_BACKGROUND = "#232633";
 
-var cores = new Array("#232633", "#2326FF", "#232694", "#2326A9", "#232610", "#2326FA");
+var cores = new Array("#232633"/*, "#2326FF", "#232694", "#2326A9", "#232610", "#2326FA"*/);

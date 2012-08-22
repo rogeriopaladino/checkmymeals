@@ -3,12 +3,12 @@ import "cores.js" as Cores
 
 Item {
     id: delegateDetalhe
-    width: parent.width; height: col.height
+    width: parent.width; height: childrenRect.height
 
     property string corBackground: "black"
 
     BackgroundBase {
-        width: parent.width; height: col.height + 5
+        width: parent.width; height: childrenRect.height
         toColor: delegateDetalhe.corBackground
 
         Row {
@@ -31,13 +31,8 @@ Item {
                 }
 
                 Text {
-                    text: Qt.formatDate(dataCompra, "dd/MM/yyyy") + " R$" + valor.toFixed(2)
+                    text: " R$" + valor.toFixed(2)
                     color: Cores.COR_TEXTO
-                }
-
-                Rectangle {
-                    width: parent.width; height: 1;
-                    color: "black"
                 }
             }
         }

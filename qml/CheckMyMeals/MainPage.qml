@@ -128,17 +128,25 @@ Page {
     ListView {
         id: lstCartoes
         anchors.fill: parent
-        model: /*cartaoModel*/cartaoProxy
+        spacing: 2
+        model: cartaoProxy
         delegate: MainInfoCartao {
             quantidadeCartao: cartaoModel.tamanho
             corBackground: page.corBackground
 
             onClick: {
-                cartaoProxy.SelecionarPorCartao(numero);
+
                 MainScript.cartaoMainSelecionado = "";
-                var componente = Qt.createComponent("DetalhePage.qml");
-                var obj = componente.createObject(page);
-                MainScript.PushNaPilha(page.pageStack, obj);
+                var componente = Qt.createComponent("DetalhePage.qml");                
+                if (componente.status == Component.Ready) {
+                    var obj = componente.createObject(page);
+                    if (obj !== null) {
+                        cartaoProxy.SelecionarPorCartao(numero);
+                        MainScript.PushNaPilha(page.pageStack, obj);
+                    }
+                } else if (componente.status == Component.Error) {
+                    console.log("Erro::: " + componente.errorString());
+                }
             }
 
             onDedoPressionado: {
