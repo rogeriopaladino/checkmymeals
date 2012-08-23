@@ -42,19 +42,25 @@ Page {
             ItemIconeAjudaPage {
                 srcImagem: "qrc:///toolbar_new"
                 texto: "Você irá para a tela de cadastro de cartões."
-                mostrarFundoNoIcone: true
+                mostrarFundoNoIcone: false
             }
 
             ItemIconeAjudaPage {
                 srcImagem: "qrc:///toolbar_ajuda"
                 texto: "Acesso a esta tela de ajuda."
-                mostrarFundoNoIcone: true
+                mostrarFundoNoIcone: false
+            }
+
+            ItemIconeAjudaPage {
+                srcImagem: "qrc:///toolbar_reload"
+                texto: "Atualizar todos os cartões cadastrados de uma só vez."
+                mostrarFundoNoIcone: false
             }
 
             ItemIconeAjudaPage {
                 srcImagem: "qrc:///toolbar_ok"
                 texto: "Confirma as informações da tela e volta para anterior."
-                mostrarFundoNoIcone: true
+                mostrarFundoNoIcone: false
             }
 
             ItemTextoAjudaPage {
@@ -62,37 +68,37 @@ Page {
             }
 
             ItemIconeAjudaPage {
-                srcImagem: "qrc:///caiu"
+                srcImagem: "qrc:///caiu_neg"
                 texto: "Informa quando e quanto crédito foi depositado no cartão."
             }
 
             ItemIconeAjudaPage {
-                srcImagem: "qrc:///money"
+                srcImagem: "qrc:///money_neg"
                 texto:"Valor do crédito disponível no cartão."
             }
 
             ItemIconeAjudaPage {
-                srcImagem: "qrc:///grafico"
+                srcImagem: "qrc:///grafico_neg"
                 texto: "Valor médio que você poderá utilizar diariamente no cartão durante trinta dias ou até a próxima recarga."
             }
 
             ItemIconeAjudaPage {
-                srcImagem: "qrc:///carrinho_compra"
+                srcImagem: "qrc:///carrinho_compra_neg"
                 texto: "Última compra efetuada no cartão."
             }
 
             ItemIconeAjudaPage {
-                srcImagem: "qrc:///calendario"
+                srcImagem: "qrc:///calendario_neg"
                 texto: "Data e valor da próxima recarga programada para o cartão."
             }
 
             ItemIconeAjudaPage {
-                srcImagem: "qrc:///favorito"
+                srcImagem: "qrc:///favorito_neg"
                 texto: "Estabelecimento em que o cartão foi mais vezes utilizado."
             }
 
             ItemIconeAjudaPage {
-                srcImagem: "qrc:///campeao"
+                srcImagem: "qrc:///campeao_neg"
                 texto: "Maior gasto já computado no cartão."
             }
 
@@ -101,11 +107,19 @@ Page {
             }
 
             ItemTextoAjudaPage {
-                texto: "Basta você adicionar um número de cartão (Visa Vale ou Vale Alimentação). Depois manter o dedo sobre o cartão e escolher \"Atualizar\" nas opções que aparecerão no menu de contexto."
+                texto: "Basta você adicionar um número de cartão (Visa Vale ou Vale Alimentação). Depois, manter o dedo sobre o cartão e escolher \"Atualizar\" nas opções que aparecerão no menu de contexto ou clicar sobre o ícone Atualizar da barra de tarefas."
             }
 
             ItemTextoAjudaPage {
-                texto: "Pronto! As informação serão carregadas e computadas em seu aparelho. Agora é só seguir atualizando diariamente para ter um histório detalhado de créditos e débitos de seus cartões!"
+                texto: "Pronto! As informação serão carregadas e computadas em seu smartphone."
+            }
+
+            ItemTextoAjudaPage {
+                texto: "Dê um clique sobre um cartão e, na tela que se abriu, veja as informações detalhadas e estatísticas. Rolando a tela para a esquerda, você verá o histório de utilizações do cartão."
+            }
+
+            ItemTextoAjudaPage {
+                texto: "Agora é só seguir atualizando diariamente para ter um histório detalhado de créditos e débitos de seus cartões!"
             }
         }
     }

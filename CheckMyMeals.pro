@@ -48,6 +48,9 @@ CONFIG += qt-components
     ICON = CheckMyMeals.svg
 #}
 
+#DEFINES += VERSAO_FREE
+DEFINES += VERSION=\"$$VERSION\"
+
 # The .cpp file which was generated for your project. Feel free to hack it.
 SOURCES += main.cpp \
     cvisa.cpp \
@@ -57,7 +60,8 @@ SOURCES += main.cpp \
     ccompramodel.cpp \
     ccompraitem.cpp \
     cprocessador.cpp \
-    cartaoproxy.cpp
+    cartaoproxy.cpp \
+    cutil.cpp
 
 # Please do not modify the following two lines. Required for deployment.
 include(qmlapplicationviewer/qmlapplicationviewer.pri)
@@ -71,7 +75,8 @@ HEADERS += \
     ccompramodel.h \
     ccompraitem.h \
     cprocessador.h \
-    cartaoproxy.h
+    cartaoproxy.h \
+    cutil.h
 
 #OTHER_FILES += \
 #    qml/CheckMyMeals/main.js \
