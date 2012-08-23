@@ -13,6 +13,8 @@ class CCompraModel : public QAbstractListModel
     Q_PROPERTY(int tamanho READ getTamanho NOTIFY tamanhoChanged)
 public:
     explicit CCompraModel(QObject *parent = 0);
+    ~CCompraModel();
+
     Q_INVOKABLE void Carregar(const QString &cartao);
     Q_INVOKABLE void LimparCompras();
 

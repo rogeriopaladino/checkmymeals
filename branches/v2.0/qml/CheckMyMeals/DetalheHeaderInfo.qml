@@ -38,6 +38,18 @@ Item {
         }
 
         ItemMainInfoCartao {
+            width: parent.width
+            icone: "qrc:///money_neg"
+            texto: "R$ <b>" + saldo.toFixed(2) + "</b>"
+        }
+
+        ItemMainInfoCartao {
+            width: parent.width
+            icone: "qrc:///grafico_neg"
+            texto: "R$ " + estudos.gastoMedioDiario.toFixed(2)
+        }
+
+        ItemMainInfoCartao {
             icone: "qrc:///carrinho_compra_neg"
             visible: estudos.ultimaCompra.local !== ""
             texto: estudos.ultimaCompra.local + " em " + Qt.formatDate(estudos.ultimaCompra.data, "dd/MM/yyyy") + " R$" + estudos.ultimaCompra.valor.toFixed(2)
@@ -45,19 +57,19 @@ Item {
 
         ItemMainInfoCartao {
             icone: "qrc:///caiu_neg"
-            visible: !isNaN(dataBeneficio)
-            texto: "<b>" + (!isNaN(dataBeneficio) ? Qt.formatDate(dataBeneficio, "dd/MM/yyyy") : "--/--/----") + "</b> - R$ <b>" +valorBeneficio.toFixed(2)+ "</b>"
+            visible: !isNaN(dataBeneficio) && !util.versaoFree
+            texto: "<b>" + (!isNaN(dataBeneficio) ? Qt.formatDate(dataBeneficio, "dd/MM/yyyy") : "--/--/----") + "</b> - R$ <b>" +valorBeneficio.toFixed(2)+ "</b>"            
         }
 
         ItemMainInfoCartao {
             icone: "qrc:///calendario_neg"
-            visible: !isNaN(dataProximoBeneficio)
+            visible: !isNaN(dataProximoBeneficio) && !util.versaoFree
             texto: "<b>" + Qt.formatDate(dataProximoBeneficio, "dd/MM/yyyy") + "</b> - R$ <b> " + valorProximoBeneficio.toFixed(2) + "</b>"
         }
 
         ItemMainInfoCartao {
             icone: "qrc:///favorito_neg"
-            visible: estudos.vezesNoLocalFavorito > 0
+            visible: estudos.vezesNoLocalFavorito > 0 && !util.versaoFree
             texto: estudos.localFavorito + " ("+estudos.vezesNoLocalFavorito+" visita"+ (estudos.vezesNoLocalFavorito > 1 ? "s" : "")+" - R$"+ estudos.valorNoLocalFavorito.toFixed(2) +")"
         }
 
@@ -72,7 +84,12 @@ Item {
             }
             icone: "qrc:///campeao_neg"
             texto: makeTexto()
-            visible: !isNaN(estudos.maiorCompra.data)
+            visible: !isNaN(estudos.maiorCompra.data) && !util.versaoFree
+        }
+
+        ItemTextoAjudaPage {
+            visible: util.versaoFree
+            texto: "Mais informações estão disponíveis na versão completa! Adquira a sua através da loja!"
         }
     }
 }

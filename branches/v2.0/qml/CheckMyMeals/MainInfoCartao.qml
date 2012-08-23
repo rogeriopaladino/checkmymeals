@@ -74,7 +74,7 @@ Item {
                 ItemMainInfoCartao {
                     width: parent.width * 0.50
                     icone: "qrc:///grafico_neg"
-                    texto: "R$ " + estudos.gastoMedioDiario.toFixed(2)
+                    texto: "R$ " + estudos.gastoMedioDiario.toFixed(2)                                        
                 }
             }
         }

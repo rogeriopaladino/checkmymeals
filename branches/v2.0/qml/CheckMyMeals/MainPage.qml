@@ -14,19 +14,29 @@ Page {
                        Qt.quit();
                    }
                }
-               ToolButton {                   
+               ToolButton {
                    iconSource: "qrc:///toolbar_new"
+                   QueryDialog {
+                       id: msgVerFreeAddCartao
+                       titleText: "Versão gratuíta"
+                       message: "Compre a versão completa para cadastrar quantos cartões quiser! <br />"
+                       acceptButtonText: "Ok"
+                   }
                    onClicked: {
-                       var componente = Qt.createComponent("CadCartaoPage.qml");
-                       var obj = componente.createObject(page);
-                       obj.ok.connect(function() {
-                                          cartaoModel.AdicionarCartao(obj.numero.replace(/-/g, ""), obj.descricao);
-                                      });
-                       MainScript.PushNaPilha(page.pageStack, obj);
+                       if (cartaoModel.tamanho >= 2 && util.versaoFree) {
+                           msgVerFreeAddCartao.open();
+                       } else {
+                           var componente = Qt.createComponent("CadCartaoPage.qml");
+                           var obj = componente.createObject(page);
+                           obj.ok.connect(function() {
+                                              cartaoModel.AdicionarCartao(obj.numero.replace(/-/g, ""), obj.descricao);
+                                          });
+                           MainScript.PushNaPilha(page.pageStack, obj);
+                       }
                    }
                }
                ToolButton {
-                   iconSource: "toolbar-refresh"
+                   iconSource: "qrc:///toolbar_reload"
                    onClicked: {
                        queryAtualizarTodos.open()
                    }
@@ -170,7 +180,8 @@ Page {
         width: parent.width
         height: parent.height
         visible: cartaoModel.tamanho == 0
-        info: "Seja Bem-vindo ao CheckMyMeals!<br>Adicione novos cartões e comece a controlar seus gastos!<br>Clique no botão \"?\"\ para entender como tudo funciona!"
+        info: "Seja Bem-vindo ao CheckMyMeals!<br>Adicione novos cartões e comece a controlar seus gastos!<br>Clique no botão \"?\"\ para entender como tudo funciona!" +
+              (util.versaoFree ? "<br /><br /><i>Versão gratuita.</i>" : "")
     }
 
     QueryDialog {

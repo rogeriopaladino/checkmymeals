@@ -6,6 +6,10 @@ CCompraModel::CCompraModel(QObject *parent) :
     this->setRoleNames(CCompraItem::roleNames());
 }
 
+CCompraModel::~CCompraModel()
+{
+}
+
 QVariant CCompraModel::data(const QModelIndex &index, int role) const
 {
     //qDebug() << "ÍNDICE " << index.row() << " | ROLE " << role;
@@ -104,12 +108,17 @@ void CCompraModel::selecionarComprasCartao(const QString &numero)
 QSqlQuery CCompraModel::SelecionarCompras(const QString &numero)
 {
     QSqlQuery q(QSqlDatabase::database("default"));
-    q.prepare("select b.numero, b.idCompra, b.local, b.data, b.valor "
-              "from compra b "
-              "where b.numero = :numero "
-              "order by b.data desc, b.idCompra desc");
+    QString qStr = "select b.numero, b.idCompra, b.local, b.data, b.valor "
+            "from compra b "
+            "where b.numero = :numero "
+            "order by b.data desc, b.idCompra desc ";
+#ifdef VERSAO_FREE
+    qStr.append("LIMIT 5");
+#endif
+    q.prepare(qStr);
     q.bindValue(":numero", numero);
     q.exec();
+    qDebug() << q.lastError();
     return q;
 }
 
