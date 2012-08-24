@@ -99,7 +99,7 @@ Page {
         preferredHighlightBegin: 0; preferredHighlightEnd: 0
         highlightRangeMode: ListView.StrictlyEnforceRange
         orientation: ListView.Horizontal
-        snapMode: ListView.SnapOneItem
+        //snapMode: ListView.SnapToItem
     }
 
     QueryDialog {

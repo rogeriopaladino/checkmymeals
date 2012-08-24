@@ -6,8 +6,6 @@ folder_01.target = qml
 # Additional import path used to resolve QML modules in Creator's code model
 QML_IMPORT_PATH =
 
-symbian:TARGET.UID3 = 0x2004b861
-
 QT += network
 QT += xml
 QT += xmlpatterns
@@ -22,19 +20,11 @@ QT += sql
 
 # Allow network access on Symbian
 symbian {
-    TARGET.CAPABILITY += NetworkServices
 
-    vendorinfo += "%{\"RPaladino\"}" ":\"RPaladino-BR\""
-
-    my_deployment.pkg_prerules += vendorinfo
-    my_deployment.pkg_prerules += \
-        "; Dependency to Symbian Qt Quick components" \
-        "(0x200346DE), 1, 1, 0, {\"Qt Quick components\"}"
-
-    DEPLOYMENT += my_deployment    
 }
 
 VERSION = 2.0
+
 # If your application uses the Qt Mobility libraries, uncomment the following
 # lines and add the respective components to the MOBILITY variable.
 # CONFIG += mobility
@@ -48,8 +38,43 @@ CONFIG += qt-components
     ICON = CheckMyMeals.svg
 #}
 
-#DEFINES += VERSAO_FREE
-DEFINES += VERSION=\"$$VERSION\"
+TIPO_VERSAO +=
+
+!contains(TIPO_VERSAO, VERSAO_FREE) {
+    symbian:TARGET.UID3 = 0x2004b861
+    message("Versão completa!")
+} else {
+    symbian:TARGET.UID3 = 0x2004b862
+    message("Versão free!")
+    DEFINES += VERSAO_FREE
+}
+
+symbian {
+    TARGET.CAPABILITY += NetworkServices
+
+    vendorinfo += "%{\"RPaladino\"}" ":\"RPaladino-BR\""
+
+    my_deployment.pkg_prerules += vendorinfo
+    my_deployment.pkg_prerules += \
+        "; Dependency to Symbian Qt Quick components" \
+        "(0x200346DE), 1, 1, 0, {\"Qt Quick components\"}"
+
+    DEFINES += VERSION=\"$$VERSION\"   
+
+    contains(TIPO_VERSAO, VERSAO_FREE) {
+        DEPLOYMENT.display_name += CheckMyMeals FREE
+        TARGET = CheckMyMeals_free
+    } else {
+        DEPLOYMENT.display_name += CheckMyMeals
+        TARGET = CheckMyMeals
+    }
+
+    DEPLOYMENT += my_deployment
+}
+
+win32 {
+    DEFINES += VERSION=\\\"$$VERSION\\\"
+}
 
 # The .cpp file which was generated for your project. Feel free to hack it.
 SOURCES += main.cpp \
@@ -78,17 +103,9 @@ HEADERS += \
     cartaoproxy.h \
     cutil.h
 
-#OTHER_FILES += \
-#    qml/CheckMyMeals/main.js \
-#    qml/CheckMyMeals/cores.js
-
 RESOURCES += \
     res.qrc \
     qml.qrc
-
-#OTHER_FILES += \
-#    qml/CheckMyMeals/BackgroundBase.qml
-
 
 
 

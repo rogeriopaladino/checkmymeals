@@ -7,7 +7,7 @@ CUtil::CUtil(QObject *parent) :
 
 bool CUtil::getVersaoFree()
 {
-#ifdef VERSAO_FREE
+#if VERSAO_FREE
     return true;
 #else
     return false;
