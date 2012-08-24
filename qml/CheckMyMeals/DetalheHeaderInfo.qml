@@ -4,11 +4,10 @@ import "main.js" as MainScript
 import "cores.js" as Cores
 
 Item {
-    anchors.fill: parent
+    width: parent.width; height: childrenRect.height
 
     Column {
-        anchors.fill: parent
-        spacing: 1
+        width: parent.width
 
         Row {
             width: parent.width
