@@ -55,9 +55,11 @@ PainelInformativo {
         }
     }
 
-    ButtonRow {
+    Component.onCompleted: lista.height = lista.height - btn.height - 10
+
+    ButtonRow {     
         width: parent.width
-        anchors {  top: lista.bottom; horizontalCenter: parent.horizontalCenter }
+        anchors {  bottom: parent.bottom; horizontalCenter: parent.horizontalCenter }
 
         Button {
             id: btn

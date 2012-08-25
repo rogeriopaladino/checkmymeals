@@ -306,8 +306,7 @@ Page {
     }*/
 
     PainelComBotao {
-        id: painelInfo
-        anchors.fill: parent        
+        id: painelInfo        
 
         onCancelar: {
             visa.Cancelar();
