@@ -5,7 +5,8 @@ import com.nokia.extras 1.1
 import "main.js" as MainScript
 
 Page {
-    id: page    
+    id: page
+    objectName: "MainPage"
     tools: ToolBarLayout {        
                ToolButton {
                    iconSource: "toolbar-back"
@@ -13,19 +14,29 @@ Page {
                        Qt.quit();
                    }
                }
-               ToolButton {                   
+               ToolButton {
                    iconSource: "qrc:///toolbar_new"
+                   QueryDialog {
+                       id: msgVerFreeAddCartao
+                       titleText: "Versão gratuíta"
+                       message: "Compre a versão completa para cadastrar quantos cartões quiser! <br />"
+                       acceptButtonText: "Ok"
+                   }
                    onClicked: {
-                       var componente = Qt.createComponent("CadCartaoPage.qml");
-                       var obj = componente.createObject(page);
-                       obj.ok.connect(function() {
-                                          cartaoModel.AdicionarCartao(obj.numero.replace(/-/g, ""), obj.descricao);
-                                      });
-                       MainScript.PushNaPilha(page.pageStack, obj);
+                       if (cartaoModel.tamanho >= 2 && util.versaoFree) {
+                           msgVerFreeAddCartao.open();
+                       } else {
+                           var componente = Qt.createComponent("CadCartaoPage.qml");
+                           var obj = componente.createObject(page);
+                           obj.ok.connect(function() {
+                                              cartaoModel.AdicionarCartao(obj.numero.replace(/-/g, ""), obj.descricao);
+                                          });
+                           MainScript.PushNaPilha(page.pageStack, obj);
+                       }
                    }
                }
                ToolButton {
-                   iconSource: "toolbar-refresh"
+                   iconSource: "qrc:///toolbar_reload"
                    onClicked: {
                        queryAtualizarTodos.open()
                    }
@@ -56,41 +67,27 @@ Page {
                }
            }   
 
-    signal infoPagina(string local)    
+    signal infoPagina(string local)
+
+    property string corBackground: "black"
 
     Connections {
         target: visa
 
         onIniciandoConsulta: {
-            //console.debug("Iniciando a consulta..." + cartao);
-            //painelInfo.mostrar(true);
-            //processando.open();
-        }
 
-        /*onIniciandoConsultaLote: {
-            //processando.open();            
-            //painelInfo.mostrar(true);
         }
-
-        onConsultaLoteFinalizada: {
-            //processando.close();
-            //painelInfo.mostrar(fasle);
-        }*/
 
         //a consulta foi finalizada e o objeto processador já foi conectado aos modelos
         onConsultaFinalizada: {
-            //processando.close();
+
         }
 
-        onConsultaCancelada: {
-            //processando.close();
+        onConsultaCancelada: {            
             timerInfo.adicionarMensagem("Consulta cancelada!", "qrc:///atencao", 2000);
         }
 
         onErroConexao: {
-            //processando.close();
-            //painelInfo.mostrar(false);
-            console.log("foi esse aqui, heinnnN!");
             erroConexao.open();
         }
     }
@@ -99,27 +96,19 @@ Page {
         target: processador
 
         onCartaoInvalido: {
-            //console.debug("Oooops! Cartão inválido!");
-            //timerInfo.adicionarMensagem("Cartão " + MainScript.formatNumeroCartao(cartao) + " inválido!", "qrc:///erro", 2000);
-            //painelInfo.adicionarMensagem("Cartão " + MainScript.formatNumeroCartao(cartao) + " inválido!");
+
         }
 
         onSistemaForaDoAr: {
             visa.Cancelar();
-            //processando.close();
             erroConexao.open();
-            console.log("Não, foi esse auiiiiI!");
         }
         onCartaoAtualizado: {
-            //console.debug("Cartão " + cartao + " atualizado!");
-            //timerInfo.adicionarMensagem("Cartão " + MainScript.formatNumeroCartao(cartao) + " atualizado!", "qrc:///ok", 2000);
-            //painelInfo.adicionarMensagem("Cartão " + MainScript.formatNumeroCartao(cartao) + " atualizado!");
+
         }
 
         onNenhumaCompraEfetuada: {
-            //console.debug("Cartão " + cartao  + " não tem novas compras!");
-            //timerInfo.adicionarMensagem("Cartão " + MainScript.formatNumeroCartao(cartao)  + " não tem novas compras!", "qrc:///ok", 2000);
-            //painelInfo.adicionarMensagem("Cartão " + MainScript.formatNumeroCartao(cartao)  + " não tem novas compras!");
+
         }
     }
 
@@ -135,19 +124,39 @@ Page {
         id: timerInfo
     }
 
+    Connections {
+        id: cnx
+        target: pageStack
+
+        onCurrentPageChanged: {
+            if (pageStack.currentPage.objectName === "MainPage") {
+                cartaoProxy.LimparFiltros();                
+            }
+        }
+    }
+
     ListView {
         id: lstCartoes
         anchors.fill: parent
-        model: /*cartaoModel*/cartaoProxy
+        spacing: 2
+        model: cartaoProxy
         delegate: MainInfoCartao {
             quantidadeCartao: cartaoModel.tamanho
+            corBackground: page.corBackground
 
             onClick: {
+
                 MainScript.cartaoMainSelecionado = "";
-                var componente = Qt.createComponent("DetalhePage.qml");
-                var obj = componente.createObject(page);
-                obj.numero = numero;
-                MainScript.PushNaPilha(page.pageStack, obj);
+                var componente = Qt.createComponent("DetalhePage.qml");                
+                if (componente.status == Component.Ready) {
+                    var obj = componente.createObject(page);
+                    if (obj !== null) {
+                        cartaoProxy.SelecionarPorCartao(numero);
+                        MainScript.PushNaPilha(page.pageStack, obj);
+                    }
+                } else if (componente.status == Component.Error) {
+                    console.log("Erro::: " + componente.errorString());
+                }
             }
 
             onDedoPressionado: {
@@ -171,7 +180,8 @@ Page {
         width: parent.width
         height: parent.height
         visible: cartaoModel.tamanho == 0
-        info: "Seja Bem-vindo ao CheckMyMeals!<br>Adicione novos cartões e comece a controlar seus gastos!<br>Clique no botão \"?\"\ para entender como tudo funciona!"
+        info: "Seja Bem-vindo ao CheckMyMeals!<br>Adicione novos cartões e comece a controlar seus gastos!<br>Clique no botão \"?\"\ para entender como tudo funciona!" +
+              (util.versaoFree ? "<br /><br /><i>Versão gratuita.</i>" : "")
     }
 
     QueryDialog {
@@ -296,8 +306,7 @@ Page {
     }*/
 
     PainelComBotao {
-        id: painelInfo
-        anchors.fill: parent        
+        id: painelInfo        
 
         onCancelar: {
             visa.Cancelar();

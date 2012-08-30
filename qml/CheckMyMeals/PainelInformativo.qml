@@ -1,14 +1,23 @@
 // import QtQuick 1.0 // to target S60 5th Edition or Maemo 5
 import QtQuick 1.1
 import com.nokia.symbian 1.1
+import com.nokia.extras 1.1
 import "cores.js" as Cores
 
 Item {
     id: root
+    anchors.fill: parent
 
     property alias lista: lst
 
-    Component.onCompleted: root.mostrar(false);
+    Component.onCompleted: {
+        cache.preparar();
+        root.mostrar(false);
+    }
+
+    Component.onDestruction: {
+        cache.voltarAoNormal();
+    }
 
     Rectangle {
         anchors.fill: parent
@@ -16,13 +25,29 @@ Item {
         opacity: 0.7
     }
 
-
     MouseArea {
         anchors.fill: parent
     }
 
+    QtObject {
+        id: cache
+
+        property variant oldParent
+
+        function preparar() {
+            oldParent = root.parent;
+            while (root.parent.parent) {
+                root.parent = root.parent.parent;
+            }
+        }
+
+        function voltarAoNormal() {
+            root.parent = oldParent;
+        }
+    }
+
     function mostrar(acao) {
-        root.visible = acao
+        root.visible = acao;
     }
 
     function adicionarMensagem(mensagem) {
@@ -40,7 +65,7 @@ Item {
     ListView {
         id: lst
         anchors { left: parent.left; right: parent.right; verticalCenter: parent.verticalCenter }
-        height: parent.height * 0.8
+        height: parent.height
         model: lstModel
         clip: true
         snapMode: ListView.SnapOneItem

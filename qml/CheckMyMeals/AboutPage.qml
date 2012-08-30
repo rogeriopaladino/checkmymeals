@@ -39,7 +39,7 @@ Page {
         }
 
         ItemTextoAjudaPage {
-            texto: "Versão 1.1"
+            texto: "Versão " + util.numeroVersao
             font { italic: true }
         }
 
@@ -55,6 +55,11 @@ Page {
 
         ItemTextoAjudaPage {
             texto: "Este aplicativo organiza suas informações do Visa Vale e Vale Alimentação de uma maneira fácil e rápida."
+        }
+
+        ItemTextoAjudaPage{
+            visible: util.versaoFree
+            texto: "Esta é uma versão gratuita do aplicativo. Compre a versão completa; dê seu suporte ao desenvolvedor."
         }
     }
 

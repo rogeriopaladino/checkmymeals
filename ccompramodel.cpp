@@ -6,9 +6,13 @@ CCompraModel::CCompraModel(QObject *parent) :
     this->setRoleNames(CCompraItem::roleNames());
 }
 
+CCompraModel::~CCompraModel()
+{
+}
+
 QVariant CCompraModel::data(const QModelIndex &index, int role) const
 {
-    qDebug() << "ÍNDICE " << index.row() << " | ROLE " << role;
+    //qDebug() << "ÍNDICE " << index.row() << " | ROLE " << role;
     if ((index.row() >= 0) && (index.row() < this->rowCount()))
         return _compras[index.row()]->dadoCompra(role);
     return QVariant();
@@ -93,25 +97,39 @@ void CCompraModel::compraAnalisada(const QString &numero, const QString &local, 
         this->AdicionarCompra(numero, local, data, valor);
 }
 
+void CCompraModel::selecionarComprasCartao(const QString &numero)
+{
+    if (_compras.count() > 0)
+        if (numero != _compras.at(0)->getCartao())
+            this->LimparCompras();
+    this->Carregar(numero);
+}
+
 QSqlQuery CCompraModel::SelecionarCompras(const QString &numero)
 {
     QSqlQuery q(QSqlDatabase::database("default"));
-    q.prepare("select b.idCompra, b.local, b.data, b.valor "
-              "from compra b "
-              "where b.numero = :numero "
-              "order by b.data desc, b.idCompra desc");
+    QString qStr = "select b.numero, b.idCompra, b.local, b.data, b.valor "
+            "from compra b "
+            "where b.numero = :numero "
+            "order by b.data desc, b.idCompra desc ";
+#ifdef VERSAO_FREE
+    qStr.append("LIMIT 5");
+#endif
+    q.prepare(qStr);
     q.bindValue(":numero", numero);
     q.exec();
+    qDebug() << q.lastError();
     return q;
 }
 
 CCompraItem * CCompraModel::CriaCompraItem(const QSqlQuery &q)
 {
     CCompraItem *c = new CCompraItem(this);
-    c->setId(q.value(0).toInt());
-    c->setLocal(q.value(1).toString());
-    c->setData(q.value(2).toDate());
-    c->setValor(q.value(3).toDouble());
+    c->setCartao(q.value(0).toString());
+    c->setId(q.value(1).toInt());
+    c->setLocal(q.value(2).toString());
+    c->setData(q.value(3).toDate());
+    c->setValor(q.value(4).toDouble());
     return c;
 }
 
