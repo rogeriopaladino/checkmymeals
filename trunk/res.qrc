@@ -19,5 +19,13 @@
         <file alias="card">imagens/credit_card yellow_pequeno.png</file>
         <file alias="card_grande">imagens/credit_card yellow_grande.png</file>
         <file alias="info">imagens/info.png</file>
+        <file alias="carrinho_compra_neg">imagens/carrinho.png</file>
+        <file alias="caiu_neg">imagens/caiu.png</file>
+        <file alias="calendario_neg">imagens/calendario.png</file>
+        <file alias="campeao_neg">imagens/campeao.png</file>
+        <file alias="money_neg">imagens/dinheiro.png</file>
+        <file alias="favorito_neg">imagens/favorito.png</file>
+        <file alias="grafico_neg">imagens/grafico.png</file>
+        <file alias="toolbar_reload">imagens/toolbar-reload.png</file>
     </qresource>
 </RCC>

@@ -13,6 +13,8 @@ class CCompraModel : public QAbstractListModel
     Q_PROPERTY(int tamanho READ getTamanho NOTIFY tamanhoChanged)
 public:
     explicit CCompraModel(QObject *parent = 0);
+    ~CCompraModel();
+
     Q_INVOKABLE void Carregar(const QString &cartao);
     Q_INVOKABLE void LimparCompras();
 
@@ -33,6 +35,7 @@ signals:
 
 public slots:
     void compraAnalisada(const QString &numero, const QString &local, const QDate &data, const double &valor);
+    void selecionarComprasCartao(const QString &numero);
 };
 
 #endif // CCOMPRAMODEL_H

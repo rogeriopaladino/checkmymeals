@@ -69,7 +69,7 @@ Page {
 
         TextField {
             id: txtDescricao
-            width: parent.width; height: parent.height;
+            width: parent.width; height: 35;
             maximumLength: 35
             font.pixelSize: 20
             placeholderText: "Descrição"
