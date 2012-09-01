@@ -55,25 +55,19 @@ PainelInformativo {
         }
     }
 
-    Component.onCompleted: lista.height = lista.height - btn.height - 10
-
-    ButtonRow {     
-        width: parent.width
-        anchors {  bottom: parent.bottom; horizontalCenter: parent.horizontalCenter }
-
-        Button {
-            id: btn
-            text: "Cancelar"
-            onClicked: {
-                if (btn.text == "Cancelar") {
-                    btn.text = "Fechar";
-                    root.cancelar();
-                } else {
-                    root.fechar();
-                    root.limpar();
-                    btn.text = "Cancelar";
-                    root.mostrar(false);
-                }
+    Button {
+        id: btn
+        anchors { left: parent.left; top: lista.bottom; right: parent.right; bottom: parent.bottom; margins: 5 }
+        text: "Cancelar"
+        onClicked: {
+            if (btn.text == "Cancelar") {
+                btn.text = "Fechar";
+                root.cancelar();
+            } else {
+                root.fechar();
+                root.limpar();
+                btn.text = "Cancelar";
+                root.mostrar(false);
             }
         }
     }
