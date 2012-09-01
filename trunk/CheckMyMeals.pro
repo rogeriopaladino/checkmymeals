@@ -18,12 +18,7 @@ QT += sql
 # 0x2002CCCF value if protected UID is given to the application
 #symbian:DEPLOYMENT.installer_header = 0x2002CCCF
 
-# Allow network access on Symbian
-symbian {
-
-}
-
-VERSION = 2.0
+VERSION = 2.0.1
 
 # If your application uses the Qt Mobility libraries, uncomment the following
 # lines and add the respective components to the MOBILITY variable.
@@ -34,9 +29,6 @@ CONFIG += qt-components
 
 #DEFINES += CORE_LIBRARY
 
-#Symbian {
-    ICON = CheckMyMeals.svg
-#}
 
 TIPO_VERSAO +=
 
@@ -50,7 +42,9 @@ TIPO_VERSAO +=
 }
 
 symbian {
-    TARGET.CAPABILITY += NetworkServices
+    TARGET.CAPABILITY += NetworkServices ReadUserData
+
+    ICON = CheckMyMeals.svg
 
     vendorinfo += "%{\"RPaladino\"}" ":\"RPaladino-BR\""
 

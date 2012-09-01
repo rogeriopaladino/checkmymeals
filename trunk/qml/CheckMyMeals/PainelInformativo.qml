@@ -6,7 +6,6 @@ import "cores.js" as Cores
 
 Item {
     id: root
-    anchors.fill: parent
 
     property alias lista: lst
 
@@ -34,11 +33,30 @@ Item {
 
         property variant oldParent
 
-        function preparar() {
+        function preparar() {            
             oldParent = root.parent;
-            while (root.parent.parent) {
+            while (root.parent.parent) {                
+                console.debug("Pai do pai e: " + root.parent.parent);
                 root.parent = root.parent.parent;
+                if (root.parent.toString().indexOf("QDeclarativeItem") != -1 && root.parent.toString().indexOf("window") != -1)
+                    break;
             }
+            //verificar se há um statusbar no pai
+            var fazerUmFill = true;
+            for (var i = 0; i < root.parent.children.length; i++) {
+                var item =  root.parent.children[i];
+                if (item.toString().indexOf("StatusBar") != -1) {
+                    console.debug(item);
+                    root.anchors.top = item.bottom;
+                    root.anchors.left = root.parent.left;
+                    root.anchors.right = root.parent.right;
+                    root.anchors.bottom = root.parent.bottom;
+                    fazerUmFill = false;
+                    break;
+                }
+            }
+            if (fazerUmFill)
+                root.anchors.fill = root.parent;
         }
 
         function voltarAoNormal() {
@@ -64,7 +82,7 @@ Item {
 
     ListView {
         id: lst
-        anchors { left: parent.left; right: parent.right; verticalCenter: parent.verticalCenter }
+        anchors { left: parent.left; right: parent.right; top: parent.top; bottom: parent.bottom; margins: 5; topMargin: 20; bottomMargin: 60 }
         height: parent.height
         model: lstModel
         clip: true
