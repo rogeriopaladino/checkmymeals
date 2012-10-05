@@ -1,0 +1,31 @@
+<RCC>
+    <qresource prefix="/">
+        <file alias="atencao">imagens/attention.png</file>
+        <file alias="erro">imagens/button_cancel.png</file>
+        <file alias="ok">imagens/clean.png</file>
+        <file alias="questao">imagens/question.png</file>
+        <file alias="carrinho_compra">imagens/1318437820_shopping_cart_ecommerce_webshop.png</file>
+        <file alias="calendario">imagens/1318437885_date_calendar.png</file>
+        <file alias="caiu">imagens/1318438005_down.png</file>
+        <file alias="grafico">imagens/1318438190_graph.png</file>
+        <file alias="favorito">imagens/1318438438_love.png</file>
+        <file alias="money">imagens/1318450471_price_money_tag.png</file>
+        <file alias="campeao">imagens/1318450517_champion.png</file>
+        <file alias="toolbar_ajuda">imagens/toolbar-ajuda.png</file>
+        <file alias="toolbar_new">imagens/toolbar-new.png</file>
+        <file alias="toolbar_ok">imagens/toolbar-ok.png</file>
+        <file alias="toolbar_info">imagens/toolbar-info.png</file>
+        <file alias="ampulheta">imagens/1318852486_gnome-fs-loading-icon.png</file>
+        <file alias="card">imagens/credit_card yellow_pequeno.png</file>
+        <file alias="card_grande">imagens/credit_card yellow_grande.png</file>
+        <file alias="info">imagens/info.png</file>
+        <file alias="carrinho_compra_neg">imagens/carrinho.png</file>
+        <file alias="caiu_neg">imagens/caiu.png</file>
+        <file alias="calendario_neg">imagens/calendario.png</file>
+        <file alias="campeao_neg">imagens/campeao.png</file>
+        <file alias="money_neg">imagens/dinheiro.png</file>
+        <file alias="favorito_neg">imagens/favorito.png</file>
+        <file alias="grafico_neg">imagens/grafico.png</file>
+        <file alias="toolbar_reload">imagens/toolbar-reload.png</file>
+    </qresource>
+</RCC>
