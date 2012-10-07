@@ -14,10 +14,11 @@ CCartaoModel::CCartaoModel(QObject *parent)
             this->PrepararDataBase();
         else
             db.setDatabaseName("visa.db");
-        this->MostrarInfoDebug(db.lastError());
+        this->MostrarInfoDebug(db.lastError());        
     }    
     this->setRoleNames(CCartaoItem::roleNames());    
     this->CarregarDados();
+    this->AjustarBeneficios();
 }
 
 CCartaoModel::~CCartaoModel()
@@ -165,7 +166,7 @@ void CCartaoModel::PrepararDataBase()
            "numero varchar(16) not null references cartao(numero) on delete cascade,"
            "idCompra integer primary key autoincrement,"
            "local varchar(50),"
-           "valor numeric(6, 2),"
+           "valoseler numeric(6, 2),"
            "data date)");
     this->MostrarInfoDebug(q.lastError());
     q.exec("create unique index if not exists beneficio_idx on beneficio(numero, data, valor)");
@@ -305,3 +306,17 @@ QStringList CCartaoModel::getCartoesCadastrados()
         lst.append(c->getNumero());
     return lst;
 }
+
+void CCartaoModel::AjustarBeneficios()
+{
+    QSqlQuery q(QSqlDatabase::database("default"));
+    q.exec("insert into beneficio(numero, data, valor) "
+           "select numero, data, valor "
+           "from compra "
+           "where "
+           "local = 'Disponibilização de Benefício'");
+    qDebug() << q.lastError();
+    q.exec("delete from compra where local = 'Disponibilização de Benefício'");
+    qDebug() << q.lastError();
+}
+
