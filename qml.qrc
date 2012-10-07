@@ -22,5 +22,7 @@
         <file>qml/CheckMyMeals/DetalheHeaderInfo.qml</file>
         <file>qml/CheckMyMeals/InfoAnimadoBackground.qml</file>
         <file>qml/CheckMyMeals/BackgroundBase.qml</file>
+        <file>qml/CheckMyMeals/Quadradinho/Quadradinho.qml</file>
+        <file>qml/CheckMyMeals/Quadradinho/QuadradinhoManager.qml</file>
     </qresource>
 </RCC>

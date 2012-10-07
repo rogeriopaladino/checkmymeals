@@ -10,6 +10,10 @@ PainelInformativo {
     signal cancelar()
     signal fechar()
 
+    onFechar: {
+        root.limpar();
+    }
+
     Connections {
         target: visa
 
@@ -65,7 +69,6 @@ PainelInformativo {
                 root.cancelar();
             } else {
                 root.fechar();
-                root.limpar();
                 btn.text = "Cancelar";
                 root.mostrar(false);
             }

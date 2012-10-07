@@ -40,6 +40,7 @@ private:
     void MostrarInfoDebug(QSqlError err);
     void PrepararDataBase();        
     CCartaoItem *AcharCartao(const QString &numero);
+    void AjustarBeneficios();
 
 signals:
     void dataChanged(const QModelIndex &topLeft, const QModelIndex &bottomRight);

@@ -26,6 +26,6 @@
         <file alias="money_neg">imagens/dinheiro.png</file>
         <file alias="favorito_neg">imagens/favorito.png</file>
         <file alias="grafico_neg">imagens/grafico.png</file>
-        <file alias="toolbar_reload">imagens/toolbar-reload.png</file>
+        <file alias="toolbar_reload">imagens/reload.png</file>
     </qresource>
 </RCC>

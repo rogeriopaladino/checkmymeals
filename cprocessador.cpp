@@ -145,6 +145,10 @@ QDate CProcessador::CriarDataBeneficio(int dia, int mes)
 
 bool CProcessador::IsCredito(const QString &local) const
 {
-    return (local == "Disponibilização de Beneficio");
+    QRegExp rx;
+    rx.setMinimal(false);
+    rx.setPatternSyntax(QRegExp::RegExp2);
+    rx.setPattern("Disponibiliza[cç][aã]o de Benef[ií]cio");
+    return rx.indexIn(local) != -1;
 }
 
