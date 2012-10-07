@@ -3,7 +3,7 @@
 CCompraModel::CCompraModel(QObject *parent) :
     QAbstractListModel(parent)
 {
-    this->setRoleNames(CCompraItem::roleNames());
+    this->setRoleNames(CCompraItem::roleNames());    
 }
 
 CCompraModel::~CCompraModel()

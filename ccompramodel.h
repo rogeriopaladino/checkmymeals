@@ -24,11 +24,12 @@ public:
     int getTamanho();
 private:
     QList<CCompraItem*> _compras;
+
     bool CompraExiste(const QString &numero, const QString &local, QDate data, double valor);
     void AdicionarCompra(const QString &numero, const QString &local, QDate data, double valor);
     QSqlQuery SelecionarCompras(const QString &numero);
     CCompraItem *CriaCompraItem(const QSqlQuery &q);
-    QString LocalCorreto(const QString &local);
+    QString LocalCorreto(const QString &local);    
 
 signals:
     void tamanhoChanged();
