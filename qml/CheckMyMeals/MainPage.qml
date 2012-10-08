@@ -230,15 +230,28 @@ Page {
     QueryDialog {
         id: queryAtualizarTodos
         titleText: "Atualizar"
-        //icon: "toolbar-refresh"
         message: "Atualizar os dados de todos os cartões cadastrados?<br />"
         acceptButtonText: "Ok"
         rejectButtonText: "Cancelar"
-        onAccepted: {
+        onAccepted: {            
             var cartoes = cartaoModel.cartoesCadastrados;
-            for(var i = 0; i < cartoes.length; i++)
-                visa.AdicionarParaConsulta(cartoes[i], true);
-            visa.IniciarCosulta();
+            if (cartoes.length > 0) {
+                for(var i = 0; i < cartoes.length; i++)
+                    visa.AdicionarParaConsulta(cartoes[i], true);
+                visa.IniciarCosulta();
+            } else {
+                querySemCartoes.open();
+            }
+        }
+
+        QueryDialog {
+            id: querySemCartoes
+            titleText: "Atualizar"
+            message: "Não há cartões cadastrados!"
+            acceptButtonText: "Ok"
+            onAccepted: {
+                querySemCartoes.close();
+            }
         }
     }
 

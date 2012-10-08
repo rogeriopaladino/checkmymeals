@@ -19,17 +19,13 @@ void CVisa::Consultar(const QString &cartao)
 void CVisa::AdicionarParaConsulta(const QString &cartao)
 {
     _cartoes.append(cartao);
-    //_lote = _cartoes.count() > 1;
 }
 
 void CVisa::IniciarCosulta()
 {
-    //for (int i = 0; i < _cartoes.count(); i++) {
+    if (_cartoes.count() > 0) {
         QString cartao = _cartoes.at(0);        
-        //if (_cartoes.count() == 1)
-            emit iniciandoConsulta(cartao);
-        /*else if (i == 0)
-            emit iniciandoConsultaLote();*/
+        emit iniciandoConsulta(cartao);
         _cancelar = false;
         _net = new QNetworkAccessManager(this);
         QNetworkRequest r(this->UrlParaConsulta(cartao, true));
@@ -38,7 +34,7 @@ void CVisa::IniciarCosulta()
         QObject::connect(reply, SIGNAL(finished()), this, SLOT(consultaFinalizadaResposta()));
         QObject::connect(reply, SIGNAL(downloadProgress(qint64,qint64)), this, SLOT(baixandoPagina()));
         QObject::connect(this, SIGNAL(erroConexao()), this, SLOT(erroConexaoHandlerSlot()));
-    //}
+    }
 }
 
 void CVisa::consultaFinalizadaResposta()
@@ -51,10 +47,6 @@ void CVisa::consultaFinalizadaResposta()
         reply->close();
         reply->deleteLater();
         emit consultaCartaoFinalizada(cartao, resposta);
-        /*if (_lote && _cartoes.count() == 0) {
-            _lote = false;
-            emit consultaLoteFinalizada();*/
-        //} else if (!_lote)
         if (_cartoes.count() == 0)
             emit consultaFinalizada();
         else
