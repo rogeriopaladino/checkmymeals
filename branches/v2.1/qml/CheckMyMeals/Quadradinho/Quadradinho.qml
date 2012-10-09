@@ -2,6 +2,17 @@
 import QtQuick 1.1
 
 Rectangle{
-    width: 100
-    height: 62
+    width: 5; height: 5;
+    color: "red"
+    border { color: "blue"; width: 1 }
+
+    function ativado()
+    {
+
+    }
+
+    function desativado()
+    {
+
+    }
 }
