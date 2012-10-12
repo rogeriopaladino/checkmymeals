@@ -2,17 +2,25 @@
 import QtQuick 1.1
 
 Rectangle{
-    width: 5; height: 5;
-    color: "red"
+    id: root
+    width: 10; height: 10;
+    color: "black"
     border { color: "blue"; width: 1 }
+
+    Behavior on color {
+        ColorAnimation {
+            duration: 500
+        }
+    }
 
     function ativado()
     {
-
+        root.color = "red";
     }
 
     function desativado()
     {
-
+        root.color = "black";
     }
+
 }

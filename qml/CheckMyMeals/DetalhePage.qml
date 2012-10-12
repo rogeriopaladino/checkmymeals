@@ -1,6 +1,7 @@
 import QtQuick 1.1
 import com.nokia.symbian 1.1
 import com.rogerio.model 1.0
+import "Quadradinho"
 import "main.js" as MainScript
 import "cores.js" as Cores
 
@@ -93,16 +94,23 @@ Page {
 
     ListView {
         id: lstDetalhesTotal
-        anchors.fill: parent
+        anchors { fill: parent; bottomMargin: 14 }
         model: visualModel
         currentIndex: 0
         preferredHighlightBegin: 0; preferredHighlightEnd: 0
         highlightRangeMode: ListView.StrictlyEnforceRange
         orientation: ListView.Horizontal
-        //snapMode: ListView.SnapToItem
     }
 
-    QueryDialog {
+    QuadradinhoManager
+    {
+        anchors { top: lstDetalhesTotal.bottom; bottom: parent.bottom; horizontalCenter: parent.horizontalCenter; margins: 1 }
+        quadrados: 2
+        quadradoAtual: lstDetalhesTotal.currentIndex
+    }
+
+    QueryDialog
+    {
         id: msgAlertaSemCompra
         titleText: "Sem compras"
         message: "O cartão não possui nenhuma compra!<br />"

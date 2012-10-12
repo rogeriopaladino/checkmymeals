@@ -2,9 +2,11 @@
 import QtQuick 1.1
 
 Item {    
+    id: root
+    width: quadradosFlow.width; height: 10;
 
-    property int quadrados: 0
-    property int quadradoAtual: 0
+    property int quadrados: -1
+    property int quadradoAtual: -1
 
     onQuadradosChanged:
     {
@@ -13,7 +15,7 @@ Item {
             for (var i = 0; i < quadrados; i++)
             {
                 var comp = Qt.createComponent("Quadradinho.qml");
-                var obj = comp.createObject(quadrados);
+                var obj = comp.createObject(quadradosFlow);
             }
         }
         else
@@ -22,14 +24,14 @@ Item {
 
     onQuadradoAtualChanged:
     {
-        if (quadradoAtual >= 0 && quadradoAtual < quadrados.children.length)
+        if (quadradoAtual >= 0 && quadradoAtual < quadradosFlow.children.length)
         {
-            for (var i = 0; i < quadrados.children.length; i++)
+            for (var i = 0; i < quadradosFlow.children.length; i++)
             {
                 if (i == quadradoAtual)
-                    quadrados.children[i].ativado();
+                    quadradosFlow.children[i].ativado();
                 else
-                    quadrados.children[i].desativado();
+                    quadradosFlow.children[i].desativado();
             }
         }
     }
@@ -37,13 +39,12 @@ Item {
     function limpar()
     {
         for (var i = 0; i < quadrados.children.length; i++)
-            quadrados.childrent[i].destroy();
+            quadradosFlow.childrent[i].destroy();
     }
 
     Flow
     {
-        id: quadrados
-        anchors.fill: parent
+        id: quadradosFlow
         spacing: 2
     }
 }
