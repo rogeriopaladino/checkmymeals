@@ -203,7 +203,11 @@ void CCartaoModel::CarregarDados()
            "from cartao a "
            "left outer join beneficio x on a.numero = x.numero "
            "left outer join proximoBeneficio w on a.numero = w.numero "
-           "group by a.numero");
+           "group by a.numero"
+       #if VERSAO_FREE
+           "limit 2"
+       #endif
+           );
     CCartaoItem *c;
     while (q.next()) {
         QDate dtBenef = q.value(5).toDate();
