@@ -4,17 +4,29 @@ import QtQuick 1.1
 Item {
     id: root
     width: parent.width
-    height: 120
+    height: childrenRect.height
 
     property string textoInfo: ""
     property string textoDescricao: ""
     property int margemEsquerda: 15
+    property int tamanhoFonteTitulo: 22
+    property int tamanhoFonteDescricao: 18
+
+    signal exibido()
+
+    function iniciar() {
+        meuTimer.start();
+    }
+
+    function resetar() {
+
+    }
 
     Text {
         id: txtInfo
         color: platformStyle.colorNormalLink
         text: root.textoInfo
-        font { pixelSize: 30; italic: true }
+        font { pixelSize: tamanhoFonteTitulo; italic: true }
         x: -parent.width
     }
 
@@ -30,14 +42,14 @@ Item {
         width: parent.width - root.margemEsquerda
         color: platformStyle.colorNormalLight
         text: root.textoDescricao
-        font { pixelSize: 20 }
+        font { pixelSize: tamanhoFonteDescricao }
         x: txtInfo.x; y: separador.y + separador.height + 1
         wrapMode: Text.WordWrap
     }
 
     Timer {
         id: meuTimer
-        running: true
+        running: false
         interval: 300
         triggeredOnStart: false
         onTriggered: anim.start();
@@ -51,9 +63,13 @@ Item {
         id: anim
         running: false
 
-        SmoothedAnimation { target: txtInfo; property: "x"; to: root.margemEsquerda; velocity: 780; }
-        SmoothedAnimation { target: separador; property: "x"; to: root.margemEsquerda; velocity: 900 }
-        SmoothedAnimation { target: txtDescricao; property: "x"; to: root.margemEsquerda; velocity: 700 }
+        SmoothedAnimation { target: txtInfo; property: "x"; to: root.margemEsquerda; velocity: 1080; }
+        SmoothedAnimation { target: separador; property: "x"; to: root.margemEsquerda; velocity: 1200 }
+        SmoothedAnimation { target: txtDescricao; property: "x"; to: root.margemEsquerda; velocity: 900 }
+
+        onCompleted: {
+            root.exibido();
+        }
     }
 
     Component.onCompleted: {

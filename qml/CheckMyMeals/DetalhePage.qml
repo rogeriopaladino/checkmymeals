@@ -16,79 +16,35 @@ Page {
         }
     }
 
-    signal infoPagina(string local);
-    property string corBackground : "black"
+   signal infoPagina(string local);
 
-    onVisibleChanged: {
+   Component.onCompleted: {
+       somenteInfo.abrir();
+   }
+
+   ModalMostraInfoESome {
+       id: somenteInfo
+       titulo: "Detalhes"
+       descricao: "Acompanhe os detalhes do cartão selecionado!"
+   }
+
+   onVisibleChanged: {
         if (visible) {
             infoPagina("Detalhes");
             if (compraModel.tamanho === 0)
                 msgAlertaSemCompra.open();
         }
-    }    
+    }
 
     VisualItemModel {
         id: visualModel
 
-        Rectangle {
+        DetalhePageDetail1 {
             width: lstDetalhesTotal.width; height: lstDetalhesTotal.height
-            color: Cores.COR_INICIAL_BACKGROUND
-
-            ListView {
-                id: lstHeader
-                model: cartaoProxy
-                anchors { fill: parent; }
-                delegate: DetalheHeaderInfo { }
-            }
         }
 
-        Rectangle {
+        DetalhePageDetail2 {
             width: lstDetalhesTotal.width; height: lstDetalhesTotal.height
-            color: Cores.COR_FUNDO
-
-            ListView {
-                id : list
-                clip: true
-                model: compraModel
-                spacing: 2
-                anchors { fill: parent }
-                delegate: DetalheInfo { id: delegateCompra;  corBackground: page.corBackground }
-                section.property: "dataCompra"
-                section.delegate: Rectangle {
-                    width: list.width; height: childrenRect.height
-                    color: Cores.COR_FUNDO
-
-                    function secaoParaData() {
-                        var partes = section.split("-");
-                        var dataConvertida = partes[0] + "/" + partes[1] + "/" + partes[2];
-                        return new Date(dataConvertida);
-                    }
-
-                    Text {
-                        text: Qt.formatDate(secaoParaData(), "dd/MM/yyyy")
-                        color: Cores.COR_TEXTO
-                        font.pixelSize: 20
-                    }
-                }
-                footer: Rectangle {
-                    width: list.width; height: childrenRect.height + 20
-                    visible: util.versaoFree
-                    color: Cores.COR_FUNDO
-
-                    Text {
-                        width: parent.width
-                        text: "Na versão gratuita, apenas as últimas 5 utilizações podem ser visualizadas!"
-                        color: Cores.COR_TEXTO
-                        font.pixelSize: 18
-                        wrapMode: Text.WordWrap
-                    }
-                }
-            }
-
-            ScrollDecorator {
-                flickableItem: list
-                anchors { right: list.right; top: list.top }
-            }
         }
     }
 
