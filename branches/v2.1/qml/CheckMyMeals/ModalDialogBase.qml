@@ -14,6 +14,7 @@ Item {
     Component.onCompleted: {        
         cache.preparar();
         root.mostrar(false);
+        root.visible = false;
     }
 
     Component.onDestruction: {
@@ -25,6 +26,23 @@ Item {
         anchors.fill: parent
         color: platformStyle.colorNormalDark
         opacity: 0
+        Behavior on opacity
+        {
+            NumberAnimation
+            {
+                duration: 3000;
+            }
+        }
+
+        onOpacityChanged: {
+            if (opacity == 0) {
+                root.fecharCompleto();
+                root.visible = false;
+                console.log("Fechandooooo!!!!");
+            } else if (opacity == 1) {
+                root.mostrarCompleto();
+            }
+        }
     }
 
     MouseArea {
@@ -87,36 +105,12 @@ Item {
     states: [
         State {
             name: "ESCONDIDO"
-            //PropertyChanges { target: root; visible: false }
+            PropertyChanges { target: rectCor; opacity: 0 }
         },
         State {
-            name: "VISIVEL"
+            name: "VISIVEL"            
             PropertyChanges { target: root; visible: true }
-        }
-    ]
-
-    transitions: [
-        Transition {
-            //from: "ESCONDIDO"; to: "VISIVEL";
-            //reversible: true
-            SequentialAnimation
-            {
-                NumberAnimation
-                {
-                    target: rectCor; property: "opacity"; from: 0; to: 1; duration: 500;
-                }
-                ScriptAction
-                {
-                    script:
-                    {
-                        if (root.state == "ESCONDIDO")
-                        {
-                            fecharCompleto();
-                        } else
-                            mostrarCompleto();
-                    }
-                }
-            }
+            PropertyChanges { target: rectCor; opacity: 1 }
         }
     ]
 
