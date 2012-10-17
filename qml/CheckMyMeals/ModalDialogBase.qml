@@ -4,10 +4,12 @@ import com.nokia.symbian 1.1
 import com.nokia.extras 1.1
 
 Item {
-    id: root
+    id: root    
+    state: "ESCONDIDO"
     //clip: true
 
     signal mostrarCompleto()
+    signal fecharCompleto()
 
     Component.onCompleted: {        
         cache.preparar();
@@ -22,11 +24,11 @@ Item {
         id: rectCor
         anchors.fill: parent
         color: platformStyle.colorNormalDark
-        opacity: 0.90
+        opacity: 0
     }
 
     MouseArea {
-        anchors.fill: parent
+        anchors.fill: parent        
     }
 
     QtObject {
@@ -71,14 +73,51 @@ Item {
 
     function abrir() {
         mostrar(true);
-        mostrarCompleto();
     }
 
     function fechar() {
-        mostrar(false);
+        mostrar(false);        
     }
 
     function mostrar(acao) {
-        root.visible = acao;
-    }           
+        //root.visible = acao;
+        root.state = (acao ? "VISIVEL" : "ESCONDIDO");
+    }
+
+    states: [
+        State {
+            name: "ESCONDIDO"
+            //PropertyChanges { target: root; visible: false }
+        },
+        State {
+            name: "VISIVEL"
+            PropertyChanges { target: root; visible: true }
+        }
+    ]
+
+    transitions: [
+        Transition {
+            //from: "ESCONDIDO"; to: "VISIVEL";
+            //reversible: true
+            SequentialAnimation
+            {
+                NumberAnimation
+                {
+                    target: rectCor; property: "opacity"; from: 0; to: 1; duration: 500;
+                }
+                ScriptAction
+                {
+                    script:
+                    {
+                        if (root.state == "ESCONDIDO")
+                        {
+                            fecharCompleto();
+                        } else
+                            mostrarCompleto();
+                    }
+                }
+            }
+        }
+    ]
+
 }

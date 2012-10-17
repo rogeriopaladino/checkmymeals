@@ -101,9 +101,6 @@ RESOURCES += \
     res.qrc \
     qml.qrc
 
-OTHER_FILES += \
-    qml/CheckMyMeals/ModalMostraInfoESome.qml
-
 
 
 
