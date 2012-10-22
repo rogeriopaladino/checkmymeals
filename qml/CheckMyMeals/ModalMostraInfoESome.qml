@@ -10,21 +10,29 @@ ModalDialogBase {
         infoBack.iniciar();
     }
 
+    onFecharCompleto: {
+
+    }
+
     InfoAnimadoBackground {
         id: infoBack
         y: parent.height / 2 - infoBack.height / 2
-        onExibido: {
-            tmr.start();
+        onAnimacaoFinalizada: {
+            if (ine) {
+                tmr1.start();
+            } else {
+                root.fechar();
+            }
         }
     }
 
     Timer {
-        id: tmr
-        interval: 1000
+        id: tmr1
+        interval: 750
         running: false
         triggeredOnStart: false
         onTriggered: {
-            root.fechar();
+            infoBack.resetar();
         }
-    }
+    }    
 }

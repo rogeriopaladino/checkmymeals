@@ -145,7 +145,6 @@ Page {
             corBackground: page.corBackground
 
             onClick: {
-
                 MainScript.cartaoMainSelecionado = "";
                 var componente = Qt.createComponent("DetalhePage.qml");                
                 if (componente.status == Component.Ready) {

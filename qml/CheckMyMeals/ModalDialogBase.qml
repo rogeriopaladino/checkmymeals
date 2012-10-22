@@ -5,16 +5,14 @@ import com.nokia.extras 1.1
 
 Item {
     id: root    
-    state: "ESCONDIDO"
-    //clip: true
+    state: "INICIO"
+    visible: false;
 
     signal mostrarCompleto()
     signal fecharCompleto()
 
     Component.onCompleted: {        
         cache.preparar();
-        root.mostrar(false);
-        root.visible = false;
     }
 
     Component.onDestruction: {
@@ -26,23 +24,6 @@ Item {
         anchors.fill: parent
         color: platformStyle.colorNormalDark
         opacity: 0
-        Behavior on opacity
-        {
-            NumberAnimation
-            {
-                duration: 3000;
-            }
-        }
-
-        onOpacityChanged: {
-            if (opacity == 0) {
-                root.fecharCompleto();
-                root.visible = false;
-                console.log("Fechandooooo!!!!");
-            } else if (opacity == 1) {
-                root.mostrarCompleto();
-            }
-        }
     }
 
     MouseArea {
@@ -94,24 +75,46 @@ Item {
     }
 
     function fechar() {
-        mostrar(false);        
+        mostrar(false);
     }
 
     function mostrar(acao) {
-        //root.visible = acao;
         root.state = (acao ? "VISIVEL" : "ESCONDIDO");
     }
 
     states: [
         State {
-            name: "ESCONDIDO"
-            PropertyChanges { target: rectCor; opacity: 0 }
+            name: "INICIO";
+            PropertyChanges { target: root; visible: false }
         },
         State {
-            name: "VISIVEL"            
+            name: "ESCONDIDO";
             PropertyChanges { target: root; visible: true }
-            PropertyChanges { target: rectCor; opacity: 1 }
+        },
+        State {
+            name: "VISIVEL";
+            PropertyChanges { target: root; visible: true }
         }
     ]
-
+    transitions: [
+        Transition {
+            from: "INICIO"; to: "VISIVEL";
+            SequentialAnimation {
+                NumberAnimation { target: rectCor; property: "opacity"; from: 0; to: 1; duration: 200; }
+                ScriptAction {
+                    script: root.mostrarCompleto();
+                }
+            }
+        },
+        Transition {
+            from: "VISIVEL"; to: "ESCONDIDO";
+            SequentialAnimation {
+                NumberAnimation { target: rectCor; property: "opacity"; from: 1; to: 0; duration: 200; }
+                PropertyAction { target: root; property: "state"; value: "INICIO"; }
+                ScriptAction {
+                    script: root.fecharCompleto();
+                }
+            }
+        }
+    ]
 }

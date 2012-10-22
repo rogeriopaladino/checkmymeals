@@ -27,5 +27,6 @@
         <file>qml/CheckMyMeals/DetalhePageDetail2.qml</file>
         <file>qml/CheckMyMeals/ModalDialogBase.qml</file>
         <file>qml/CheckMyMeals/ModalMostraInfoESome.qml</file>
+        <file>qml/CheckMyMeals/PageBase.qml</file>
     </qresource>
 </RCC>
