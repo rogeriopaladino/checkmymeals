@@ -5,8 +5,12 @@ import "Quadradinho"
 import "main.js" as MainScript
 import "cores.js" as Cores
 
-Page {
+PageBase {
     id: page
+    mostrarAbertura: true
+    infoHeader: "Detalhes"
+    tituloAbertura: "Detalhes"
+    descricaoAbertura: "Acompanhe os detalhes do cartão selecionado!"
     tools: ToolBarLayout {
         ToolButton {
             iconSource: "toolbar-back"
@@ -16,23 +20,14 @@ Page {
         }
     }
 
-   signal infoPagina(string local);
-
    Component.onCompleted: {
-       somenteInfo.abrir();
-   }
 
-   ModalMostraInfoESome {
-       id: somenteInfo
-       titulo: "Detalhes"
-       descricao: "Acompanhe os detalhes do cartão selecionado!"
    }
 
    onVisibleChanged: {
         if (visible) {
-            infoPagina("Detalhes");
             if (compraModel.tamanho === 0)
-                msgAlertaSemCompra.open();
+                msgAlertaSemCompra.open();            
         }
     }
 
@@ -61,7 +56,7 @@ Page {
     QuadradinhoManager
     {
         anchors { top: lstDetalhesTotal.bottom; bottom: parent.bottom; horizontalCenter: parent.horizontalCenter; margins: 1 }
-        quadrados: 2
+        quadrados: visualModel.count
         quadradoAtual: lstDetalhesTotal.currentIndex
     }
 

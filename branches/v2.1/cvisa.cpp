@@ -1,8 +1,9 @@
 #include "cvisa.h"
 
 CVisa::CVisa(QObject *parent)
-    :QObject(parent)/*,
-      _lote(false)*/
+    :QObject(parent),
+     _urlConsulta("http://www.cartoesbeneficio.com.br/inst/convivencia/SaldoExtrato.jsp?numeroCartao=%1&periodoSelecionado=%2"),
+     _urlReferer("http://www.cartoesbeneficio.com.br/inst/SaldoExtratoFiltro.jsp")
 {    
 }
 
@@ -30,6 +31,8 @@ void CVisa::IniciarCosulta()
         _net = new QNetworkAccessManager(this);
         QNetworkRequest r(this->UrlParaConsulta(cartao, true));
         r.setHeader(QNetworkRequest::ContentTypeHeader, "text/html; charset=UTF-8");
+        QByteArray referer;
+        r.setRawHeader(QByteArray("Referer"), referer.append(_urlReferer));
         QNetworkReply *reply = _net->get(r);
         QObject::connect(reply, SIGNAL(finished()), this, SLOT(consultaFinalizadaResposta()));
         QObject::connect(reply, SIGNAL(downloadProgress(qint64,qint64)), this, SLOT(baixandoPagina()));
@@ -73,11 +76,10 @@ void CVisa::baixandoPagina()
 
 QUrl CVisa::UrlParaConsulta(QString cartao, bool todasAnteriores)
 {
-    static QString urlPadrao("http://www.cartoesbeneficio.com.br/inst/convivencia/SaldoExtrato.jsp?numeroCartao=%1&periodoSelecionado=%2");
     char tpConsultaOk = '0';
     if (todasAnteriores)
         tpConsultaOk = '4';
-    return QUrl(urlPadrao.arg(cartao).arg(tpConsultaOk));
+    return QUrl(_urlConsulta.arg(cartao).arg(tpConsultaOk));
 }
 
 void CVisa::Cancelar()
@@ -88,6 +90,5 @@ void CVisa::Cancelar()
 
 void CVisa::erroConexaoHandlerSlot()
 {
-    _cartoes.clear();
-    //_lote = false;
+    _cartoes.clear();    
 }

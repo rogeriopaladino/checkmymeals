@@ -4,8 +4,12 @@ import com.nokia.extras 1.1
 import "cores.js" as Cores
 import "main.js" as MainScript
 
-Page {
+PageBase {
     id: page
+    mostrarAbertura: true
+    infoHeader: "Cadastro de cartão"
+    tituloAbertura: "Cadastro de cartão"
+    descricaoAbertura: "Cadastre novos cartões!"
     tools: ToolBarLayout {
         ToolButton {
             iconSource: "toolbar-back"
@@ -29,10 +33,8 @@ Page {
     }
 
     signal ok();
-    signal infoPagina(string local);
 
     onVisibleChanged: {
-        infoPagina("Cadastro de Cartão");
     }
 
     property alias numero : txtNumero.text

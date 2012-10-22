@@ -8,7 +8,6 @@
 #include <QTextCodec>
 #include <QDebug>
 #include <QStringList>
-//#include <e32base.h>
 
 class CVisa : public QObject
 {
@@ -22,12 +21,12 @@ public:
     Q_INVOKABLE void Cancelar();
 private:
     QNetworkAccessManager *_net;
-    bool _cancelar/*, _lote*/;
+    bool _cancelar;
     QStringList _cartoes;
     QUrl UrlParaConsulta(QString cartao, bool todasAnteriores);
-signals:
-    //void iniciandoConsultaLote();
-    //void consultaLoteFinalizada();
+    const QString _urlConsulta, _urlReferer;
+
+signals:    
     void consultaFinalizada();
     void iniciandoConsulta(const QString &cartao);
     void consultaCartaoFinalizada(const QString &cartao, const QString &extrato);

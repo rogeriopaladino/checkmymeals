@@ -12,14 +12,18 @@ Item {
     property int tamanhoFonteTitulo: 22
     property int tamanhoFonteDescricao: 18
 
-    signal exibido()
+    signal animacaoFinalizada(bool ine)
 
-    function iniciar() {
+    function iniciar()
+    {
+        anim.margem = root.margemEsquerda;
         meuTimer.start();
     }
 
-    function resetar() {
-
+    function resetar()
+    {
+        anim.margem = -root.width;
+        meuTimer.start();
     }
 
     Text {
@@ -27,7 +31,7 @@ Item {
         color: platformStyle.colorNormalLink
         text: root.textoInfo
         font { pixelSize: tamanhoFonteTitulo; italic: true }
-        x: -parent.width
+        x: -parent.width       
     }
 
     Rectangle {
@@ -56,23 +60,25 @@ Item {
     }
 
     onWidthChanged: {
-        meuTimer.restart();
+        //meuTimer.restart();
     }
 
-    ParallelAnimation {
+    SequentialAnimation {
         id: anim
         running: false
 
-        SmoothedAnimation { target: txtInfo; property: "x"; to: root.margemEsquerda; velocity: 1080; }
-        SmoothedAnimation { target: separador; property: "x"; to: root.margemEsquerda; velocity: 1200 }
-        SmoothedAnimation { target: txtDescricao; property: "x"; to: root.margemEsquerda; velocity: 900 }
+        property int margem: root.margemEsquerda
 
-        onCompleted: {
-            root.exibido();
+        SmoothedAnimation { target: txtInfo; property: "x"; to: anim.margem; velocity: 1080; }
+        SmoothedAnimation { target: separador; property: "x"; to: anim.margem; velocity: 1200 }
+        SmoothedAnimation { target: txtDescricao; property: "x"; to: anim.margem; velocity: 900 }
+        ScriptAction {
+            script: {
+                if (txtInfo.x == -root.width)
+                    root.animacaoFinalizada(false);
+                else if (txtInfo.x == root.margemEsquerda)
+                    root.animacaoFinalizada(true);
+            }
         }
-    }
-
-    Component.onCompleted: {
-
     }
 }
