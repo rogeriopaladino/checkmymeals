@@ -18,7 +18,7 @@ QT += sql
 # 0x2002CCCF value if protected UID is given to the application
 #symbian:DEPLOYMENT.installer_header = 0x2002CCCF
 
-VERSION = 2.0.2
+VERSION = 2.0.3
 
 # If your application uses the Qt Mobility libraries, uncomment the following
 # lines and add the respective components to the MOBILITY variable.
