@@ -17,7 +17,7 @@ Rectangle {
         section.property: "dataCompra"
         section.delegate: Rectangle {
             width: list.width; height: childrenRect.height
-            color: Cores.COR_FUNDO
+            color: Cores.COR_HEADER_DATA_COMPRA
 
             function secaoParaData() {
                 var partes = section.split("-");
