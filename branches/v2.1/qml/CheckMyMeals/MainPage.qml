@@ -9,7 +9,7 @@ Page {
     objectName: "MainPage"
     tools: ToolBarLayout {        
                ToolButton {
-                   iconSource: "toolbar-back"
+                   iconSource: "qrc:///fechar"
                    onClicked: {
                        Qt.quit();
                    }
