@@ -34,6 +34,10 @@ PageBase {
     VisualItemModel {
         id: visualModel
 
+        DetalhePageDetail0 {
+            width: lstDetalhesTotal.width; height: lstDetalhesTotal.height
+        }
+
         DetalhePageDetail1 {
             width: lstDetalhesTotal.width; height: lstDetalhesTotal.height
         }
@@ -50,7 +54,7 @@ PageBase {
         currentIndex: 0
         preferredHighlightBegin: 0; preferredHighlightEnd: 0
         highlightRangeMode: ListView.StrictlyEnforceRange
-        orientation: ListView.Horizontal
+        orientation: ListView.Horizontal        
     }
 
     QuadradinhoManager

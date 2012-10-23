@@ -110,9 +110,11 @@ Item {
             from: "VISIVEL"; to: "ESCONDIDO";
             SequentialAnimation {
                 NumberAnimation { target: rectCor; property: "opacity"; from: 1; to: 0; duration: 200; }
-                PropertyAction { target: root; property: "state"; value: "INICIO"; }
                 ScriptAction {
-                    script: root.fecharCompleto();
+                    script: {
+                        root.state = "INICIO";
+                        root.fecharCompleto();
+                    }
                 }
             }
         }
