@@ -12,33 +12,7 @@ Rectangle {
         delegate: Column {
             width: parent.width
 
-            Row {
-                width: parent.width
 
-                Image {
-                    id: imgCartao
-                    source: "qrc:///card"
-                }
-
-                Column {
-                    id: colCartao
-                    width: parent.width
-                    Text {
-                        text: MainScript.formatNumeroCartao(numero)
-                        color: Cores.COR_TEXTO
-                        smooth: true
-                        font.pixelSize: 20
-                    }
-                    Text {
-                        width: parent.width
-                        text:"<i>"+descricao+"</i>"
-                        color: Cores.COR_TEXTO
-                        smooth: true
-                        wrapMode: Text.WordWrap
-                        font.pixelSize: 18
-                    }
-                }
-            }
 
             Row {
                 width: parent.width
