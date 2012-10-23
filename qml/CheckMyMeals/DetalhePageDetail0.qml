@@ -7,7 +7,8 @@ Rectangle {
     color: Cores.COR_FUNDO
 
     Row {
-        anchors { left: parent.left; right: parent.right; verticalCenter: parent.verticalCenter }
+        width: colCartao.width + imgCartao.width
+        anchors { horizontalCenter: parent.horizontalCenter; verticalCenter: parent.verticalCenter }
 
         Image {
             id: imgCartao
@@ -16,12 +17,12 @@ Rectangle {
 
         Column {
             id: colCartao
-            width: parent.width
+
             Text {
                 text: MainScript.formatNumeroCartao(numero)
                 color: Cores.COR_TEXTO
                 smooth: true
-                font.pixelSize: 24
+                font.pixelSize: 26
             }
             Text {
                 width: parent.width

@@ -27,5 +27,6 @@
         <file alias="favorito_neg">imagens/favorito.png</file>
         <file alias="grafico_neg">imagens/grafico.png</file>
         <file alias="toolbar_reload">imagens/reload.png</file>
+        <file alias="fechar">imagens/fechar.png</file>
     </qresource>
 </RCC>
