@@ -8,64 +8,69 @@ Rectangle {
 
     ListView {
         model: cartaoProxy
-        anchors.fill: parent
+        anchors.fill: parent        
         delegate: Column {
-            width: parent.width
+            width: parent.width * 0.95
+            spacing: 10
 
-
-
-            Row {
-                width: parent.width
+            GroupBox {
+                width: parent.width;
+                titulo: "Valores atuais"
 
                 ItemMainInfoCartao {
-                    width: parent.width / 2
+                    width: parent.width
                     icone: "qrc:///money_neg"
                     texto: "R$ <b>" + saldo.toFixed(2) + "</b>"
                 }
 
                 ItemMainInfoCartao {
-                    width: parent.width / 2
+                    width: parent.width
                     icone: "qrc:///grafico_neg"
                     texto: "R$ " + estudos.gastoMedioDiario.toFixed(2)
                 }
             }
 
-            ItemMainInfoCartao {
-                icone: "qrc:///carrinho_compra_neg"
-                visible: estudos.ultimaCompra.local !== ""
-                texto: estudos.ultimaCompra.local + " em " + Qt.formatDate(estudos.ultimaCompra.data, "dd/MM/yyyy") + " R$" + estudos.ultimaCompra.valor.toFixed(2)
-            }
+            GroupBox {
+                width: parent.width;
+                titulo: "Informações históricas"
 
-            ItemMainInfoCartao {
-                icone: "qrc:///caiu_neg"
-                visible: !isNaN(dataBeneficio) && !util.versaoFree
-                texto: "<b>" + (!isNaN(dataBeneficio) ? Qt.formatDate(dataBeneficio, "dd/MM/yyyy") : "--/--/----") + "</b> - R$ <b>" +valorBeneficio.toFixed(2)+ "</b>"
-            }
-
-            ItemMainInfoCartao {
-                icone: "qrc:///calendario_neg"
-                visible: !isNaN(dataProximoBeneficio) && !util.versaoFree
-                texto: "<b>" + Qt.formatDate(dataProximoBeneficio, "dd/MM/yyyy") + "</b> - R$ <b> " + valorProximoBeneficio.toFixed(2) + "</b>"
-            }
-
-            ItemMainInfoCartao {
-                icone: "qrc:///favorito_neg"
-                visible: estudos.vezesNoLocalFavorito > 0 && !util.versaoFree
-                texto: estudos.localFavorito + " ("+estudos.vezesNoLocalFavorito+" visita"+ (estudos.vezesNoLocalFavorito > 1 ? "s" : "")+" - R$"+ estudos.valorNoLocalFavorito.toFixed(2) +")"
-            }
-
-            ItemMainInfoCartao {
-                function makeTexto() {
-                    var local = estudos.maiorCompra.local;
-                    var data = estudos.maiorCompra.data;
-                    var valor = estudos.maiorCompra.valor;
-                    var texto = "";
-                    texto = local + " em " + Qt.formatDate(data, "dd/MM/yyyy") + " R$" + valor.toFixed(2);
-                    return texto;
+                ItemMainInfoCartao {
+                    icone: "qrc:///carrinho_compra_neg"
+                    visible: estudos.ultimaCompra.local !== ""
+                    texto: estudos.ultimaCompra.local + " em " + Qt.formatDate(estudos.ultimaCompra.data, "dd/MM/yyyy") + " R$" + estudos.ultimaCompra.valor.toFixed(2)
                 }
-                icone: "qrc:///campeao_neg"
-                texto: makeTexto()
-                visible: !isNaN(estudos.maiorCompra.data) && !util.versaoFree
+
+                ItemMainInfoCartao {
+                    icone: "qrc:///caiu_neg"
+                    visible: !isNaN(dataBeneficio) && !util.versaoFree
+                    texto: "<b>" + (!isNaN(dataBeneficio) ? Qt.formatDate(dataBeneficio, "dd/MM/yyyy") : "--/--/----") + "</b> - R$ <b>" +valorBeneficio.toFixed(2)+ "</b>"
+                }
+
+                ItemMainInfoCartao {
+                    icone: "qrc:///calendario_neg"
+                    visible: !isNaN(dataProximoBeneficio) && !util.versaoFree
+                    texto: "<b>" + Qt.formatDate(dataProximoBeneficio, "dd/MM/yyyy") + "</b> - R$ <b> " + valorProximoBeneficio.toFixed(2) + "</b>"
+                }
+
+                ItemMainInfoCartao {
+                    icone: "qrc:///favorito_neg"
+                    visible: estudos.vezesNoLocalFavorito > 0 && !util.versaoFree
+                    texto: estudos.localFavorito + " ("+estudos.vezesNoLocalFavorito+" visita"+ (estudos.vezesNoLocalFavorito > 1 ? "s" : "")+" - R$"+ estudos.valorNoLocalFavorito.toFixed(2) +")"
+                }
+
+                ItemMainInfoCartao {
+                    function makeTexto() {
+                        var local = estudos.maiorCompra.local;
+                        var data = estudos.maiorCompra.data;
+                        var valor = estudos.maiorCompra.valor;
+                        var texto = "";
+                        texto = local + " em " + Qt.formatDate(data, "dd/MM/yyyy") + " R$" + valor.toFixed(2);
+                        return texto;
+                    }
+                    icone: "qrc:///campeao_neg"
+                    texto: makeTexto()
+                    visible: !isNaN(estudos.maiorCompra.data) && !util.versaoFree
+                }
             }
 
             ItemTextoAjudaPage {
