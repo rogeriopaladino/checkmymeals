@@ -29,5 +29,6 @@
         <file>qml/CheckMyMeals/ModalMostraInfoESome.qml</file>
         <file>qml/CheckMyMeals/PageBase.qml</file>
         <file>qml/CheckMyMeals/DetalhePageDetail0.qml</file>
+        <file>qml/CheckMyMeals/GroupBox.qml</file>
     </qresource>
 </RCC>

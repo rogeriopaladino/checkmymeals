@@ -30,9 +30,8 @@ Rectangle {
                 color: Cores.COR_TEXTO
                 smooth: true
                 wrapMode: Text.WordWrap
-                font.pixelSize: 20
+                font.pixelSize: 22
             }
         }
-    }
-
+    }    
 }
