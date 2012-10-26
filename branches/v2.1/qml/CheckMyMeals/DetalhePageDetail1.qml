@@ -16,6 +16,7 @@ Rectangle {
             GroupBox {
                 width: parent.width;
                 titulo: "Valores atuais"
+                corBorda: Cores.COR_INICIAL_BACKGROUND
 
                 ItemMainInfoCartao {
                     width: parent.width
@@ -33,6 +34,7 @@ Rectangle {
             GroupBox {
                 width: parent.width;
                 titulo: "Informações históricas"
+                corBorda: Cores.COR_INICIAL_BACKGROUND
 
                 ItemMainInfoCartao {
                     icone: "qrc:///carrinho_compra_neg"
