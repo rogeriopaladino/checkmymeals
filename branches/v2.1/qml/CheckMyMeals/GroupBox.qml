@@ -2,7 +2,8 @@
 import QtQuick 1.1
 
 Item {
-    id: root; height: (rectTotal.height > 0 ? rectTotal.height : rectCabecalho.height);
+    id: root;
+    height: (rectTotal.height > 0 ? rectTotal.height : rectCabecalho.height);
 
     property string titulo : ""
     property color corBorda : "red"
@@ -18,14 +19,14 @@ Item {
 
     Rectangle {
         id: rectTotal
-        width: parent.width; height: colPai.height + 5
+        width: parent.width; height: colPai.height + colPai.anchors.topMargin + colPai.anchors.bottomMargin
         x: 5; y: 10;
         border { width: 1; color: root.corBorda }
         color: root.corFundo
 
         Column {
             id: colPai
-            anchors { left: parent.left; top: parent.top; right: parent.right; margins: 5 }
+            anchors { left: parent.left; top: parent.top; right: parent.right; margins: 15; }
         }
     }
 
