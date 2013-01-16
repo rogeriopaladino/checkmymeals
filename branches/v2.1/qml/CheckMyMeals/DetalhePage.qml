@@ -1,9 +1,11 @@
 import QtQuick 1.1
 import com.nokia.symbian 1.1
 import com.rogerio.model 1.0
-import "Quadradinho"
+
 import "main.js" as MainScript
 import "cores.js" as Cores
+
+import MarcadorPagina 1.0
 
 PageBase {
     id: page
@@ -55,7 +57,7 @@ PageBase {
         preferredHighlightBegin: 0; preferredHighlightEnd: 0
         highlightRangeMode: ListView.StrictlyEnforceRange
         orientation: ListView.Horizontal        
-    }
+    }    
 
     QuadradinhoManager
     {

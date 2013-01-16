@@ -7,25 +7,19 @@ Page {
 
     property bool mostrarAbertura: false
     property string infoHeader: ""
-    property alias tituloAbertura : somenteInfo.titulo
-    property alias descricaoAbertura: somenteInfo.descricao
+    property string tituloAbertura : ""
+    property string descricaoAbertura: ""
 
     signal infoPagina(string local);
 
     onStatusChanged: {
         if (status == PageStatus.Activating && root.mostrarAbertura) {
-            somenteInfo.abrir();
+
         }
     }
 
     onVisibleChanged: {
          if (visible && root.infoHeader != "")
              root.infoPagina(root.infoHeader);
-    }
-
-    ModalMostraInfoESome {
-        id: somenteInfo
-        titulo: ""
-        descricao: ""
-    }
+    }    
 }
