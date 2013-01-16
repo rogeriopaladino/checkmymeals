@@ -53,8 +53,9 @@ int main(int argc, char *argv[])
     viewer.rootContext()->setContextProperty("compraModel", compraModel);
     viewer.rootContext()->setContextProperty("cartaoProxy", cartaoProxy);
     viewer.rootContext()->setContextProperty("util", util);
-    //viewer.setMainQmlFile(QLatin1String("qrc://qml/CheckMyMeals/MainWindow.qml"));
-    viewer.setSource(QUrl("qrc:///qml/CheckMyMeals/MainWindow.qml"));
+    viewer.addImportPath("qml/Componentes");
+    viewer.setMainQmlFile(QLatin1String("qml/CheckMyMeals/MainWindow.qml"));
+    //viewer.setSource(QUrl("qrc:///qml/CheckMyMeals/MainWindow.qml"));
     #if defined Q_OS_SYMBIAN
     viewer.showFullScreen();
     #elif defined Q_OS_WIN
