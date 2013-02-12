@@ -6,7 +6,8 @@ folder_02.target = qml
 DEPLOYMENTFOLDERS = folder_01 folder_02
 
 # Additional import path used to resolve QML modules in Creator's code model
-QML_IMPORT_PATH = C:/Pessoal/Projetos/Repositorio/Componentes
+#QML_IMPORT_PATH = C:/Pessoal/Projetos/Repositorio/Componentes
+QML_IMPORT_PATH = C:/Repositorio/Componentes
 
 QT += network
 QT += xml
@@ -65,7 +66,7 @@ symbian {
         TARGET = CheckMyMeals
     }
 
-    DEPLOYMENT += my_deployment
+    DEPLOYMENT += my_deployment    
 }
 
 win32 {
