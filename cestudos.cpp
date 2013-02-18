@@ -26,10 +26,17 @@ void CEstudos::GastoMedio()
         QDate benef = _cartao->getDataBeneficio();
         QDate proxBenef = _cartao->getDataProximoBeneficio();
         int diasRestantes = 0, diasUteis = 0;
-        if (!proxBenef.isNull())
+        if (!proxBenef.isNull() && proxBenef >= now)
             diasRestantes = now.daysTo(proxBenef);
         else if (!benef.isNull())
-            diasRestantes = now.daysTo(benef.addMonths(1));
+        {
+            QDate dataComparar = benef.addMonths(1);
+            if (dataComparar < now)
+            {
+                dataComparar.setYMD(now.year(), now.month(), now.daysInMonth());
+            }
+            diasRestantes = now.daysTo(dataComparar);
+        }
         double gastoMedioDiario = 0;
         if (diasRestantes > 0)
         {
