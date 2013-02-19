@@ -36,9 +36,9 @@ PageBase {
     VisualItemModel {
         id: visualModel
 
-        DetalhePageDetail0 {
+        /*DetalhePageDetail0 {
             width: lstDetalhesTotal.width; height: lstDetalhesTotal.height
-        }
+        }*/
 
         DetalhePageDetail1 {
             width: lstDetalhesTotal.width; height: lstDetalhesTotal.height
