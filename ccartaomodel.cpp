@@ -166,7 +166,7 @@ void CCartaoModel::PrepararDataBase()
            "numero varchar(16) not null references cartao(numero) on delete cascade,"
            "idCompra integer primary key autoincrement,"
            "local varchar(50),"
-           "valoseler numeric(6, 2),"
+           "valor numeric(6, 2),"
            "data date)");
     this->MostrarInfoDebug(q.lastError());
     q.exec("create unique index if not exists beneficio_idx on beneficio(numero, data, valor)");
@@ -203,7 +203,11 @@ void CCartaoModel::CarregarDados()
            "from cartao a "
            "left outer join beneficio x on a.numero = x.numero "
            "left outer join proximoBeneficio w on a.numero = w.numero "
-           "group by a.numero");
+           "group by a.numero "
+       #if VERSAO_FREE
+           "limit 2"
+       #endif
+           );
     CCartaoItem *c;
     while (q.next()) {
         QDate dtBenef = q.value(5).toDate();

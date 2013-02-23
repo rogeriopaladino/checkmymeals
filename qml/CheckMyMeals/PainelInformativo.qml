@@ -4,18 +4,18 @@ import com.nokia.symbian 1.1
 import com.nokia.extras 1.1
 import "cores.js" as Cores
 
-Item {
+ModalDialogBase {
     id: root
 
     property alias lista: lst
 
     Component.onCompleted: {
-        cache.preparar();
-        root.mostrar(false);
+        //cache.preparar();
+        //root.mostrar(false);
     }
 
     Component.onDestruction: {
-        cache.voltarAoNormal();
+        //cache.voltarAoNormal();
     }
 
     Rectangle {
@@ -28,7 +28,7 @@ Item {
         anchors.fill: parent
     }
 
-    QtObject {
+    /*QtObject {
         id: cache
 
         property variant oldParent
@@ -62,11 +62,11 @@ Item {
         function voltarAoNormal() {
             root.parent = oldParent;
         }
-    }
+    }*/
 
-    function mostrar(acao) {
+   /* function mostrar(acao) {
         root.visible = acao;
-    }
+    }*/
 
     function adicionarMensagem(mensagem) {
         lstModel.append({info: mensagem});        

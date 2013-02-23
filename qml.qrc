@@ -19,10 +19,12 @@
         <file>qml/CheckMyMeals/MainPage.qml</file>
         <file>qml/CheckMyMeals/MainWindow.qml</file>
         <file>qml/CheckMyMeals/PainelComBotao.qml</file>
-        <file>qml/CheckMyMeals/DetalheHeaderInfo.qml</file>
-        <file>qml/CheckMyMeals/InfoAnimadoBackground.qml</file>
         <file>qml/CheckMyMeals/BackgroundBase.qml</file>
-        <file>qml/CheckMyMeals/Quadradinho/Quadradinho.qml</file>
-        <file>qml/CheckMyMeals/Quadradinho/QuadradinhoManager.qml</file>
+        <file>qml/CheckMyMeals/DetalhePageDetail1.qml</file>
+        <file>qml/CheckMyMeals/DetalhePageDetail2.qml</file>
+        <file>qml/CheckMyMeals/ModalDialogBase.qml</file>
+        <file>qml/CheckMyMeals/PageBase.qml</file>
+        <file>qml/CheckMyMeals/DetalhePageDetail0.qml</file>
+        <file>qml/CheckMyMeals/GroupBox.qml</file>
     </qresource>
 </RCC>

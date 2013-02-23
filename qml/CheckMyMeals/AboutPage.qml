@@ -2,8 +2,12 @@
 import com.nokia.symbian 1.1
 import "cores.js" as Cores
 
-Page {
+PageBase {
     id: page
+    mostrarAbertura: true
+    infoHeader: "Sobre"
+    tituloAbertura: "Sobre"
+    descricaoAbertura: "Veja os detalhes sobre o aplicativo!"
     tools: ToolBarLayout {
         ToolButton {
             iconSource: "toolbar-back"
@@ -13,8 +17,6 @@ Page {
         }
     }
 
-    signal infoPagina(string local);
-
     CartaoAnimado {
         id: cartaoAnimado
         maxTop: 80
@@ -22,8 +24,7 @@ Page {
     }
 
     onVisibleChanged: {
-        if (visible) {
-            infoPagina("Sobre");
+        if (visible) {            
             cartaoAnimado.animar();
         }
     }

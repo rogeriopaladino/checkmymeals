@@ -1,10 +1,13 @@
 # Add more folders to ship with the application, here
 folder_01.source = qml/CheckMyMeals
 folder_01.target = qml
-#DEPLOYMENTFOLDERS = folder_01
+folder_02.source = ../Componentes
+folder_02.target = qml
+DEPLOYMENTFOLDERS = folder_01 folder_02
 
 # Additional import path used to resolve QML modules in Creator's code model
-QML_IMPORT_PATH =
+#QML_IMPORT_PATH = C:/Pessoal/Projetos/Repositorio/Componentes
+QML_IMPORT_PATH = C:/Repositorio/Componentes
 
 QT += network
 QT += xml
@@ -18,7 +21,7 @@ QT += sql
 # 0x2002CCCF value if protected UID is given to the application
 #symbian:DEPLOYMENT.installer_header = 0x2002CCCF
 
-VERSION = 2.0.3
+VERSION = 2.1.0
 
 # If your application uses the Qt Mobility libraries, uncomment the following
 # lines and add the respective components to the MOBILITY variable.
@@ -63,7 +66,7 @@ symbian {
         TARGET = CheckMyMeals
     }
 
-    DEPLOYMENT += my_deployment
+    DEPLOYMENT += my_deployment    
 }
 
 win32 {

@@ -9,7 +9,7 @@ Page {
     objectName: "MainPage"
     tools: ToolBarLayout {        
                ToolButton {
-                   iconSource: "toolbar-back"
+                   iconSource: "qrc:///fechar"
                    onClicked: {
                        Qt.quit();
                    }
@@ -145,7 +145,6 @@ Page {
             corBackground: page.corBackground
 
             onClick: {
-
                 MainScript.cartaoMainSelecionado = "";
                 var componente = Qt.createComponent("DetalhePage.qml");                
                 if (componente.status == Component.Ready) {
@@ -230,15 +229,28 @@ Page {
     QueryDialog {
         id: queryAtualizarTodos
         titleText: "Atualizar"
-        //icon: "toolbar-refresh"
         message: "Atualizar os dados de todos os cartões cadastrados?<br />"
         acceptButtonText: "Ok"
         rejectButtonText: "Cancelar"
-        onAccepted: {
+        onAccepted: {            
             var cartoes = cartaoModel.cartoesCadastrados;
+            if (cartoes.length > 0) {
             for(var i = 0; i < cartoes.length; i++)
                 visa.AdicionarParaConsulta(cartoes[i], true);
             visa.IniciarCosulta();
+            } else {
+                querySemCartoes.open();
+        }
+    }
+
+        QueryDialog {
+            id: querySemCartoes
+            titleText: "Atualizar"
+            message: "Não há cartões cadastrados!"
+            acceptButtonText: "Ok"
+            onAccepted: {
+                querySemCartoes.close();
+            }
         }
     }
 

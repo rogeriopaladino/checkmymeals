@@ -3,8 +3,12 @@ import com.nokia.symbian 1.1
 import "cores.js" as Cores
 import "main.js" as MainScript
 
-Page {
+PageBase {
     id: page
+    mostrarAbertura: true
+    infoHeader: "Ajuda"
+    tituloAbertura: "Ajuda"
+    descricaoAbertura: "Tire suas dúvidas!"
     tools: ToolBarLayout {
         ToolButton {
             iconSource: "toolbar-back"
@@ -14,10 +18,8 @@ Page {
         }
     }
 
-    signal infoPagina(string local)
 
     onVisibleChanged: {
-        infoPagina("Ajuda");
     }
 
     Flickable {
