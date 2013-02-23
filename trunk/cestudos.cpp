@@ -19,23 +19,35 @@ CEstudos::~CEstudos()
 
 void CEstudos::GastoMedio()
 {
-    if (_cartao != NULL) {
+    if (_cartao != NULL)
+    {
         double saldo = _cartao->getSaldo();
         QDate now = QDate::currentDate();
         QDate benef = _cartao->getDataBeneficio();
         QDate proxBenef = _cartao->getDataProximoBeneficio();
         int diasRestantes = 0, diasUteis = 0;
-        if (!proxBenef.isNull())
+        if (!proxBenef.isNull() && proxBenef >= now)
             diasRestantes = now.daysTo(proxBenef);
         else if (!benef.isNull())
-            diasRestantes = now.daysTo(benef.addMonths(1));
+        {
+            QDate dataComparar = benef.addMonths(1);
+            if (dataComparar < now)
+            {
+                dataComparar.setYMD(now.year(), now.month(), now.daysInMonth());
+            }
+            diasRestantes = now.daysTo(dataComparar);
+        }
         double gastoMedioDiario = 0;
-        if (diasRestantes > 0) {
-            for(int i = 0; i <= diasRestantes; i++) {
+        if (diasRestantes > 0)
+        {
+            for(int i = 0; i <= diasRestantes; i++)
+            {
                 int diaSemana = now.addDays(i).dayOfWeek();
                 if ((diaSemana != 6) && (diaSemana != 7))
                     diasUteis++;
             }
+            if (diasUteis == 0)
+                diasUteis = 1;
             gastoMedioDiario = saldo / diasUteis;
         }
         setGastoMedioDiario(gastoMedioDiario);
