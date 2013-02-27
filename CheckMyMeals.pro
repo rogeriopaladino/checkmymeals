@@ -6,8 +6,8 @@ folder_02.target = qml
 DEPLOYMENTFOLDERS = folder_01 folder_02
 
 # Additional import path used to resolve QML modules in Creator's code model
-#QML_IMPORT_PATH = C:/Pessoal/Projetos/Repositorio/Componentes
-QML_IMPORT_PATH = C:/Repositorio/Componentes
+QML_IMPORT_PATH = C:/Pessoal/Projetos/Repositorio/Componentes
+#QML_IMPORT_PATH = C:/Repositorio/Componentes
 
 QT += network
 QT += xml
@@ -21,7 +21,7 @@ QT += sql
 # 0x2002CCCF value if protected UID is given to the application
 #symbian:DEPLOYMENT.installer_header = 0x2002CCCF
 
-VERSION = 2.1.0
+VERSION = 2.2.0
 
 # If your application uses the Qt Mobility libraries, uncomment the following
 # lines and add the respective components to the MOBILITY variable.
@@ -83,7 +83,9 @@ SOURCES += main.cpp \
     ccompraitem.cpp \
     cprocessador.cpp \
     cartaoproxy.cpp \
-    cutil.cpp
+    cutil.cpp \
+    cmodelorelacaoutilizacao.cpp \
+    cmodelorelacaoutilizacaoitem.cpp
 
 # Please do not modify the following two lines. Required for deployment.
 include(qmlapplicationviewer/qmlapplicationviewer.pri)
@@ -98,7 +100,9 @@ HEADERS += \
     ccompraitem.h \
     cprocessador.h \
     cartaoproxy.h \
-    cutil.h
+    cutil.h \
+    cmodelorelacaoutilizacao.h \
+    cmodelorelacaoutilizacaoitem.h
 
 RESOURCES += \
     res.qrc \

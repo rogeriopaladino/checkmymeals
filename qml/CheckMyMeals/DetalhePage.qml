@@ -42,12 +42,16 @@ PageBase {
 
         DetalhePageDetail1 {
             width: lstDetalhesTotal.width; height: lstDetalhesTotal.height
-            }
+        }
 
         DetalhePageDetail2 {
             width: lstDetalhesTotal.width; height: lstDetalhesTotal.height
-                    }
-                    }
+        }
+
+        DetalhePageDetail3 {
+            width: lstDetalhesTotal.width; height: lstDetalhesTotal.height
+        }
+    }
 
     ListView {
         id: lstDetalhesTotal
