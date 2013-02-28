@@ -3,7 +3,9 @@ import QtQuick 1.1
 
 Item {
     id: root;
-    height: (rectTotal.height > 0 ? rectTotal.height : rectCabecalho.height);
+    height: (root.autoSize ? (rectTotal.height > 0 ? rectTotal.height : rectCabecalho.height) : 100);
+
+    property bool autoSize: true
 
     property string titulo : ""
     property color corBorda : "red"

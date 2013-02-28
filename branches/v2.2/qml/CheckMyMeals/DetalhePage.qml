@@ -49,6 +49,18 @@ PageBase {
         }
 
         DetalhePageDetail3 {
+            width: lstDetalhesTotal.width; height: lstDetalhesTotal.height            
+        }
+    }
+
+    VisualItemModel {
+        id: visualModelFree
+
+        DetalhePageDetail1 {
+            width: lstDetalhesTotal.width; height: lstDetalhesTotal.height
+        }
+
+        DetalhePageDetail2 {
             width: lstDetalhesTotal.width; height: lstDetalhesTotal.height
         }
     }
@@ -56,7 +68,7 @@ PageBase {
     ListView {
         id: lstDetalhesTotal
         anchors { fill: parent; bottomMargin: 14 }
-        model: visualModel
+        model: (util.versaoFree ? visualModelFree : visualModel)
         currentIndex: 0
         preferredHighlightBegin: 0; preferredHighlightEnd: 0
         highlightRangeMode: ListView.StrictlyEnforceRange
@@ -66,7 +78,7 @@ PageBase {
     QuadradinhoManager
     {
         anchors { top: lstDetalhesTotal.bottom; bottom: parent.bottom; horizontalCenter: parent.horizontalCenter; margins: 1 }
-        quadrados: visualModel.count
+        quadrados: lstDetalhesTotal.count
         quadradoAtual: lstDetalhesTotal.currentIndex
     }
 

@@ -6,22 +6,13 @@ import "cores.js" as Cores
 Rectangle {
     color: Cores.COR_FUNDO
 
-    GroupBox {
+    GraphOpcoes {
+        id: grphOpcoes
         anchors.fill: parent
-        titulo: "Relação de utilizações do cartão"
-        corBorda: Cores.COR_INICIAL_BACKGROUND
-        visible: !util.versaoFree
-
-        GraphOpcoes {
-            id: grphOpcoes
-            width: parent.width; height: 200;
-            modelo: modeloRelacaoUtilizacao
-        }
-
-        Component.onCompleted: {
-            /*grphOpcoes.adicionarOpcao("opa", 100);
-            grphOpcoes.adicionarOpcao("teste", 100);
-            grphOpcoes.adicionarOpcao("aligatô", 300);*/
-        }
+        modelo: modeloRelacaoUtilizacao
+        corFundo: Cores.COR_FUNDO
+        corFundoPar: Cores.COR_INICIAL_BACKGROUND
+        corFundoOpcao: Cores.COR_FUNDO_LISTA_RELACAO
+        mostrarBorda: false
     }
 }

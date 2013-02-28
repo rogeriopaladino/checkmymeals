@@ -3,7 +3,8 @@
 CModeloRelacaoUtilizacaoItem::CModeloRelacaoUtilizacaoItem(QObject *parent) :
     QObject(parent),
     _nome(""),
-    _valor(0)
+    _valor(0),
+    _total(0)
 {
 }
 
@@ -12,6 +13,7 @@ QHash<int, QByteArray> CModeloRelacaoUtilizacaoItem::roleNames()
     QHash<int, QByteArray> roles;
     roles[nomeRole] = "nomeRole";
     roles[valorRole] = "valorRole";
+    roles[totalRole] = "totalRole";
     return roles;
 }
 
@@ -25,6 +27,10 @@ QVariant CModeloRelacaoUtilizacaoItem::data(int role) const
 
         case valorRole:
         return _valor;
+        break;
+
+        case totalRole:
+        return _total;
         break;
 
     default:
