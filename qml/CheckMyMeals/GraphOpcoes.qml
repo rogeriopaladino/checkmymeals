@@ -7,6 +7,7 @@ Item {
 
     property color corBorda: "blue"
     property color corFundo: "red"
+    property color corFundoPar: "gray"
     property color corFundoOpcao : "gray"
     property color corFonte: "white"
     property bool mostrarBorda: true
@@ -30,25 +31,36 @@ Item {
             width: parent.width; height: childrenRect.height
             property string textoProp: (root.modelo == null ? "<opcao>" : nomeRole)
             property int valorProp: (root.modelo == null ? 0 : valorRole)
+            property int valorTotalProp : (root.modelo == null ? 0 : totalRole);
+
+            property int indice : (root.modelo == null ? 0 : index)
 
             Rectangle {
                 width: parent.width; height: txtCaption.height
                 border { color: root.corBorda; width: (root.mostrarBorda ? 1 : 0) }
-                color: root.corFundo
+                color: (indice % 2 == 0 ? root.corFundoPar : root.corFundo)
 
                 Rectangle {
-                    width: parent.width * (root.totalItens > 0 ? valorProp / (root.modelo == null ? root.totalItens : lstItens.count) : 1); height: parent.height
+                    width: parent.width * (valorTotalProp > 0 ? valorProp / valorTotalProp : 1); height: parent.height
                     color: root.corFundoOpcao
-                }
+                }                
             }
 
             Text {
                 id: txtCaption
                 text: textoProp
-                width: parent.width;
+                width: parent.width - 55;
                 wrapMode: Text.WordWrap
                 color: root.corFonte
-                font { pixelSize: 16 }
+                font { pixelSize: 15 }
+            }
+
+            Text {
+                text: valorProp
+                width: 50
+                anchors.right: parent.right
+                color: root.corFonte
+                font { pixelSize: 15 }
             }
         }
     }
@@ -83,5 +95,6 @@ Item {
         anchors.fill: parent
         visible: root.modelo != null
         model: root.modelo
+        spacing: 5
     }
 }
