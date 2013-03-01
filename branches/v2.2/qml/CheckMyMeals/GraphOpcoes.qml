@@ -32,6 +32,7 @@ Item {
             property string textoProp: (root.modelo == null ? "<opcao>" : nomeRole)
             property int valorProp: (root.modelo == null ? 0 : valorRole)
             property int valorTotalProp : (root.modelo == null ? 0 : totalRole);
+            property double valorTotalVisitaProp : (root.modelo == null ? 0 : valorTotalVisitaRole)
 
             property int indice : (root.modelo == null ? 0 : index)
 
@@ -55,12 +56,22 @@ Item {
                 font { pixelSize: 15 }
             }
 
-            Text {
-                text: valorProp
-                width: 50
+            Row {
                 anchors.right: parent.right
-                color: root.corFonte
-                font { pixelSize: 15 }
+
+                Text {
+                    text: valorProp
+                    width: 35
+                    color: root.corFonte
+                    font { pixelSize: 15 }
+                }
+
+                Text {
+                    text: "R$ " + valorTotalVisitaProp.toFixed(2)
+                    width: 100
+                    color: root.corFonte
+                    font { pixelSize: 15 }
+                }
             }
         }
     }
@@ -96,5 +107,6 @@ Item {
         visible: root.modelo != null
         model: root.modelo
         spacing: 5
+        clip: true
     }
 }
