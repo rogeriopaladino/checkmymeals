@@ -44,20 +44,18 @@ void CModeloRelacaoUtilizacao::filtrarRelacao(const QString &cartao)
     q.exec("drop table if exists temp.relacao");
 
     q.prepare("create temp table relacao as "
-              "select substr(local, 1, 16) local, count(*) vezes, 0 total "
+              "select substr(local, 1, 16) local, count(*) vezes, 0 total, sum(valor) valorTotalVisita "
               "from compra "
               "where numero = :numero "
               "group by substr(local, 1, 16)");
     q.bindValue(":numero", cartao);
     q.exec();
 
-    qDebug() << "Opaaaaaaaaaaaaaaaaaaaaaaaa" << q.lastError();
-
     q.prepare("update temp.relacao "
               "set total = (select sum(vezes) from temp.relacao) ");
     q.exec();
 
-    q.prepare("select local, vezes, total "
+    q.prepare("select local, vezes, total, valorTotalVisita "
               "from temp.relacao ");
     q.exec();
 
@@ -67,6 +65,7 @@ void CModeloRelacaoUtilizacao::filtrarRelacao(const QString &cartao)
         item->setNome(q.value(0).toString());
         item->setValor(q.value(1).toInt());
         item->setTotal(q.value(2).toInt());
+        item->setValorTotalVisita(q.value(3).toDouble());
         beginInsertRows(QModelIndex(), _lista.count(), _lista.count());
         _lista.append(item);
         endInsertRows();
