@@ -80,5 +80,5 @@ Rectangle {
                 texto: "Mais informações estão disponíveis na versão completa! Adquira a sua através da loja!"
             }
         }
-    }
+    }    
 }
