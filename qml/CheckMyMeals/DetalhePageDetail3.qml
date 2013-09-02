@@ -5,10 +5,11 @@ import Basicos 1.0
 import "cores.js" as Cores
 
 Rectangle {
+    id: root
     color: Cores.COR_FUNDO
 
     InfoAnimadoBackground {
-        width: parent.width; height: parent.height
+        anchors.fill: parent
         textoInfo: "Relação de utilização"
         textoDescricao: "Veja a quantidade e valor das transações"
 

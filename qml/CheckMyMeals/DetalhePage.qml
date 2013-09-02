@@ -36,43 +36,27 @@ PageBase {
     VisualItemModel {
         id: visualModel
 
-        /*DetalhePageDetail0 {
-            width: lstDetalhesTotal.width; height: lstDetalhesTotal.height
-        }*/
-
-        DetalhePageDetail1 {
-            width: lstDetalhesTotal.width; height: lstDetalhesTotal.height
-            }
-
-        DetalhePageDetail2 {
-            width: lstDetalhesTotal.width; height: lstDetalhesTotal.height
-                    }
-
-        DetalhePageDetail3 {
-            width: lstDetalhesTotal.width; height: lstDetalhesTotal.height            
-                    }
-    }
-
-    VisualItemModel {
-        id: visualModelFree
-
         DetalhePageDetail1 {
             width: lstDetalhesTotal.width; height: lstDetalhesTotal.height
         }
 
         DetalhePageDetail2 {
+            width: lstDetalhesTotal.width; height: lstDetalhesTotal.height
+        }
+
+        DetalhePageDetail3 {
             width: lstDetalhesTotal.width; height: lstDetalhesTotal.height
         }
     }
 
     ListView {
         id: lstDetalhesTotal
-        anchors { fill: parent; bottomMargin: 14 }
-        model: (util.versaoFree ? visualModelFree : visualModel)
+        anchors { fill: parent; bottomMargin: 15 }
+        model: visualModel
         currentIndex: 0
         preferredHighlightBegin: 0; preferredHighlightEnd: 0
         highlightRangeMode: ListView.StrictlyEnforceRange
-        orientation: ListView.Horizontal        
+        orientation: ListView.Horizontal
     }    
 
     QuadradinhoManager
