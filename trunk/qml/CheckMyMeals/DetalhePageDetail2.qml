@@ -4,7 +4,6 @@ import com.nokia.symbian 1.1
 import "cores.js" as Cores
 
 Rectangle {
-    width: lstDetalhesTotal.width; height: lstDetalhesTotal.height
     color: Cores.COR_FUNDO
 
     ListView {

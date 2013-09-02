@@ -3,7 +3,7 @@ import QtQuick 1.1
 
 Item {
     id: root
-    height: (root.modelo == null ? opcoes.height + 10 : lstItens.height)
+    height: (root.modelo == null ? opcoes.height + 10 : 0)
 
     property color corBorda: "blue"
     property color corFundo: "red"
@@ -106,7 +106,7 @@ Item {
         anchors.fill: parent
         visible: root.modelo != null
         model: root.modelo
-        spacing: 5
+        spacing: 2
         clip: true
     }
 }
