@@ -85,7 +85,11 @@ SOURCES += main.cpp \
     cartaoproxy.cpp \
     cutil.cpp \
     cmodelorelacaoutilizacao.cpp \
-    cmodelorelacaoutilizacaoitem.cpp
+    cmodelorelacaoutilizacaoitem.cpp \
+    cticket.cpp \
+    cconexao.cpp \
+    cconexaodefaultimplementation.cpp \
+    cenumsdefinitions.cpp
 
 # Please do not modify the following two lines. Required for deployment.
 include(qmlapplicationviewer/qmlapplicationviewer.pri)
@@ -102,7 +106,12 @@ HEADERS += \
     cartaoproxy.h \
     cutil.h \
     cmodelorelacaoutilizacao.h \
-    cmodelorelacaoutilizacaoitem.h
+    cmodelorelacaoutilizacaoitem.h \
+    cticket.h \
+    cconexao.h \
+    cconexaodefaultimplementation.h \
+    cconexaoimplementationspecificinterface.h \
+    cenumsdefinitions.h
 
 RESOURCES += \
     res.qrc \

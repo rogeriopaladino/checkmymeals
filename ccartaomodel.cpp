@@ -43,13 +43,14 @@ void CCartaoModel::handleItemChanged()
         emit dataChanged(indice, indice);
 }
 
-void CCartaoModel::AdicionarCartao(const QString &numero, const QString &descricao)
+void CCartaoModel::AdicionarCartao(const QString &numero, const QString &descricao, int bandeira)
 {
     QSqlQuery q(QSqlDatabase::database("default"));
-    q.prepare("insert into cartao(numero, descricao)"
-              "values (:numero, :descricao)");
+    q.prepare("insert into cartao(numero, descricao, bandeira)"
+              "values (:numero, :descricao, :bandeira)");
     q.bindValue(":numero", numero);
     q.bindValue(":descricao", descricao);
+    q.bindValue(":bandeira", bandeira);
     bool e = q.exec();
     this->MostrarInfoDebug(q.lastError());
     if (e) {        
@@ -61,6 +62,7 @@ void CCartaoModel::AdicionarCartao(const QString &numero, const QString &descric
         c->setValorBeneficio(0);
         c->setDataProximoBeneficio(QDate());
         c->setValorProximoBeneficio(0);
+        c->setBandeira(bandeira);
         this->AdicionarCartaoPreparado(c);
         emit tamanhoChanged();
         emit novoCartaoAdicionado(this->rowCount() - 1);
@@ -148,8 +150,7 @@ void CCartaoModel::PrepararDataBase()
     q.exec("create table if not exists cartao ("
                   "numero varchar(16) primary key,"
                   "descricao varchar (35),"
-                  "saldo numeric(6, 2) default 0)");
-    this->MostrarInfoDebug(q.lastError());
+                  "saldo numeric(6, 2) default 0)");    
     q.exec("create table if not exists beneficio ("
            "seq integer primary key autoincrement,"
            "numero varchar(16) not null references cartao(numero) on delete cascade,"
@@ -174,6 +175,8 @@ void CCartaoModel::PrepararDataBase()
     q.exec("create unique index if not exists proxBeneficio_idx on proximoBeneficio (numero, data, valor)");
     this->MostrarInfoDebug(q.lastError());
     q.exec("create unique index if not exists compra_idx on compra(numero, local, valor, data)");
+    this->MostrarInfoDebug(q.lastError());        
+    q.exec("alter table cartao add bandeira tinyint default 1");
     this->MostrarInfoDebug(q.lastError());
     qDebug() << "Fim da manutenção da estrutura.";
 }
@@ -199,7 +202,7 @@ void CCartaoModel::CarregarDados()
 {
     _cartoes.clear();
     QSqlQuery q(QSqlDatabase::database("default"));
-    q.exec("select a.numero, a.descricao, a.saldo, max(w.data) dtProxBenef, w.valor vlProxBenef, max(x.data) dtBenef, x.valor vlBenef "
+    q.exec("select a.numero, a.descricao, a.saldo, max(w.data) dtProxBenef, w.valor vlProxBenef, max(x.data) dtBenef, x.valor vlBenef, a.bandeira "
            "from cartao a "
            "left outer join beneficio x on a.numero = x.numero "
            "left outer join proximoBeneficio w on a.numero = w.numero "
@@ -218,6 +221,7 @@ void CCartaoModel::CarregarDados()
         c->setSaldo(q.value(2).toDouble());
         c->setDataBeneficio(dtBenef);
         c->setValorBeneficio(q.value(6).toDouble());
+        c->setBandeira(q.value(7).toInt());
         if (!dtProxBenef.isNull() && !dtBenef.isNull() && (dtBenef < dtProxBenef)) {
             c->setDataProximoBeneficio(dtProxBenef);
             c->setValorProximoBeneficio(q.value(4).toDouble());
@@ -303,11 +307,16 @@ void CCartaoModel::atualizacaoFinalizada(const QString &numero)
     emit atualizarEstudo(numero);
 }
 
-QStringList CCartaoModel::getCartoesCadastrados()
+QVariantList CCartaoModel::getCartoesCadastrados()
 {
-    QStringList lst;
+    QVariantList lst;
     foreach(CCartaoItem *c, _cartoes)
-        lst.append(c->getNumero());
+    {
+        QVariantList lstInner;
+        lstInner.append(c->getNumero());
+        lstInner.append(c->getBandeira());
+        lst.append(lstInner);
+    }
     return lst;
 }
 

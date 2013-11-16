@@ -1,6 +1,7 @@
 .pragma library
 
 var cartaoMainSelecionado = "";
+var bandeiraSelecionada = -1;
 var mensagens = [];
 var screenWidth = 0;
 var screenHeight = 0;

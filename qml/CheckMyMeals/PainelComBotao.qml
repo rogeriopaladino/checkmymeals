@@ -14,7 +14,7 @@ PainelInformativo {
         root.limpar();
     }
 
-    Connections {
+    /*Connections {
         target: visa
 
         onIniciandoConsulta: {
@@ -37,7 +37,32 @@ PainelInformativo {
             root.mostrar(false);
             root.fechar();
         }
-    }
+    }*/
+
+    Connections {
+            target: conexao
+
+            onIniciandoConsulta: {
+                busy.visible = true;
+                root.mostrar(true);
+            }
+
+            onConsultaCancelada: {
+                root.mostrar(false);
+                root.fechar();
+            }
+
+            onConsultaFinalizada: {
+                busy.visible = false;
+                btn.text = "Fechar";
+            }
+
+            onErroConexao: {
+                busy.visible = false;
+                root.mostrar(false);
+                root.fechar();
+            }
+        }
 
     Connections {
         target: processador

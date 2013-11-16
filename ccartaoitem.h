@@ -7,6 +7,7 @@
 #include <QList>
 #include <QVariant>
 #include "cestudos.h"
+#include "cenumsdefinitions.h"
 
 class CEstudos;
 
@@ -16,6 +17,7 @@ class CCartaoItem : public QObject
 
     Q_PROPERTY(QString numero READ getNumero())
     Q_PROPERTY(QString descricao READ getDescricao())
+    Q_PROPERTY(int bandeira READ getBandeira())
     Q_PROPERTY(CEstudos *estudos READ getEstudos())
 
 public:
@@ -28,7 +30,8 @@ public:
         dataProximoBeneficioRole,
         valorProximoBeneficioRole,
         comprasRole,
-        estudosRole
+        estudosRole,
+        bandeiraRole
     };
     explicit CCartaoItem(QObject *parent = 0);
     ~CCartaoItem();
@@ -45,6 +48,7 @@ public:
     void setDataProximoBeneficio(QDate data);
     void setValorProximoBeneficio(double valor);
     void setValorBeneficio(double valor);
+    void setBandeira(int bandeira);
 
     QString getNumero();
     QString getDescricao();
@@ -55,6 +59,7 @@ public:
     double getValorProximoBeneficio();
     QList<QObject*> getCompras();
     CEstudos *getEstudos();
+    int getBandeira();
 
 private:
     QString _numero, _descricao;
@@ -62,6 +67,7 @@ private:
     QDate _dataBeneficio, _dataProximoBeneficio;
     QList<QObject*> _compras;
     CEstudos *_estudos;
+    int _bandeira;
 
 signals:
     void dataChanged();

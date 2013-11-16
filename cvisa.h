@@ -2,43 +2,44 @@
 #define CVISA_H
 
 #include <QObject>
-#include <QtNetwork/qnetworkaccessmanager.h>
-#include <QtNetwork/qnetworkreply.h>
 #include <QtNetwork/qnetworkrequest.h>
 #include <QTextCodec>
 #include <QDebug>
 #include <QStringList>
+#include "cconexaodefaultimplementation.h"
+#include "cconexaoimplementationspecificinterface.h"
 
-class CVisa : public QObject
+class CVisa : public CConexaoDefaultImplementation, public CConexaoImplementationSpecificInterface
 {
     Q_OBJECT
+    Q_INTERFACES(CConexaoImplementationSpecificInterface)
+
 public:
     explicit CVisa(QObject *parent = 0);
     virtual ~CVisa();
-    Q_INVOKABLE void Consultar(const QString &cartao);
-    Q_INVOKABLE void AdicionarParaConsulta(const QString &cartao);
-    Q_INVOKABLE void IniciarCosulta();
-    Q_INVOKABLE void Cancelar();
+    bool PossoProcessar(int bandeira);
+
+protected:
+    QNetworkRequest MontarRequisicao(const QString &cartao);
+
 private:
-    QNetworkAccessManager *_net;
+    /*QNetworkAccessManager *_net;
     bool _cancelar;
-    QStringList _cartoes;
+    QStringList _cartoes;*/
     QUrl UrlParaConsulta(QString cartao, bool todasAnteriores);
     const QString _urlConsulta, _urlReferer;
 
 signals:    
-    void consultaFinalizada();
+    /*void consultaFinalizada();
     void iniciandoConsulta(const QString &cartao);
     void consultaCartaoFinalizada(const QString &cartao, const QString &extrato);
     void consultaCancelada();
-    void erroConexao();
-
-private slots:
-    void erroConexaoHandlerSlot();
+    void erroConexao();*/
 
 public slots:
-    virtual void consultaFinalizadaResposta();
-    virtual void baixandoPagina();
+    /*void consultaFinalizadaResposta();
+    void baixandoPagina();
+    void erroConexaoHandlerSlot();*/
 };
 
 #endif // CVISA_H

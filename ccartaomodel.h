@@ -5,6 +5,7 @@
 #include <QAbstractListModel>
 #include <QRegExp>
 #include <QStringList>
+#include <QVariantList>
 #include <QtSql>
 #include "ccartaoitem.h"
 #include "ccompramodel.h"
@@ -14,13 +15,13 @@ class CCartaoModel : public QAbstractListModel
     Q_OBJECT
 
     Q_PROPERTY(int tamanho READ getTamanho NOTIFY tamanhoChanged)
-    Q_PROPERTY(QStringList cartoesCadastrados READ getCartoesCadastrados NOTIFY tamanhoChanged)
+    Q_PROPERTY(QVariantList cartoesCadastrados READ getCartoesCadastrados NOTIFY tamanhoChanged)
 
 public:
     explicit CCartaoModel(QObject *parent = 0);
     ~CCartaoModel();
 
-    Q_INVOKABLE void AdicionarCartao(const QString &numero, const QString &descricao);
+    Q_INVOKABLE void AdicionarCartao(const QString &numero, const QString &descricao, int bandeira);
     void AdicionarCartaoPreparado(CCartaoItem *cartao);
     Q_INVOKABLE void RemoverCartao(const QString &numero);
     Q_INVOKABLE void AtualizarCartao(const QString &numero, const QString &descricao);
@@ -32,7 +33,7 @@ public:
     QVariant data(const QModelIndex &index, int role = Qt::DisplayRole) const;    
 
     int getTamanho();
-    QStringList getCartoesCadastrados();
+    QVariantList getCartoesCadastrados();
 private:
     QList<CCartaoItem*> _cartoes;
 

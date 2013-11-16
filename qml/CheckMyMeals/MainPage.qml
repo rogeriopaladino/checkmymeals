@@ -29,7 +29,7 @@ Page {
                            var componente = Qt.createComponent("CadCartaoPage.qml");
                            var obj = componente.createObject(page);
                            obj.ok.connect(function() {
-                                              cartaoModel.AdicionarCartao(obj.numero.replace(/-/g, ""), obj.descricao);
+                                              cartaoModel.AdicionarCartao(obj.numero.replace(/-/g, ""), obj.descricao, obj.bandeira);
                                           });
                            MainScript.PushNaPilha(page.pageStack, obj);
                        }
@@ -71,7 +71,7 @@ Page {
 
     property string corBackground: "black"
 
-    Connections {
+    /*Connections {
         target: visa
 
         onIniciandoConsulta: {
@@ -90,7 +90,28 @@ Page {
         onErroConexao: {
             erroConexao.open();
         }
-    }
+    }*/
+
+    Connections {
+            target: conexao
+
+            onIniciandoConsulta: {
+
+            }
+
+            //a consulta foi finalizada e o objeto processador já foi conectado aos modelos
+            onConsultaFinalizada: {
+
+            }
+
+            onConsultaCancelada: {
+                timerInfo.adicionarMensagem("Consulta cancelada!", "qrc:///atencao", 2000);
+            }
+
+            onErroConexao: {
+                erroConexao.open();
+            }
+        }
 
     Connections {
         target: processador
@@ -100,7 +121,8 @@ Page {
         }
 
         onSistemaForaDoAr: {
-            visa.Cancelar();
+            //visa.Cancelar();
+            conexao.Cancelar();
             erroConexao.open();
         }
         onCartaoAtualizado: {
@@ -146,6 +168,7 @@ Page {
 
             onClick: {
                 MainScript.cartaoMainSelecionado = "";
+                MainScript.bandeiraSelecionada = -1;
                 var componente = Qt.createComponent("DetalhePage.qml");                
                 if (componente.status == Component.Ready) {
                     var obj = componente.createObject(page);
@@ -160,6 +183,7 @@ Page {
 
             onDedoPressionado: {
                 MainScript.cartaoMainSelecionado = numero;
+                MainScript.bandeiraSelecionada = bandeira;
                 ctxMenu.open();                
             }
         }
@@ -201,7 +225,8 @@ Page {
             MenuItem {
                 text: "Atualizar"
                 onClicked: {
-                    visa.Consultar(MainScript.cartaoMainSelecionado);
+                    //visa.Consultar(MainScript.cartaoMainSelecionado);
+                    conexao.Consultar(MainScript.cartaoMainSelecionado, MainScript.bandeiraSelecionada);
                 }
             }
             MenuItem {
@@ -233,14 +258,28 @@ Page {
         acceptButtonText: "Ok"
         rejectButtonText: "Cancelar"
         onAccepted: {            
-            var cartoes = cartaoModel.cartoesCadastrados;
+            /*var cartoes = cartaoModel.cartoesCadastrados;
             if (cartoes.length > 0) {
             for(var i = 0; i < cartoes.length; i++)
                 visa.AdicionarParaConsulta(cartoes[i], true);
             visa.IniciarCosulta();
             } else {
                 querySemCartoes.open();
-        }
+            }*/
+            var cartoes = cartaoModel.cartoesCadastrados;
+            if (cartoes.length > 0)
+            {
+                for(var i = 0; i < cartoes.length; i+=2)
+                {
+                    var numeroCartao = cartoes[i];
+                    var bandeira = cartoes[i+1]
+                    console.log("Cartão " + numeroCartao + " e bandeira " + bandeira);
+                    conexao.AdicionarParaConsulta(numeroCartao, bandeira);
+                }
+                conexao.IniciarCosulta();
+            } else {
+                querySemCartoes.open();
+            }
     }
 
         QueryDialog {

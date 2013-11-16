@@ -26,6 +26,7 @@ QHash<int, QByteArray> CCartaoItem::roleNames()
     roles[valorProximoBeneficioRole] = "valorProximoBeneficio";
     roles[comprasRole] = "compras";
     roles[estudosRole] = "estudos";
+    roles[bandeiraRole] = "bandeira";
     return roles;
 }
 
@@ -59,6 +60,9 @@ QVariant CCartaoItem::data(int role)
     case estudosRole:
         return QVariant::fromValue(getEstudos());
         break;    
+    case bandeiraRole:
+        return QVariant::fromValue(getBandeira());
+        break;
     }
     return QVariant();
 }
@@ -105,6 +109,12 @@ void CCartaoItem::setValorBeneficio(double valor)
     emit dataChanged();
 }
 
+void CCartaoItem::setBandeira(int bandeira)
+{
+    _bandeira = bandeira;
+    emit dataChanged();
+}
+
 QString CCartaoItem::getNumero()
 {
     return _numero;
@@ -148,6 +158,11 @@ double CCartaoItem::getValorBeneficio()
 CEstudos *CCartaoItem::getEstudos()
 {
     return _estudos;
+}
+
+int CCartaoItem::getBandeira()
+{
+    return (int)_bandeira;
 }
 
 void CCartaoItem::atualizarEstudoSlot(const QString &numeroDaVez)

@@ -6,6 +6,7 @@
 #include <QRegExp>
 #include <QStringList>
 #include <QDebug>
+#include "cenumsdefinitions.h"
 
 class CProcessador : public QObject
 {
@@ -21,6 +22,9 @@ private:
     QDate CriarDataBeneficio(int dia, int mes);
     bool IsCredito(const QString &local) const;
 
+    void processadorVisa(const QString &cartao, const QString &extrato);
+    void processadorTicket(const QString &cartao, const QString &extrato);
+
 signals:
     void cartaoInvalido(const QString cartao);
     void cartaoAtualizado(const QString &cartao);
@@ -30,9 +34,10 @@ signals:
     void informacoesCartao(const QString &numero, const double &saldo);
     void informacaoBeneficio(const QString &numero, const QDate &data, const double &valor);
     void informacaoProximoBeneficio(const QString &numero, const QDate &data, const double &valor);
+    void bandeiraNaoSuportada(const QString &numero);
 
 public slots:
-    void processadorExtrato(const QString &cartao, const QString &extrato);
+    void processadorExtrato(const QString &cartao, const QString &extrato, CEnumsDefinitions::TipoBandeiraCartaoEnum bandeira);
 
 };
 
