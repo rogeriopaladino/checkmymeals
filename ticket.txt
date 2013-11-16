@@ -1,0 +1,14 @@
+6033425796597687
+
+
+www.ticket.com.br/portal-web/consult-card/balance/json?chkProduto=TR&card=6033425796597687
+
+referer: http://www.ticket.com.br/portal/portalcorporativo/home/home.htm
+
+X-Requested-With:XMLHttpRequest
+
+accept */*
+
+histórico:
+
+http://www.ticket.com.br/portal-web/consult-card/release/json?txtOperacao=lancamentos&token=dGlja2V0RWRlbnJlZDMwMTk1IDA3MTUtMTExMC0zNzY0MzEgMTUxOS0xMDIx&card=6033425796597687&rows=50

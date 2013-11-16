@@ -1,0 +1,20 @@
+"{
+"token":"dGlja2V0RWRlbnJlZDMwMTk1IDA2MTUtMDMxMC0zNzY0MzEgMTUxOC0xMDEz",
+"card":{
+		"valid":true,
+		"balance":{
+		value":"101,80",
+		"number":"6033425796597687",
+		"date":"15/11/2013",
+		"code":0,
+		"bin":"TR"
+		},
+	"scheduling":[],
+	"release":null
+	},
+"url":null,
+"status":true,
+"messageError":null
+}"
+
+{"token":null,"card":{"valid":true,"balance":{"value":"101,80","number":"6033425796597687","date":"15/11/2013","code":0,"bin":"TR"},"scheduling":[],"release":[{"value":"19,11","date":"14/11/2013","description":"COMPRAS - MORUMBI"},{"value":"04,00","date":"14/11/2013","description":"COMPRAS - NUMERO UM LANCHONETE"},{"value":"15,90","date":"13/11/2013","description":"COMPRAS - VARANDA DA JURUBATUBA"},{"value":"03,90","date":"13/11/2013","description":"COMPRAS - NUMERO UM LANCHONETE"},{"value":"15,90","date":"12/11/2013","description":"COMPRAS - VARANDA DA JURUBATUBA"},{"value":"02,00","date":"12/11/2013","description":"COMPRAS - NUMERO UM LANCHONETE"},{"value":"11,63","date":"11/11/2013","description":"COMPRAS - RESTAURANTE NEGUINHA MALUCA"},{"value":"04,00","date":"08/11/2013","description":"COMPRAS - NUMERO UM LANCHONETE"},{"value":"12,22","date":"08/11/2013","description":"COMPRAS - RESTAURANTE NEGUINHA MALUCA"},{"value":"02,00","date":"07/11/2013","description":"COMPRAS - NUMERO UM LANCHONETE"},{"value":"14,90","date":"07/11/2013","description":"COMPRAS - RESTAURANTE NEGUINHA MALUCA"},{"value":"07,50","date":"06/11/2013","description":"COMPRAS - NUMERO UM LANCHONETE"},{"value":"13,13","date":"06/11/2013","description":"COMPRAS - RESTAURANTE NEGUINHA MALUCA"},{"value":"14,90","date":"05/11/2013","description":"COMPRAS - RESTAURANTE NEGUINHA MALUCA"},{"value":"14,90","date":"04/11/2013","description":"COMPRAS - RESTAURANTE NEGUINHA MALUCA"},{"value":"02,00","date":"01/11/2013","description":"COMPRAS - NUMERO UM LANCHONETE"},{"value":"11,14","date":"01/11/2013","description":"COMPRAS - RESTAURANTE NEGUINHA MALUCA"},{"value":"04,00","date":"31/10/2013","description":"COMPRAS - NUMERO UM LANCHONETE"},{"value":"10,17","date":"31/10/2013","description":"COMPRAS - RESTAURANTE NEGUINHA MALUCA"},{"value":"300,00","date":"29/10/2013","description":"DISPONIB. DE CREDITO - "},{"value":"14,90","date":"29/10/2013","description":"COMPRAS - RESTAURANTE NEGUINHA MALUCA"}]},"url":null,"status":true,"messageError":null}
