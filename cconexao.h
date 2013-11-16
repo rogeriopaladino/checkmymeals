@@ -4,6 +4,7 @@
 #include <QObject>
 #include <QNetworkRequest>
 #include <QList>
+#include <QMutex>
 #include "cconexaodefaultimplementation.h"
 #include "cvisa.h"
 #include "cticket.h"
@@ -24,6 +25,8 @@ protected:
 
 private:
     QList<CConexaoDefaultImplementation*> _impls;
+    QMutex _lock;
+    int _implsCountFinished, _implsCountError;
 
     void Factory();
     void BindSignals();
