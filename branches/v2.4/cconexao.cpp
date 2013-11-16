@@ -2,8 +2,10 @@
 
 CConexao::CConexao(QObject *parent)
     :CConexaoDefaultImplementation(parent)
-{
+{    
     this->Factory();
+    _implsCountFinished = 0;
+    _implsCountError = 0;
 }
 
 void CConexao::Consultar(const QString &cartao, int bandeira)
@@ -32,6 +34,8 @@ void CConexao::AdicionarParaConsulta(const QString &cartao, int bandeira)
 
 void CConexao::IniciarCosulta()
 {
+    _implsCountFinished = 0;
+    _implsCountError = 0;
     foreach(CConexaoDefaultImplementation *impl, _impls)
     {
         impl->IniciarCosulta();
@@ -77,16 +81,24 @@ void CConexao::ConsultaCartaoFinalizadaSlot(const QString &cartao, const QString
 
 void CConexao::ConsultaFinalizadaSlot()
 {
-    emit consultaFinalizada();
+    _lock.lock();
+    _implsCountFinished += 1;
+    _lock.unlock();
+    if (_implsCountFinished + _implsCountError == _impls.count())
+        emit consultaFinalizada();
 }
 
 void CConexao::erroConexaoSlot()
 {
-    emit erroConexao();
+    _lock.lock();
+    _implsCountError += 1;
+    _lock.unlock();
+    if (_implsCountError == _impls.count() && _implsCountFinished == 0)
+        emit erroConexao();
 }
 
 void CConexao::iniciandoConsultaSlot(const QString &cartao)
-{
+{    
     emit iniciandoConsulta(cartao);
 }
 

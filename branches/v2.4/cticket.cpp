@@ -31,20 +31,29 @@ QNetworkRequest CTicket::MontarRequisicao(const QString &cartao)
     r.setRawHeader(QByteArray("X-Requested-With"), QByteArray("XMLHttpRequest"));
     QNetworkReply *response = _net->get(r);
     QObject::connect(response, SIGNAL(finished()), &espera, SLOT(quit()));
+    QObject::connect(response, SIGNAL(error(QNetworkReply::NetworkError)), &espera, SLOT(quit()));
     espera.exec();
-    QString resultado = QString(response->readAll());
     response->deleteLater();
-    qDebug() << resultado;
-    QRegExp rx("\"token\"\\:\"(.*)\"", Qt::CaseInsensitive, QRegExp::RegExp2);
-    rx.setMinimal(true);
-    if (rx.indexIn(resultado) > 0)
+    if (response->error() == QNetworkReply::NoError)
     {
-        QString token = rx.cap(1);
-        r.setUrl(_urlExtrato.arg(token).arg(cartao));
-        return r;
+        QString resultado = QString(response->readAll());
+        qDebug() << resultado;
+        QRegExp rx("\"token\"\\:\"(.*)\"", Qt::CaseInsensitive, QRegExp::RegExp2);
+        rx.setMinimal(true);
+        if (rx.indexIn(resultado) > 0)
+        {
+            QString token = rx.cap(1);
+            r.setUrl(_urlExtrato.arg(token).arg(cartao));
+            return r;
+        }
+        else
+        {
+            return QNetworkRequest();
+        }
     }
     else
     {
+        qDebug() << "Erro durante a pegada do token - " << response->errorString();
         return QNetworkRequest();
     }
 }
