@@ -276,7 +276,7 @@ Page {
                     console.log("Cartão " + numeroCartao + " e bandeira " + bandeira);
                     conexao.AdicionarParaConsulta(numeroCartao, bandeira);
                 }
-                conexao.IniciarCosulta();
+                conexao.IniciarConsulta();
             } else {
                 querySemCartoes.open();
             }

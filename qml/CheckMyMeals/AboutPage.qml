@@ -55,7 +55,7 @@ PageBase {
         }
 
         ItemTextoAjudaPage {
-            texto: "Este aplicativo organiza suas informações do Visa Vale e Vale Alimentação de uma maneira fácil e rápida."
+            texto: "Este aplicativo organiza suas informações do Visa Vale, Vale Alimentação e Ticket de uma maneira fácil e rápida."
         }
 
         ItemTextoAjudaPage{
@@ -66,7 +66,7 @@ PageBase {
 
     ItemTextoAjudaPage {
         width: parent.width
-        texto: "Este aplicativo não tem nenhuma ligação com a Visa ou qualquer outra organização."
+        texto: "Este aplicativo não tem nenhuma ligação e nenhum suporte das bandeiras Visa ou Ticket."
         font { pixelSize: 10 }
         anchors { bottom: parent.bottom; horizontalCenter: parent.horizontalCenter }
     }

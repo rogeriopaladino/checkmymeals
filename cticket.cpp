@@ -43,7 +43,8 @@ QNetworkRequest CTicket::MontarRequisicao(const QString &cartao)
         if (rx.indexIn(resultado) > 0)
         {
             QString token = rx.cap(1);
-            r.setUrl(_urlExtrato.arg(token).arg(cartao));
+            QString url = _urlExtrato.arg(token).arg(cartao);
+            r.setUrl(url);
             return r;
         }
         else
