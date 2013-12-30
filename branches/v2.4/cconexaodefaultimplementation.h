@@ -17,7 +17,7 @@ public:
     CConexaoDefaultImplementation(QObject *parent = 0);
     Q_INVOKABLE virtual void Consultar(const QString &cartao);
     Q_INVOKABLE virtual void AdicionarParaConsulta(const QString &cartao);
-    Q_INVOKABLE virtual void IniciarCosulta();
+    Q_INVOKABLE virtual void IniciarConsulta();
     Q_INVOKABLE virtual void Cancelar();
 
 protected:

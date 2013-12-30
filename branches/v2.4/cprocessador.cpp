@@ -202,16 +202,16 @@ void CProcessador::processadorTicket(const QString &cartao, const QString &extra
             QString valorDisponivel = rx.cap(1);
             emit informacoesCartao(cartao, valorDisponivel.toDouble());
             k += rx.matchedLength();
-            rx.setPattern("\"value\":\"([\\d\\,]+)\"\\,\"date\":\"([\\d]{2}\\/[\\d]{2}\\/[\\d]{4})\"\\,\"description\":\"(COMPRAS|DISPONIB. DE CREDITO) - (.*)\"");
+            rx.setPattern("\"date\":\"([\\d]{2}\\/[\\d]{2}\\/[\\d]{4})\"\\,\"value\":\"([\\d\\,]+)\"\\,\"description\":\"(COMPRAS|DISPONIB. DE CREDITO) - (.*)\"");
             bool houveCompra = false;
             while ((k = rx.indexIn(extrato, k)) != -1)
             {
                 QString operacao, descricao;
                 double valor;
                 QDate data;
-                valor = rx.cap(1).toDouble();
+                valor = rx.cap(2).toDouble();
                 qDebug() << rx.cap(1);
-                data = QDate::fromString(rx.cap(2), "dd/MM/yyyy");
+                data = QDate::fromString(rx.cap(1), "dd/MM/yyyy");
                 operacao = rx.cap(3);
                 descricao = rx.cap(4);
                 if (operacao == "COMPRAS")

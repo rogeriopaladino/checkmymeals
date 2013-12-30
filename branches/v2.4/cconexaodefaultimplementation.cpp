@@ -5,12 +5,13 @@ CConexaoDefaultImplementation::CConexaoDefaultImplementation(QObject *parent)
     :QObject(parent)
 {
     _net = new QNetworkAccessManager(this);
+    QObject::connect(this, SIGNAL(erroConexao()), this, SLOT(erroConexaoHandlerSlot()));
 }
 
 void CConexaoDefaultImplementation::Consultar(const QString &cartao)
 {
     this->AdicionarParaConsulta(cartao);
-    this->IniciarCosulta();
+    this->IniciarConsulta();
 }
 
 void CConexaoDefaultImplementation::AdicionarParaConsulta(const QString &cartao)
@@ -18,7 +19,7 @@ void CConexaoDefaultImplementation::AdicionarParaConsulta(const QString &cartao)
     _cartoes.append(cartao);
 }
 
-void CConexaoDefaultImplementation::IniciarCosulta()
+void CConexaoDefaultImplementation::IniciarConsulta()
 {
     if (_cartoes.count() > 0) {
         QString cartao = _cartoes.at(0);
@@ -29,8 +30,7 @@ void CConexaoDefaultImplementation::IniciarCosulta()
         {
             QNetworkReply *reply = _net->get(r);
             QObject::connect(reply, SIGNAL(finished()), this, SLOT(consultaFinalizadaResposta()));
-            QObject::connect(reply, SIGNAL(downloadProgress(qint64,qint64)), this, SLOT(baixandoPagina()));
-            QObject::connect(this, SIGNAL(erroConexao()), this, SLOT(erroConexaoHandlerSlot()));
+            QObject::connect(reply, SIGNAL(downloadProgress(qint64,qint64)), this, SLOT(baixandoPagina()));            
         }
         else
         {
@@ -55,7 +55,8 @@ void CConexaoDefaultImplementation::consultaFinalizadaResposta()
     QNetworkReply *reply = qobject_cast<QNetworkReply*>(this->sender());
     QString cartao = _cartoes.at(0);
     _cartoes.pop_front();
-    if (reply->error() == QNetworkReply::NoError) {
+    if (reply->error() == QNetworkReply::NoError)
+    {
         QByteArray resposta = reply->readAll();
         reply->close();
         reply->deleteLater();
@@ -63,10 +64,14 @@ void CConexaoDefaultImplementation::consultaFinalizadaResposta()
         if (_cartoes.count() == 0)
             emit consultaFinalizada();
         else
-            IniciarCosulta();
-    } else if (reply->error() == QNetworkReply::OperationCanceledError) {
+            IniciarConsulta();
+    }
+    else if (reply->error() == QNetworkReply::OperationCanceledError)
+    {
         reply->deleteLater();
-    } else {
+    }
+    else
+    {
         reply->abort();
         reply->deleteLater();
         emit erroConexao();
@@ -75,7 +80,8 @@ void CConexaoDefaultImplementation::consultaFinalizadaResposta()
 
 void CConexaoDefaultImplementation::baixandoPagina()
 {
-    if (_cancelar) {
+    if (_cancelar)
+    {
         _cancelar = false;
         QNetworkReply *objNet = qobject_cast<QNetworkReply*>(this->sender());
         objNet->abort();
